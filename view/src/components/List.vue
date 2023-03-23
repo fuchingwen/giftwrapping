@@ -1,12 +1,21 @@
 <template>
-  <div>商品列表</div>
+  <div id="a">{{ items }}</div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "HelloWorld",
+  setup() {
+    axios.post("http://127.0.0.1:3000/testAPI").then(res => {
+      console.log(res.data);
+    });
+    return {};
+  },
   data() {
     return {
+      items: "預設值",
       msg: "Welcome to Your Vue.js App"
     };
   }

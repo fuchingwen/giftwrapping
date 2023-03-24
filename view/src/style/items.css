@@ -1,0 +1,65 @@
+h3 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+}
+
+#list-content {
+  display: flex;
+  justify-content: center;
+}
+
+.row {
+  max-width: 885px;
+  /* margin: 50px auto 0; */
+}
+
+.card {
+  float: left;
+  /* padding: 0 1.7rem; */
+  /* padding: 40px 12px 0 0; */
+  margin: auto 10px 32px 0;
+  width: 211px;
+  height: 275px;
+  /* background-color: #2a3888; */
+}
+
+.card .wrapper {
+  background-color: #e8e8ec;
+  /* width: 211px; */
+  min-height: 275px;
+  position: relative;
+  overflow: hidden;
+  /* box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.2); */
+}
+.card .wrapper:hover .data {
+  transform: translateY(0);
+}
+.card .data {
+  position: absolute;
+  /* top: 0; */
+  bottom: -10px;
+  width: 100%;
+  transform: translateY(calc(70px + 1em));
+  transition: transform 0.3s;
+}
+.card .data .content {
+  /* padding: 10px; */
+  position: relative;
+  /* z-index: 1; */
+}
+.card .title {
+  margin-top: 0px;
+}
+
+.card input[type="checkbox"] {
+  display: none;
+}
+
+.example-1 .title a {
+  color: gray;
+}
+
+.text {
+  font-size: 20px;
+}

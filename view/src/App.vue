@@ -3,7 +3,7 @@
     <div id="header-page">
       <div class="header-logo">logo</div>
       <div class="header-menu">
-        <a><router-link :to="'/'">作品集展示&emsp;|&emsp;</router-link></a>
+        <a><router-link :to="'/list'">作品集展示&emsp;|&emsp;</router-link></a>
         <a><router-link :to="'/'"> 關於我們&emsp;|&emsp;</router-link></a>
         <a><router-link :to="'/'"> 聯絡我們</router-link></a>
       </div>
@@ -24,8 +24,8 @@ export default {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  /* text-align: center; */
+  /* color: #2c3e50; */
   margin-top: 0px;
 }
 

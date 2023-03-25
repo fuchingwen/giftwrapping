@@ -1,0 +1,93 @@
+<head></head>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+<style type="text/css">
+  #tab-demo {
+    width: 350px;
+    height: 200px;
+  }
+  #tab-demo > ul {
+    display: block;
+    margin: 0;
+    list-style: none;
+  }
+  .tab-title {
+    list-style: none;
+  }
+  #tab-demo > ul > li {
+    display: inline-block;
+    vertical-align: top;
+    font-family: "微軟正黑體";
+    margin: 0 -1px -1px 0;
+    border: 1px solid #bcbcbc;
+    height: 25px;
+    line-height: 25px;
+    background: #cdcdcd;
+    padding: 0 15px;
+    list-style: none;
+    box-sizing: border-box;
+  }
+  #tab-demo > ul > li a {
+    color: #000;
+    text-decoration: none;
+  }
+  #tab-demo > ul > li.active {
+    border-bottom: 1px solid #fff;
+    background: #fff;
+  }
+  #tab-demo > .tab-inner {
+    clear: both;
+    color: #000;
+    border: 1px #bcbcbc solid;
+  }
+  .tab-inner {
+    padding: 15px;
+    height: 50px;
+  }
+</style>
+<script type="text/javascript">
+  $(function() {
+    var $li = $("ul.tab-title li");
+    $(
+      $li
+        .eq(0)
+        .addClass("active")
+        .find("a")
+        .attr("href")
+    )
+      .siblings(".tab-inner")
+      .hide();
+
+    $li.click(function() {
+      $(
+        $(this)
+          .find("a")
+          .attr("href")
+      )
+        .show()
+        .siblings(".tab-inner")
+        .hide();
+      $(this)
+        .addClass("active")
+        .siblings(".active")
+        .removeClass("active");
+    });
+  });
+</script>
+<body>
+  <div id="tab-demo">
+    <ul class="tab-title">
+      <li><a href="#tab01">tab01</a></li>
+      <li><a href="#tab02">tab02</a></li>
+      <li><a href="#tab03">tab03</a></li>
+    </ul>
+    <div id="tab01" class="tab-inner">
+      <p>tab01的內容</p>
+    </div>
+    <div id="tab02" class="tab-inner">
+      <p>tab02的內容</p>
+    </div>
+    <div id="tab03" class="tab-inner">
+      <p>tab03的內容</p>
+    </div>
+  </div>
+</body>

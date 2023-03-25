@@ -5,8 +5,10 @@ import App from "./App";
 import router from "./router";
 import vueResource from "vue-resource";
 import axios from "axios";
+import jquery from "jquery";
 
 Vue.config.productionTip = false;
+Vue.prototype.$ = jquery;
 
 /* eslint-disable no-new */
 new Vue({

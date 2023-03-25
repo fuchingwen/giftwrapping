@@ -1,222 +1,376 @@
 <template>
   <div id="list">
-    <!-- <div id="a">{{ items }}</div> -->
     <div id="list-menu">
-      <div id="list-menu-content">
-        <ul class="list-menu-content-ul">
-          <li class="list-menu-content-li">全部</li>
-          <li class="list-menu-content-li">上下蓋</li>
-          <li class="list-menu-content-li">精裝禮盒</li>
-          <li class="list-menu-content-li">木盒</li>
-          <li class="list-menu-content-li">彩盒</li>
-          <li class="list-menu-content-li">圓管禮盒</li>
-          <li class="list-menu-content-li">特殊盒型</li>
+      <div id="tab-demo">
+        <ul class="tab-title">
+          <li><a href="#tab01">全部</a></li>
+          <li><a href="#tab02">上下蓋</a></li>
+          <li><a href="#tab03">精裝禮盒</a></li>
+          <li><a href="#tab04">鴨子</a></li>
         </ul>
+        <div id="tab01" class="tab-inner">
+          <div class="row">
+            <div class="example-1 card">
+              <div class="wrapper">
+                <div class="data">
+                  <div class="content">
+                    <img
+                      src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
+                    />
+                    <h3 class="title">
+                      <a href="#">抽屜紙盒</a>
+                    </h3>
+                    <p class="text">
+                      假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="example-1 card">
+              <div class="wrapper">
+                <div class="data">
+                  <div class="content">
+                    <img
+                      src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
+                    />
+                    <h3 class="title">
+                      <a href="#">抽屜紙盒</a>
+                    </h3>
+                    <p class="text">
+                      假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="example-1 card">
+              <div class="wrapper">
+                <div class="data">
+                  <div class="content">
+                    <img
+                      src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
+                    />
+                    <h3 class="title">
+                      <a href="#">抽屜紙盒</a>
+                    </h3>
+                    <p class="text">
+                      假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="example-1 card">
+              <div class="wrapper">
+                <div class="data">
+                  <div class="content">
+                    <img
+                      src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
+                    />
+                    <h3 class="title">
+                      <a href="#">抽屜紙盒</a>
+                    </h3>
+                    <p class="text">
+                      假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="example-1 card">
+              <div class="wrapper">
+                <div class="data">
+                  <div class="content">
+                    <img
+                      src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
+                    />
+                    <h3 class="title">
+                      <a href="#">抽屜紙盒</a>
+                    </h3>
+                    <p class="text">
+                      假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="example-1 card">
+              <div class="wrapper">
+                <div class="data">
+                  <div class="content">
+                    <img
+                      src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
+                    />
+                    <h3 class="title">
+                      <a href="#">抽屜紙盒</a>
+                    </h3>
+                    <p class="text">
+                      假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="example-1 card">
+              <div class="wrapper">
+                <div class="data">
+                  <div class="content">
+                    <img
+                      src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
+                    />
+                    <h3 class="title">
+                      <a href="#">抽屜紙盒</a>
+                    </h3>
+                    <p class="text">
+                      假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="example-1 card">
+              <div class="wrapper">
+                <div class="data">
+                  <div class="content">
+                    <img
+                      src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
+                    />
+                    <h3 class="title">
+                      <a href="#">抽屜紙盒</a>
+                    </h3>
+                    <p class="text">
+                      假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="example-1 card">
+              <div class="wrapper">
+                <div class="data">
+                  <div class="content">
+                    <img
+                      src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
+                    />
+                    <h3 class="title">
+                      <a href="#">抽屜紙盒</a>
+                    </h3>
+                    <p class="text">
+                      假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="example-1 card">
+              <div class="wrapper">
+                <div class="data">
+                  <div class="content">
+                    <img
+                      src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
+                    />
+                    <h3 class="title">
+                      <a href="#">抽屜紙盒</a>
+                    </h3>
+                    <p class="text">
+                      假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="tab02" class="tab-inner">
+          <div class="row">
+            <div class="example-1 card">
+              <div class="wrapper">
+                <div class="data">
+                  <div class="content">
+                    <img
+                      src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
+                    />
+                    <h3 class="title">
+                      <a href="#">抽屜紙盒</a>
+                    </h3>
+                    <p class="text">
+                      假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="example-1 card">
+              <div class="wrapper">
+                <div class="data">
+                  <div class="content">
+                    <img
+                      src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
+                    />
+                    <h3 class="title">
+                      <a href="#">抽屜紙盒</a>
+                    </h3>
+                    <p class="text">
+                      假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="tab03" class="tab-inner">
+          <div class="row">
+            <div class="example-1 card">
+              <div class="wrapper">
+                <div class="data">
+                  <div class="content">
+                    <img
+                      src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
+                    />
+                    <h3 class="title">
+                      <a href="#">抽屜紙盒</a>
+                    </h3>
+                    <p class="text">
+                      假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="example-1 card">
+              <div class="wrapper">
+                <div class="data">
+                  <div class="content">
+                    <img
+                      src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
+                    />
+                    <h3 class="title">
+                      <a href="#">抽屜紙盒</a>
+                    </h3>
+                    <p class="text">
+                      假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="example-1 card">
+              <div class="wrapper">
+                <div class="data">
+                  <div class="content">
+                    <img
+                      src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
+                    />
+                    <h3 class="title">
+                      <a href="#">抽屜紙盒</a>
+                    </h3>
+                    <p class="text">
+                      假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="tab04" class="tab-inner">
+          <div class="row">
+            <div class="example-1 card">
+              <div class="wrapper">
+                <div class="data">
+                  <div class="content">
+                    <img
+                      src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
+                    />
+                    <h3 class="title">
+                      <a href="#">抽屜紙盒</a>
+                    </h3>
+                    <p class="text">
+                      假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="example-1 card">
+              <div class="wrapper">
+                <div class="data">
+                  <div class="content">
+                    <img
+                      src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
+                    />
+                    <h3 class="title">
+                      <a href="#">抽屜紙盒</a>
+                    </h3>
+                    <p class="text">
+                      假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div id="list-content">
-      <div class="row">
-        <div class="example-1 card">
-          <div class="wrapper">
-            <div class="data">
-              <div class="content">
-                <img
-                  src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
-                />
-                <h3 class="title">
-                  <a href="#">抽屜紙盒</a>
-                </h3>
-                <p class="text">
-                  假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div class="example-1 card">
-          <div class="wrapper">
-            <div class="data">
-              <div class="content">
-                <img
-                  src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
-                />
-                <h3 class="title">
-                  <a href="#">抽屜紙盒</a>
-                </h3>
-                <p class="text">
-                  假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+    <!-- <div id="a">{{ items }}</div> -->
 
-        <div class="example-1 card">
-          <div class="wrapper">
-            <div class="data">
-              <div class="content">
-                <img
-                  src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
-                />
-                <h3 class="title">
-                  <a href="#">抽屜紙盒</a>
-                </h3>
-                <p class="text">
-                  假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div id="list-content"></div>
 
-        <div class="example-1 card">
-          <div class="wrapper">
-            <div class="data">
-              <div class="content">
-                <img
-                  src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
-                />
-                <h3 class="title">
-                  <a href="#">抽屜紙盒</a>
-                </h3>
-                <p class="text">
-                  假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="example-1 card">
-          <div class="wrapper">
-            <div class="data">
-              <div class="content">
-                <img
-                  src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
-                />
-                <h3 class="title">
-                  <a href="#">抽屜紙盒</a>
-                </h3>
-                <p class="text">
-                  假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="example-1 card">
-          <div class="wrapper">
-            <div class="data">
-              <div class="content">
-                <img
-                  src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
-                />
-                <h3 class="title">
-                  <a href="#">抽屜紙盒</a>
-                </h3>
-                <p class="text">
-                  假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="example-1 card">
-          <div class="wrapper">
-            <div class="data">
-              <div class="content">
-                <img
-                  src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
-                />
-                <h3 class="title">
-                  <a href="#">抽屜紙盒</a>
-                </h3>
-                <p class="text">
-                  假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="example-1 card">
-          <div class="wrapper">
-            <div class="data">
-              <div class="content">
-                <img
-                  src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
-                />
-                <h3 class="title">
-                  <a href="#">抽屜紙盒</a>
-                </h3>
-                <p class="text">
-                  假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="example-1 card">
-          <div class="wrapper">
-            <div class="data">
-              <div class="content">
-                <img
-                  src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
-                />
-                <h3 class="title">
-                  <a href="#">抽屜紙盒</a>
-                </h3>
-                <p class="text">
-                  假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="example-1 card">
-          <div class="wrapper">
-            <div class="data">
-              <div class="content">
-                <img
-                  src="https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80"
-                />
-                <h3 class="title">
-                  <a href="#">抽屜紙盒</a>
-                </h3>
-                <p class="text">
-                  假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字假的字
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="list-foot">這是作品集列表 © 2023 Yahoo. All rights reserved.</div>
+    <!-- <div id="list-foot">這是作品集列表 © 2023 Yahoo. All rights reserved.</div> -->
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import $ from "jquery";
 
 export default {
   name: "HelloWorld",
-  setup() {
-    axios.post("http://127.0.0.1:3000/testAPI").then(res => {
-      console.log(res.data);
+  mounted() {
+    //这里面写初始化的Jquery，在生命周期的mount阶段才有用。
+    $(function() {
+      var $li = $("ul.tab-title li");
+      $(
+        $li
+          .eq(0)
+          .addClass("active")
+          .find("a")
+          .attr("href")
+      )
+        .siblings(".tab-inner")
+        .hide();
+      $li.click(function() {
+        $(
+          $(this)
+            .find("a")
+            .attr("href")
+        )
+          .show()
+          .siblings(".tab-inner")
+          .hide();
+        $(this)
+          .addClass("active")
+          .siblings(".active")
+          .removeClass("active");
+      });
     });
-    return {};
-  },
-  data() {
-    return {
-      items: "預設值",
-      msg: "Welcome to Your Vue.js App"
-    };
   }
 };
 </script>
@@ -224,6 +378,59 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 @import url("../style/items.css");
+
+/* TAB start ====================================== */
+#tab-demo {
+  width: 885px;
+  /* background-color: #ff0000; */
+}
+#tab-demo > ul {
+  display: block;
+  margin: 40px 0 0 -40px;
+  list-style: none;
+}
+.tab-title {
+  list-style: none;
+}
+
+/* 分頁按鈕狀態 */
+#tab-demo > ul > li {
+  display: inline-block;
+  vertical-align: top;
+  font-family: "微軟正黑體";
+  /* margin: 40px 0 0 0; */
+  /* border: 1px solid #3131a5; */
+  height: 34px;
+  line-height: 34px;
+  /* background: #cdcdcd; */
+  padding: 0 15px;
+  /* list-style: none; */
+  /* box-sizing: border-box; */
+}
+#tab-demo > ul > li a {
+  color: #9a9999;
+  /* text-decoration: none; */
+}
+
+/* 點擊當前分頁 */
+#tab-demo > ul > li.active {
+  /* border-bottom: 1px solid #fff; */
+  background: #dfdfdf;
+}
+
+/* 內容 */
+#tab-demo > .tab-inner {
+  /* clear: both; */
+  color: #000;
+  width: 885px;
+  padding: 30px 0 0 0;
+  /* border: 1px #bcbcbc solid; */
+}
+/* .tab-inner {
+  padding: 15px;
+  height: 50px;
+} */
+/* TAB end ====================================== */
 
 /* 按鈕start */
 .list-menu-content-ul {

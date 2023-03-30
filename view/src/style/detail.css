@@ -1,0 +1,36 @@
+.mx-auto {
+  width: 100%;
+  /* background-color: rgb(73, 185, 39); */
+  display: flex;
+  justify-content: center;
+}
+.detail-content {
+  margin-top: 100px;
+  /* width: 64rem; */
+  /* display: inline-block; */
+}
+
+.detail-content div {
+  /* display: inline-block; */
+}
+
+.prod-div1 {
+  width: 200px;
+  background-color: brown;
+  height: 100px;
+  display: inline-block;
+}
+
+.prod-div2 {
+  margin-top: 0px;
+  width: 486px;
+  background-color: rgb(63, 42, 165);
+  height: 541px;
+
+  display: inline-block;
+}
+
+.prod-imgs {
+  width: 150px;
+  background-color: aqua;
+}

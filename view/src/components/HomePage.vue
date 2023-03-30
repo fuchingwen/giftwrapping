@@ -3,6 +3,19 @@
     <div></div>
     <div></div>
     <div>© 2023 Yahoo. All rights reserved.</div>
+    <div>© 2023 Yahoo. All rights reserved.</div>
+    <div>© 2023 Yahoo. All rights reserved.</div>
+    <div>© 2023 Yahoo. All rights reserved.</div>
+    <div>© 2023 Yahoo. All rights reserved.</div>
+    <div>© 2023 Yahoo. All rights reserved.</div>
+    <div>© 2023 Yahoo. All rights reserved.</div>
+    <div>© 2023 Yahoo. All rights reserved.</div>
+    <div>© 2023 Yahoo. All rights reserved.</div>
+    <div>© 2023 Yahoo. All rights reserved.</div>
+    <div>© 2023 Yahoo. All rights reserved.</div>
+
+    <div>© 2023 Yahoo. All rights reserved.</div>
+    <div>© 2023 Yahoo. All rights reserved.</div>
   </div>
 </template>
 

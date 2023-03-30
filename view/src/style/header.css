@@ -1,0 +1,90 @@
+/* ====================header */
+.header {
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* margin-top: 20px; */
+  /* background-color: aqua; */
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  /* right: 0; */
+  /* width: 8em; */
+  /* margin-top: 0; */
+  background-color: rgb(255, 255, 255);
+  height: 88px;
+}
+.flex-container {
+  width: 880px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 880px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.logo {
+  float: left;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.div-logo {
+  display: flex;
+  float: left;
+}
+
+.div-menu {
+  margin-top: 10px;
+  display: flex;
+  float: right;
+  align-content: center;
+}
+
+nav ul {
+  display: flex;
+  float: right;
+  list-style: none;
+}
+
+nav li {
+  margin-right: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+nav a.about {
+  text-decoration: none;
+}
+
+/* 滑鼠點選時效果 */
+nav a.product:active {
+  border: 2px outset #ccc;
+  border-radius: 10%;
+  background-color: #ccc;
+}
+nav a.about:active {
+  border: 2px outset #ccc;
+  border-radius: 10%;
+  background-color: #ccc;
+}

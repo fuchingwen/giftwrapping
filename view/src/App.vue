@@ -1,15 +1,33 @@
 <template>
   <div id="app">
-    <div id="header-page">
-      <div class="header-logo">logo</div>
-      <div class="header-menu">
-        <a><router-link :to="'/list'">作品集展示&emsp;|&emsp;</router-link></a>
-        <a><router-link :to="'/'"> 關於我們&emsp;|&emsp;</router-link></a>
-        <a><router-link :to="'/'"> 聯絡我們</router-link></a>
+    <div class="header">
+      <div class="flex-container">
+        <div class="div-logo">
+          <router-link :to="'/'"
+            ><a href="#" class="logo"
+              ><img src="./assets/logo.svg" alt="好禮Logo"/></a
+          ></router-link>
+        </div>
+        <div class="div-menu">
+          <nav id="menu">
+            <ul>
+              <li>
+                <router-link :to="'/list'"
+                  ><a href="#" class="product"
+                    >作品集展示&emsp;|</a
+                  ></router-link
+                >
+              </li>
+              <li><a href="#關於我們" class="about">關於我們&emsp;|</a></li>
+              <li><a href="#聯絡我們" class="about">聯絡我們</a></li>
+            </ul>
+          </nav>
+        </div>
       </div>
     </div>
-    <!-- <img src="./assets/logo.png" /> -->
-    <router-view />
+    <div class="goo-main">
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -19,50 +37,10 @@ export default {
 };
 </script>
 
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
-  /* color: #2c3e50; */
-  margin-top: 0px;
-}
+<style scoped>
+@import url("./style/header.css");
 
-a {
-  text-decoration: none;
-}
-
-#header-page {
-  padding: 10px;
-  width: 100%;
-  height: 88px;
-
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  /* background-color: #f4f4f4; */
-}
-
-.header-logo {
-  width: 200px;
-  height: 88px;
-  /* background-color: rgb(251, 108, 239); */
-  display: inline-block;
-  float: left;
-  background-color: #818181;
-}
-.header-menu {
-  display: inline-block;
-  float: right;
-  width: 376px;
-  height: 34px;
-  list-style: none;
-  margin-top: 31px;
-  margin-bottom: 23px;
-  /* margin-right: 50px; */
-}
-.header-menu a {
-  color: #818181;
+.goo-main {
+  margin-top: 90px;
 }
 </style>

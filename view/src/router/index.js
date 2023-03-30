@@ -3,7 +3,7 @@ import Router from "vue-router";
 import HomePage from "@/components/HomePage";
 import List from "@/components/List";
 import Detail from "@/components/Detail";
-
+import A from "@/components/a";
 Vue.use(Router);
 
 export default new Router({
@@ -19,9 +19,14 @@ export default new Router({
       component: List
     },
     {
-      path: "/Detail",
+      path: "/detail/:id",
       name: "Detail",
       component: Detail
+    },
+    {
+      path: "/a/",
+      name: "A",
+      component: A
     }
   ]
 });

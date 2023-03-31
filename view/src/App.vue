@@ -1,6 +1,9 @@
 <template>
   <div id="app">
     <div class="header">
+      <div class="back-top hide" title="回頂部">
+        <a href="#"> </a>
+      </div>
       <div class="flex-container">
         <div class="div-logo">
           <router-link :to="'/'"

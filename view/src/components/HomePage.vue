@@ -1,13 +1,26 @@
 <template>
   <div id="home-page">
-    製作中...
+    <slider-component />
+    <gallery-component />
+    <about-component/>
+    <conact-component/>
   </div>
 </template>
 
 <script>
+import SliderComponent from './components/SliderComponent.vue';
+import GalleryComponent from './components/GalleryComponent.vue';
+import AboutComponent from './components/AboutComponent.vue';
+import ConactComponent from './components/ConactComponent.vue';
+
 export default {
   name: "HelloWorld",
-  mounted() {},
+    components: {
+    SliderComponent,
+    GalleryComponent,
+    AboutComponent,
+    ConactComponent,
+  },
   data() {
     return {
       msg: "Welcome to Your Vue.js App"
@@ -17,4 +30,20 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
+<style scoped>
+h1,
+h2 {
+  font-weight: normal;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
+</style>

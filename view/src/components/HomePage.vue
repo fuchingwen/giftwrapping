@@ -2,24 +2,24 @@
   <div id="home-page">
     <slider-component />
     <gallery-component />
-    <about-component/>
-    <conact-component/>
+    <about-component />
+    <conact-component />
   </div>
 </template>
 
 <script>
-import SliderComponent from './components/SliderComponent.vue';
-import GalleryComponent from './components/GalleryComponent.vue';
-import AboutComponent from './components/AboutComponent.vue';
-import ConactComponent from './components/ConactComponent.vue';
+import SliderComponent from "./SliderComponent.vue";
+import GalleryComponent from "./GalleryComponent.vue";
+import AboutComponent from "./AboutComponent.vue";
+import ConactComponent from "./ConactComponent.vue";
 
 export default {
   name: "HelloWorld",
-    components: {
+  components: {
     SliderComponent,
     GalleryComponent,
     AboutComponent,
-    ConactComponent,
+    ConactComponent
   },
   data() {
     return {

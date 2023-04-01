@@ -1,27 +1,26 @@
 <template>
   <div id="home-page">
-    <div></div>
-    <div></div>
-    <div>© 2023 Yahoo. All rights reserved.</div>
-    <div>© 2023 Yahoo. All rights reserved.</div>
-    <div>© 2023 Yahoo. All rights reserved.</div>
-    <div>© 2023 Yahoo. All rights reserved.</div>
-    <div>© 2023 Yahoo. All rights reserved.</div>
-    <div>© 2023 Yahoo. All rights reserved.</div>
-    <div>© 2023 Yahoo. All rights reserved.</div>
-    <div>© 2023 Yahoo. All rights reserved.</div>
-    <div>© 2023 Yahoo. All rights reserved.</div>
-    <div>© 2023 Yahoo. All rights reserved.</div>
-    <div>© 2023 Yahoo. All rights reserved.</div>
-
-    <div>© 2023 Yahoo. All rights reserved.</div>
-    <div>© 2023 Yahoo. All rights reserved.</div>
+    <slider-component />
+    <gallery-component />
+    <about-component/>
+    <conact-component/>
   </div>
 </template>
 
 <script>
+import SliderComponent from './components/SliderComponent.vue';
+import GalleryComponent from './components/GalleryComponent.vue';
+import AboutComponent from './components/AboutComponent.vue';
+import ConactComponent from './components/ConactComponent.vue';
+
 export default {
   name: "HelloWorld",
+    components: {
+    SliderComponent,
+    GalleryComponent,
+    AboutComponent,
+    ConactComponent,
+  },
   data() {
     return {
       msg: "Welcome to Your Vue.js App"

@@ -430,7 +430,6 @@ export default {
       tebs: []
     };
   },
-
   watch: {},
   async created() {
     return;
@@ -494,9 +493,9 @@ export default {
     //   console.log(res.data);
     //   this.itemList = res.data;
     // });
+    $("html,body").animate({ scrollTop: 0 }, "slow");
     return {};
   },
-
   mounted() {
     //这里面写初始化的Jquery，在生命周期的mount阶段才有用。
     $(function() {
@@ -548,6 +547,8 @@ export default {
         );
       });
     });
+
+    console.log("ssss====");
   }
 };
 </script>

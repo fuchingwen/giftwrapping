@@ -97,8 +97,12 @@
 
 <script>
 import Fancybox from "@/components/plugins/Fancybox.vue";
+import $ from "jquery";
 
 export default {
+  setup() {
+    $("html,body").animate({ scrollTop: 0 }, "fast");
+  },
   data() {
     return {
       num: 1,

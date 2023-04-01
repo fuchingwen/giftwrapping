@@ -42,6 +42,7 @@ export default {
 
 <style scoped>
 @import url("./style/header.css");
+@import url("./style/back-top.css");
 
 .goo-main {
   margin-top: 90px;

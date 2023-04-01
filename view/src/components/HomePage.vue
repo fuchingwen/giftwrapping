@@ -21,6 +21,9 @@ export default {
     AboutComponent,
     ConactComponent
   },
+  created() {
+    // $("html,body").animate({ scrollTop: 0 }, "fast");
+  },
   data() {
     return {
       msg: "Welcome to Your Vue.js App"

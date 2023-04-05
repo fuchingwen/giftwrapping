@@ -21,8 +21,12 @@
                   ></router-link
                 >
               </li>
-              <li><a href="#關於我們" class="about">關於我們&emsp;|</a></li>
-              <li><a href="#聯絡我們" class="about">聯絡我們</a></li>
+              <li>
+                <a href="#關於我們" class="about">關於我們&emsp;|</a>
+              </li>
+              <li>
+                <a href="#聯絡我們" class="about">聯絡我們</a>
+              </li>
             </ul>
           </nav>
         </div>

@@ -1,9 +1,9 @@
 <template>
   <div id="home-page">
     <slider-component />
-    <gallery-component />
+    <div id="關於我們"><gallery-component /></div>
     <about-component />
-    <conact-component />
+    <div id="聯絡我們"><conact-component /></div>
   </div>
 </template>
 

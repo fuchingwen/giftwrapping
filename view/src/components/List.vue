@@ -3,417 +3,42 @@
     <div id="list-menu">
       <div id="tab-demo">
         <ul class="tab-title233">
-          <!-- <li><a href="#全部">全部</a></li> -->
-          <!-- <li v-for="category in itemList">
-            <a :href="'#' + category.tebName">{{ category.tebName }}</a>
-          </li> -->
+          <li v-for="category in itemList">
+            <a :value="'#' + category.tebName">{{ category.tebName }}</a>
+          </li>
 
-          <li><a value="#全部">全部</a></li>
+          <!-- <li><a value="#全部">全部</a></li>
           <li><a value="#上下蓋">上下蓋</a></li>
           <li><a value="#精裝禮盒">精裝禮盒</a></li>
-          <li><a value="#木盒">木盒</a></li>
+          <li><a value="#木盒">木盒</a></li> -->
         </ul>
 
-        <!-- <div id="全部" class="tab-inner">
-          <div class="row">
-            <div class="example-1 card">全部</div>
-          </div>
-        </div>
-        <div id="上下蓋" class="tab-inner">
-          <div class="row">
-            <div class="example-1 card">上下蓋</div>
-          </div>
-        </div>
-        <div id="精裝紙盒" class="tab-inner">
-          <div class="row">
-            <div class="example-1 card">精裝紙盒</div>
-          </div>
-        </div> -->
-
-        <!--         <div v-for="teb in itemList" :id="teb.tebName" class="tab-inner">
-          <div class="row">
-            <div class="example-1 card">ws</div>
-          </div>
-        </div> -->
-
-        <div id="全部" class="tab-inner">
-          <div class="row">
-            <div class="example-1 card">
-              <div class="wrapper233">
-                <div class="data233">
-                  <div class="content233">
-                    <router-link :to="'/detail/1'">
-                      <img
-                        src="../assets/d1f899d824bcc921125f27cdf7c0c648.png"
-                      />
-                      <h3 class="title">
-                        抽屜紙盒
-                      </h3>
-                      <p class="subtitle">mildee 溫柔洗護產品包裝</p>
-                      <p class="text">
-                        設計以三個英文字「i」為主體造形去
-                        呈現簡單簡約、不失質感的品牌形象
-                      </p>
-                    </router-link>
+        <template v-for="(teb, index) in itemList">
+          <div :id="teb.tebName" class="tab-inner">
+            <div class="row">
+              <template v-for="(item, index) in teb.content">
+                <div class="example-1 card">
+                  <div class="wrapper233">
+                    <div class="data233">
+                      <div class="content233">
+                        <router-link :to="'/detail/' + item.id">
+                          <img :src="item.images[0]" />
+                          <h3 class="title">{{ item.name }}</h3>
+                          <p class="subtitle">{{ item.detail.subtitle }}</p>
+                          <p class="text">
+                            {{ item.detail.content }}
+                          </p>
+                        </router-link>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="example-1 card">
-              <div class="wrapper233">
-                <div class="data233">
-                  <div class="content233">
-                    <router-link :to="'/detail/1'">
-                      <img
-                        src="../assets/239a5c18bc4d631b7552d08de0fb9881.png"
-                      />
-                      <h3 class="title">
-                        抽屜紙盒
-                      </h3>
-                      <p class="subtitle">mildee 溫柔洗護產品包裝</p>
-                      <p class="text">
-                        設計以三個英文字「i」為主體造形去
-                        呈現簡單簡約、不失質感的品牌形象。
-                      </p>
-                    </router-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="example-1 card">
-              <div class="wrapper233">
-                <div class="data233">
-                  <div class="content233">
-                    <router-link :to="'/detail/1'">
-                      <img
-                        src="../assets/6e517269006d126cda9b9ff9b9bb9639.png"
-                      />
-                      <h3 class="title">
-                        抽屜紙盒
-                      </h3>
-                      <p class="subtitle">mildee 溫柔洗護產品包裝</p>
-                      <p class="text">
-                        設計以三個英文字「i」為主體造形去
-                        呈現簡單簡約、不失質感的品牌形象。
-                      </p>
-                    </router-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="example-1 card">
-              <div class="wrapper233">
-                <div class="data233">
-                  <div class="content233">
-                    <router-link :to="'/detail/1'"
-                      ><img
-                        src="../assets/14d50e72ceebd656ad91e2a24338a9f9.jpg"
-                      />
-                      <h3 class="title">
-                        產品外包裝
-                      </h3>
-                      <p class="subtitle">Act+ Acre 純淨無暇保養外包裝</p>
-                      <p class="text">
-                        以簡約的灰白色呈現品牌的乾淨無瑕感
-                        如同清潔保養後的水煮蛋純淨肌膚。
-                      </p>
-                    </router-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="example-1 card">
-              <div class="wrapper233">
-                <div class="data233">
-                  <div class="content233">
-                    <router-link :to="'/detail/1'">
-                      <img
-                        src="../assets/14d50e72ceebd656ad91e2a24338a9f9.jpg"
-                      />
-                      <h3 class="title">產品外包裝</h3>
-                      <p class="subtitle">Act+ Acre 純淨無暇保養外包裝</p>
-                      <p class="text">
-                        以簡約的灰白色呈現品牌的乾淨無瑕感
-                        如同清潔保養後的水煮蛋純淨肌膚。
-                      </p>
-                    </router-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="example-1 card">
-              <div class="wrapper233">
-                <div class="data233">
-                  <div class="content233">
-                    <router-link :to="'/detail/1'">
-                      <img
-                        src="../assets/14d50e72ceebd656ad91e2a24338a9f9.jpg"
-                      />
-                      <h3 class="title">
-                        產品外包裝
-                      </h3>
-                      <p class="subtitle">Act+ Acre 純淨無暇保養外包裝</p>
-                      <p class="text">
-                        以簡約的灰白色呈現品牌的乾淨無瑕感
-                        如同清潔保養後的水煮蛋純淨肌膚。
-                      </p></router-link
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="example-1 card">
-              <div class="wrapper233">
-                <div class="data233">
-                  <div class="content233">
-                    <router-link :to="'/detail/1'">
-                      <img
-                        src="../assets/0319c3391b681fe0f2bc350ba18c88be.png"
-                      />
-                      <h3 class="title">限定活動禮盒</h3>
-                      <p class="subtitle">mildee 溫柔洗護產品包裝</p>
-                      <p class="text">
-                        設計以三個英文字「i」為主體造形去
-                        呈現簡單簡約、不失質感的品牌形象。
-                      </p>
-                    </router-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="example-1 card">
-              <div class="wrapper233">
-                <div class="data233">
-                  <div class="content233">
-                    <router-link :to="'/detail/1'">
-                      <img
-                        src="../assets/0fb54c8df2ac06a9052ae3e31ec11413.png"
-                      />
-                      <h3 class="title">限定活動禮盒</h3>
-                      <p class="subtitle">mildee 溫柔洗護產品包裝</p>
-                      <p class="text">
-                        設計以三個英文字「i」為主體造形去
-                        呈現簡單簡約、不失質感的品牌形象。
-                      </p>
-                    </router-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="example-1 card">
-              <div class="wrapper233">
-                <div class="data233">
-                  <div class="content233">
-                    <router-link :to="'/detail/1'">
-                      <img
-                        src="../assets/f226a29b339ec4c66ea48af839619276.png"
-                      />
-                      <h3 class="title">限定活動禮盒</h3>
-                      <p class="subtitle">mildee 溫柔洗護產品包裝</p>
-                      <p class="text">
-                        設計以三個英文字「i」為主體造形去
-                        呈現簡單簡約、不失質感的品牌形象。
-                      </p>
-                    </router-link>
-                  </div>
-                </div>
-              </div>
+              </template>
             </div>
           </div>
-        </div>
-
-        <div id="上下蓋" class="tab-inner">
-          <div class="row">
-            <div class="example-1 card">
-              <div class="wrapper233">
-                <div class="data233">
-                  <div class="content233">
-                    <router-link :to="'/detail/1'">
-                      <img
-                        src="../assets/239a5c18bc4d631b7552d08de0fb9881.png"
-                      />
-                      <h3 class="title">抽屜紙盒</h3>
-                      <p class="subtitle">mildee 溫柔洗護產品包裝</p>
-                      <p class="text">
-                        設計以三個英文字「i」為主體造形去
-                        呈現簡單簡約、不失質感的品牌形象。
-                      </p></router-link
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="example-1 card">
-              <div class="wrapper233">
-                <div class="data233">
-                  <div class="content233">
-                    <router-link :to="'/detail/1'">
-                      <img
-                        src="../assets/239a5c18bc4d631b7552d08de0fb9881.png"
-                      />
-                      <h3 class="title">抽屜紙盒</h3>
-                      <p class="subtitle">mildee 溫柔洗護產品包裝</p>
-                      <p class="text">
-                        設計以三個英文字「i」為主體造形去
-                        呈現簡單簡約、不失質感的品牌形象。
-                      </p>
-                    </router-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="example-1 card">
-              <div class="wrapper233">
-                <div class="data233">
-                  <div class="content233">
-                    <router-link :to="'/detail/1'">
-                      <img
-                        src="../assets/239a5c18bc4d631b7552d08de0fb9881.png"
-                      />
-                      <h3 class="title">抽屜紙盒</h3>
-                      <p class="subtitle">mildee 溫柔洗護產品包裝</p>
-                      <p class="text">
-                        設計以三個英文字「i」為主體造形去
-                        呈現簡單簡約、不失質感的品牌形象。
-                      </p>
-                    </router-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="精裝禮盒" class="tab-inner">
-          <div class="row">
-            <div class="example-1 card">
-              <div class="wrapper233">
-                <div class="data233">
-                  <div class="content233">
-                    <router-link :to="'/detail/1'">
-                      <img
-                        src="../assets/f226a29b339ec4c66ea48af839619276.png"
-                      />
-                      <h3 class="title">抽屜紙盒</h3>
-                      <p class="subtitle">mildee 溫柔洗護產品包裝</p>
-                      <p class="text">
-                        設計以三個英文字「i」為主體造形去
-                        呈現簡單簡約、不失質感的品牌形象。
-                      </p>
-                    </router-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="example-1 card">
-              <div class="wrapper233">
-                <div class="data233">
-                  <div class="content233">
-                    <router-link :to="'/detail/1'">
-                      <img
-                        src="../assets/f226a29b339ec4c66ea48af839619276.png"
-                      />
-                      <h3 class="title">抽屜紙盒</h3>
-                      <p class="subtitle">mildee 溫柔洗護產品包裝</p>
-                      <p class="text">
-                        設計以三個英文字「i」為主體造形去
-                        呈現簡單簡約、不失質感的品牌形象。
-                      </p>
-                    </router-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="example-1 card">
-              <div class="wrapper233">
-                <div class="data233">
-                  <div class="content233">
-                    <router-link :to="'/detail/1'">
-                      <img
-                        src="../assets/f226a29b339ec4c66ea48af839619276.png"
-                      />
-                      <h3 class="title">抽屜紙盒</h3>
-                      <p class="subtitle">mildee 溫柔洗護產品包裝</p>
-                      <p class="text">
-                        設計以三個英文字「i」為主體造形去
-                        呈現簡單簡約、不失質感的品牌形象。
-                      </p>
-                    </router-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="木盒" class="tab-inner">
-          <div class="row">
-            <div class="example-1 card">
-              <div class="wrapper233">
-                <div class="data233">
-                  <div class="content233">
-                    <router-link :to="'/detail/1'">
-                      <img
-                        src="../assets/14d50e72ceebd656ad91e2a24338a9f9.jpg"
-                      />
-                      <h3 class="title">抽屜紙盒</h3>
-                      <p class="subtitle">mildee 溫柔洗護產品包裝</p>
-                      <p class="text">
-                        設計以三個英文字「i」為主體造形去
-                        呈現簡單簡約、不失質感的品牌形象。
-                      </p>
-                    </router-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="example-1 card">
-              <div class="wrapper233">
-                <div class="data233">
-                  <div class="content233">
-                    <router-link :to="'/detail/1'">
-                      <img
-                        src="../assets/14d50e72ceebd656ad91e2a24338a9f9.jpg"
-                      />
-                      <h3 class="title">
-                        <router-link :to="'/detail/1'">抽屜紙盒</router-link>
-                      </h3>
-                      <p class="subtitle">mildee 溫柔洗護產品包裝</p>
-                      <p class="text">
-                        設計以三個英文字「i」為主體造形去
-                        呈現簡單簡約、不失質感的品牌形象。
-                      </p>
-                    </router-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="example-1 card">
-              <div class="wrapper233">
-                <div class="data233">
-                  <div class="content233">
-                    <router-link :to="'/detail/1'">
-                      <img
-                        src="../assets/14d50e72ceebd656ad91e2a24338a9f9.jpg"
-                      />
-                      <h3 class="title">抽屜紙盒</h3>
-                      <p class="subtitle">mildee 溫柔洗護產品包裝</p>
-                      <p class="text">
-                        設計以三個英文字「i」為主體造形去
-                        呈現簡單簡約、不失質感的品牌形象。
-                      </p>
-                    </router-link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        </template>
       </div>
     </div>
-
-    <!-- <div id="a">{{ items }}</div> -->
-    <!-- <div id="list-foot">這是作品集列表 © 2023 Yahoo. All rights reserved.</div> -->
   </div>
 </template>
 
@@ -424,15 +49,11 @@ import $ from "jquery";
 export default {
   name: "HelloWorld",
   data() {
-    // this.itemList = [{ id: 1 }, { id: 2 }, { id: 3 }];
     return {
-      itemList: [],
-      tebs: []
+      itemList: []
     };
   },
-  watch: {},
   async created() {
-    return;
     let res = await axios.post("http://127.0.0.1:3000/product/");
     this.tebs = new Set();
 
@@ -444,7 +65,6 @@ export default {
 
     this.itemList.push({ tebName: "全部", content: [] });
     this.tebs.forEach(_teb => {
-      // console.log(_teb);
       this.itemList.push({ tebName: _teb, content: [] });
     });
 
@@ -458,7 +78,8 @@ export default {
               content: item.detail.content,
               cost: item.detail.cost,
               size: item.detail.size,
-              remark: item.detail.remark
+              remark: item.detail.remark,
+              subtitle: item.detail.subtitle
             },
             category: item.category,
             images: item.images
@@ -474,7 +95,8 @@ export default {
                 content: item.detail.content,
                 cost: item.detail.cost,
                 size: item.detail.size,
-                remark: item.detail.remark
+                remark: item.detail.remark,
+                subtitle: item.detail.subtitle
               },
               category: item.category,
               images: item.images
@@ -484,20 +106,6 @@ export default {
       }
     });
 
-    console.log(this.itemList);
-  },
-  setup() {
-    // itemList = [];
-    // this.itemList = [];
-    // axios.post("http://127.0.0.1:3000/product/").then(res => {
-    //   console.log(res.data);
-    //   this.itemList = res.data;
-    // });
-    $("html,body").animate({ scrollTop: 0 }, "slow");
-    return {};
-  },
-  mounted() {
-    //这里面写初始化的Jquery，在生命周期的mount阶段才有用。
     $(function() {
       var $li = $("ul.tab-title233 li");
       $(
@@ -524,7 +132,12 @@ export default {
           .removeClass("active");
       });
     });
-
+  },
+  setup() {
+    $("html,body").animate({ scrollTop: 0 }, "slow");
+    return {};
+  },
+  mounted() {
     $(document).ready(function() {
       $(window).scroll(function() {
         if ($(window).scrollTop() > 50) {
@@ -546,22 +159,22 @@ export default {
         );
       });
     });
-
-    console.log("ssss====");
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+/* @import url("../style/newItem.css"); */
+
 @import url("../style/app.9b6dd939.css");
 @import url("../style/items.css");
-
 a {
   text-decoration: none;
 }
 
 /* TAB start ====================================== */
+
 #tab-demo {
   width: 885px;
   /* background-color: #ff0000; */
@@ -609,18 +222,18 @@ a {
 #tab-demo .text {
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   white-space: normal;
+  overflow: hidden;
 }
 
 /* 內容 */
-#tab-demo > .tab-inner {
-  /* clear: both; */
-  color: #000;
+.tab-inner {
+  /* color: #000; */
   width: 885px;
   padding: 30px 0 0 0;
-  /* border: 1px #bcbcbc solid; */
+  /* background-color: #ff0000; */
 }
 /* .tab-inner {
   padding: 15px;
@@ -661,5 +274,10 @@ a {
 #list-menu-content ul li {
   width: 110px;
   float: left;
+}
+
+.subtitle {
+  -webkit-line-clamp: 1;
+  overflow: hidden;
 }
 </style>

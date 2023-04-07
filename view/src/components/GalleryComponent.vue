@@ -2,6 +2,7 @@
   <div class="works">
     <div class="works-header">
       <h2 class="works-title">作品集展示</h2>
+      <div class="divider"></div>
       <p class="works-subtitle">打造企業品牌形象&amp;提供精緻的包裝禮盒</p>
     </div>
     <div class="works-content">
@@ -27,7 +28,7 @@
         <img v-for="(item, index) in partners.slice(0, 8)" :key="index" :src="item.image"  alt="">
       </div>
       <div class="partner-row">
-        <img v-for="(item, index) in partners.slice(0, 8)" :key="index+8" :src="item.image"  alt="">
+        <img v-for="(item, index) in partners.slice(8, 16)" :key="index" :src="item.image"  alt="">
       </div>
     </div>
   </div>
@@ -178,6 +179,35 @@ export default {
   margin-bottom: 50px;
 }
 
+.works-header h2 {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 2vw;
+  line-height: 48px;
+  text-align: center;
+  letter-spacing: 5px;
+  color: #171614;
+}
+
+.works-header p {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 200;
+  font-size: 1vw;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: 5px;
+
+  color: #6B6968;
+}
+
+
+.divider {
+  border-top: 1px solid #EAE6E5;
+  margin: 10px 0;
+}
+
 .works-title {
   font-size: 36px;
   font-weight: bold;
@@ -236,8 +266,16 @@ export default {
   border-radius: 10%;
   background-color: transparent;
   color: #DE7B3B;
-  border: 1px solid #DE7B3B;
-  padding: 10px 20px;
+  border: 1px solid #DE7B3B7f;
+  padding: 10px 30px;
+
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.8vw;
+  line-height: 16px;
+  align-items: center;
+  letter-spacing: 0.2em;
 }
 
 .works-item-image img {

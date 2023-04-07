@@ -1,6 +1,7 @@
 <template>
   <div class="about-us">
     <h2 class="about-us-title">關於我們</h2>
+          <div class="divider"></div>
     <div class="about-us-info">
       <div class="about-us-box">
         <img :src="require('@/assets/about1.png')" alt="">
@@ -43,6 +44,11 @@ export default {
   text-align: center;
 }
 
+.divider {
+  border-top: 1px solid #EAE6E5;
+  margin: 10px 0;
+}
+
 .about-us-info {
   display: flex;
   justify-content: space-between;
@@ -60,7 +66,7 @@ margin: 0 20px;
   ont-family: 'Noto Sans';
   font-style: normal;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 1.2vw;
   line-height: 30px;
   /* or 150% */
 
@@ -75,7 +81,7 @@ margin: 0 20px;
   font-family: 'Noto Sans';
   font-style: normal;
   font-weight: 100;
-  font-size: 14px;
+  font-size: 0.8vw;
   line-height: 25px;
   /* identical to box height, or 179% */
 
@@ -91,7 +97,7 @@ margin: 0 20px;
   font-family: 'Noto Sans';
   font-style: normal;
   font-weight: 100;
-  font-size: 14px;
+  font-size: 0.8vw;
   line-height: 25px;
   /* identical to box height, or 179% */
 

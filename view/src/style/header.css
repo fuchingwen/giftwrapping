@@ -97,3 +97,7 @@ nav a.about:active {
   border-radius: 10%;
   background-color: #ccc;
 }
+
+.header {
+  box-shadow: 0 1px 8px #c0c0c0;
+}

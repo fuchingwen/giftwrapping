@@ -49,6 +49,6 @@ export default {
 @import url("./style/back-top.css");
 
 .goo-main {
-  margin-top: 90px;
+  margin-top: 88px;
 }
 </style>

@@ -1,43 +1,90 @@
 <template>
   <div id="list">
-    <div id="list-menu">
-      <div id="tab-demo">
-        <ul class="tab-title233">
-          <li v-for="category in itemList">
-            <a :value="'#' + category.tebName">{{ category.tebName }}</a>
-          </li>
+    <div class="list-title">首頁 / 好禮作品集</div>
+    <div class="list-category">
+      <template v-for="category in categoryList">
+        <h3 class="category-title">{{ category.categoryTitle }}</h3>
 
-          <!-- <li><a value="#全部">全部</a></li>
-          <li><a value="#上下蓋">上下蓋</a></li>
-          <li><a value="#精裝禮盒">精裝禮盒</a></li>
-          <li><a value="#木盒">木盒</a></li> -->
-        </ul>
-
-        <template v-for="(teb, index) in itemList">
-          <div :id="teb.tebName" class="tab-inner">
-            <div class="row">
-              <template v-for="(item, index) in teb.content">
-                <div class="example-1 card">
-                  <div class="wrapper233">
-                    <div class="data233">
-                      <div class="content233">
-                        <router-link :to="'/detail/' + item.id">
-                          <img :src="item.images[0]" />
-                          <h3 class="title">{{ item.name }}</h3>
-                          <p class="subtitle">{{ item.detail.subtitle }}</p>
-                          <p class="text">
-                            {{ item.detail.content }}
-                          </p>
-                        </router-link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </template>
-            </div>
-          </div>
+        <!-- 單選按鈕:0 -->
+        <template v-if="category.type == 0">
+          <label class="sel-lab"
+            >全部<input
+              class="sel"
+              type="radio"
+              :name="category.categoryID"
+              value="全部"
+              v-on:click="clickInput($event)"
+              checked/><span class="checkmark"></span></label
+          ><br />
+          <template v-for="content in category.content">
+            <label class="sel-lab"
+              >{{ content
+              }}<input
+                class="sel"
+                type="radio"
+                :name="category.categoryID"
+                :value="content"
+                v-on:click="clickInput($event)"/><span
+                class="checkmark"
+              ></span></label
+            ><br />
+          </template>
         </template>
-      </div>
+
+        <!-- 複選按鈕:1 -->
+        <template v-else="category.type == 1">
+          <label class="sel-lab"
+            >全部<input
+              class="sel"
+              type="checkbox"
+              :name="category.categoryID"
+              value="全部"
+              v-on:click="clickInput($event)"
+              checked/><span class="checkmark"></span></label
+          ><br />
+          <template v-for="(content, cIdx) in category.content">
+            <label class="sel-lab"
+              >{{ content
+              }}<input
+                class="sel"
+                type="checkbox"
+                :name="category.categoryID"
+                :value="content"
+                v-on:click="clickInput($event)"/><span
+                class="checkmark"
+              ></span></label
+            ><br />
+          </template>
+        </template>
+      </template>
+    </div>
+    <div class="list-content">
+      <template v-if="itemList.length > 0">
+        <template v-for="item in itemList">
+          <router-link :to="'/detail/' + item.id">
+            <div class="nwrapper">
+              <div class="ncard">
+                <img :src="item.image" />
+                <h3 class="ntitle">{{ item.name }}</h3>
+                <h4 class="nsubtitle">{{ item.subtitle }}</h4>
+                <h5 class="ncontent">{{ item.detail.content }}</h5>
+              </div>
+            </div>
+          </router-link>
+        </template>
+      </template>
+      <template v-else>
+        <div class="no-item">
+          <h5>尚無相關作品</h5>
+          <br />
+          <input
+            class="no-item-btn"
+            type="button"
+            value="清除篩選結果"
+            v-on:click="clickClearSel()"
+          />
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -50,88 +97,31 @@ export default {
   name: "HelloWorld",
   data() {
     return {
-      itemList: []
+      itemList: [],
+      categoryList: null,
+      seletInfo: {
+        condition: [
+          // { categoryID: 0, content: ["餐飲業", "建築業"] }, //content若為空陣列則代表全拿
+          // { categoryID: 1, content: ["長方體"] }
+        ]
+      }
     };
   },
   async created() {
-    let res = await axios.post("http://127.0.0.1:3000/product/");
-    this.tebs = new Set();
+    //取得分類清單的資料
+    let categoryRes = await axios.get("http://127.0.0.1:3000/category/");
+    // console.log(categoryRes.data.list);
+    this.categoryList = categoryRes.data.list;
 
-    res.data.forEach(item => {
-      item.category.forEach(category => {
-        this.tebs.has(category) ? null : this.tebs.add(category);
+    //建立一個空的rq模板
+    this.categoryList.forEach(category => {
+      this.seletInfo.condition.push({
+        categoryID: category.categoryID,
+        content: new Set()
       });
     });
 
-    this.itemList.push({ tebName: "全部", content: [] });
-    this.tebs.forEach(_teb => {
-      this.itemList.push({ tebName: _teb, content: [] });
-    });
-
-    this.itemList.forEach(_teb => {
-      if (_teb.tebName == "全部") {
-        res.data.forEach(item => {
-          _teb.content.push({
-            id: item.id,
-            name: item.name,
-            detail: {
-              content: item.detail.content,
-              cost: item.detail.cost,
-              size: item.detail.size,
-              remark: item.detail.remark,
-              subtitle: item.detail.subtitle
-            },
-            category: item.category,
-            images: item.images
-          });
-        });
-      } else {
-        res.data.forEach(item => {
-          if (item.category.includes(_teb.tebName)) {
-            _teb.content.push({
-              id: item.id,
-              name: item.name,
-              detail: {
-                content: item.detail.content,
-                cost: item.detail.cost,
-                size: item.detail.size,
-                remark: item.detail.remark,
-                subtitle: item.detail.subtitle
-              },
-              category: item.category,
-              images: item.images
-            });
-          }
-        });
-      }
-    });
-
-    $(function() {
-      var $li = $("ul.tab-title233 li");
-      $(
-        $li
-          .eq(0)
-          .addClass("active")
-          .find("a")
-          .attr("value")
-      )
-        .siblings(".tab-inner")
-        .hide();
-      $li.click(function() {
-        $(
-          $(this)
-            .find("a")
-            .attr("value")
-        )
-          .show()
-          .siblings(".tab-inner")
-          .hide();
-        $(this)
-          .addClass("active")
-          .siblings(".active")
-          .removeClass("active");
-      });
-    });
+    this.showItems();
   },
   setup() {
     $("html,body").animate({ scrollTop: 0 }, "slow");
@@ -159,125 +149,208 @@ export default {
         );
       });
     });
+  },
+  methods: {
+    clickClearSel() {
+      console.log("點擊清除");
+      console.log(this.categoryList);
+
+      // $(".sel").attr("checked", false);
+      // $(".sel").empty();
+      // $("input[type=checkbox]").attr("checked", false);
+      // let inputs = $(".sel").attr("checked", false);
+
+      $("input[type=radio]").each(function() {
+        $(this).prop("checked", false); //把所有的核方框的property都取消勾選
+      });
+
+      $("input[type=checkbox]").each(function() {
+        $(this).prop("checked", false); //把所有的核方框的property都取消勾選
+      });
+
+      // let _categoryList = [];
+
+      // this.categoryList.forEach(item => {
+      //   _categoryList.push({
+      //     sort: item.sort, //左側分類由上往下先後順序，數字越小越前面，【目前暫定寫死】
+      //     categoryID: item.categoryID, //分類項目ID，【目前暫定寫死】
+      //     categoryTitle: item.categoryTitle,
+      //     type: item.type, //單選為0，複選為1，【目前暫定寫死】
+      //     content: item.content
+      //   });
+      // });
+
+      // this.categoryList = null;
+      // this.categoryList = _categoryList;
+    },
+    clickInput(event) {
+      this.showItems();
+    },
+    async showItems() {
+      //把選項塞進rq
+      this.seletInfo.condition.forEach(category => {
+        let inputs = $(".sel:checked[name='" + category.categoryID + "']");
+        category.content.clear();
+        $.each(inputs, function() {
+          category.content.add($(this).val());
+        });
+      });
+
+      // console.log(this.seletInfo);
+
+      //製作新的rq資料
+      let _seletInfo = { condition: [] };
+      this.seletInfo.condition.forEach(category => {
+        _seletInfo.condition.push({
+          categoryID: category.categoryID,
+          content: category.content.has("全部") ? [] : [...category.content]
+        });
+      });
+
+      console.log(_seletInfo);
+
+      //送出需求、取得回應
+      let productRes = await axios.post(
+        "http://127.0.0.1:3000/product/",
+        _seletInfo,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        }
+      );
+      console.log(productRes.data);
+      this.itemList = productRes.data.list;
+
+      // this.itemList.push(1);
+      // console.log(this.itemList.length);
+    }
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/* @import url("../style/newItem.css"); */
-
 @import url("../style/app.9b6dd939.css");
 @import url("../style/items.css");
-a {
-  text-decoration: none;
-}
+@import url("../style/newItem.css");
+@import url("../style/sel.css");
 
-/* TAB start ====================================== */
-
-#tab-demo {
-  width: 885px;
-  /* background-color: #ff0000; */
-}
-#tab-demo > ul {
-  display: block;
-  margin: 40px 0 0 -40px;
-  list-style: none;
-}
-.tab-title233 {
-  list-style: none;
-  font-weight: bold;
-  padding-left: 40px;
-}
-
-/* 分頁按鈕狀態 */
-#tab-demo > ul > li {
-  display: inline-block;
-  vertical-align: top;
-  font-family: "微軟正黑體";
-  /* margin: 40px 0 0 0; */
-  /* border: 1px solid #3131a5; */
-  height: 34px;
-  line-height: 34px;
-  /* background: #cdcdcd; */
-  padding: 0 15px;
-  /* list-style: none; */
-  /* box-sizing: border-box; */
-}
-#tab-demo > ul > li a {
-  color: #000000;
-  /* text-decoration: none; */
-}
-#tab-demo > ul > li.active a {
-  color: #f2f0ed;
-}
-
-/* 點擊當前分頁 */
-#tab-demo > ul > li.active {
-  /* border-bottom: 1px solid #fff; */
-  background: #000000;
-  border-radius: 5px;
-}
-
-#tab-demo .text {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  white-space: normal;
-  overflow: hidden;
-}
-
-/* 內容 */
-.tab-inner {
-  /* color: #000; */
-  width: 885px;
-  padding: 30px 0 0 0;
-  /* background-color: #ff0000; */
-}
-/* .tab-inner {
-  padding: 15px;
-  height: 50px;
-} */
-/* TAB end ====================================== */
-
-/* 按鈕start */
-.list-menu-content-ul {
-  padding: 0; /*清單左側會多約40px要消除*/
-  width: 800px;
-  display: flex;
-  justify-content: space-evenly; /*內容物水平均分*/
-  list-style: none; /*消除清單的左側的圓點*/
-}
-.list-menu-content-li {
-  background-color: #ffffff;
-  /*   padding: 0px 0px; */
-  /* margin: 20px 0px; */
+.no-item {
+  margin-top: 150px;
   text-align: center;
 }
-.list-menu-content-li:visited {
-  /* :active是滑鼠點擊元素的狀態 */
-  /* transform: scale(1);
-  box-shadow: inset 0 0 10px 1px rgba(0, 0, 0, 0.2); */
-  color: #ff0000;
-}
+.no-item-btn {
+  /* border: 30px; */
+  background-color: #000000;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
 
-#list-menu {
-  display: flex;
-  justify-content: center;
-}
-#list-menu-content {
-  width: 880px;
+  width: 200px;
   height: 50px;
-  background-color: rgb(189, 189, 233);
-}
-#list-menu-content ul li {
-  width: 110px;
-  float: left;
+  font-weight: bold;
+  font-size: 20px;
 }
 
-.subtitle {
-  -webkit-line-clamp: 1;
-  overflow: hidden;
+#list {
+  margin-left: 270px;
+  margin-top: 170px;
+  width: 885px;
+
+  /* background-color: aqua; */
+  display: grid;
+
+  grid-template-columns: 130px 760px;
+  grid-template-rows: 50px auto;
+  grid-gap: 5px;
 }
+
+.list-title {
+  grid-column: 1 / 2;
+  grid-row: 1;
+  /* background-color: rgb(255, 242, 0); */
+}
+.list-category {
+  grid-column: 1;
+  grid-row: 2 / 2;
+
+  /* background-color: rgb(255, 140, 0); */
+}
+.list-content {
+  grid-column: 2 / 2;
+  grid-row: 2 / 2;
+
+  /* background-color: rgb(255, 0, 208); */
+}
+
+.category-title {
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 15px;
+  /* margin-bottom: 10px; */
+}
+
+/* .sel-lab {
+  font-size: 18px;
+}
+.sel {
+  margin-top: 20px;
+  margin-right: 6px;
+
+  width: 20px;
+  height: 20px;
+} */
+
+/* .sel:checked {
+  background-color: #1061bd;
+  font-size: 18px;
+} */
 </style>
+
+<!--
+<畫面右側分類 API>request method get
+{
+  "list": [
+    {
+      "sort": 0, //左側分類由上往下先後順序，數字越小越前面，【目前暫定寫死】
+      "categoryID":0//分類項目ID，【目前暫定寫死】
+      "categoryTitle": "廠業",
+      "type": 0, //單選為0，複選為1，【目前暫定寫死】
+      "content": ["物流業", "餐飲業","建築業"]
+    },
+    {
+      "sort": 1,
+      "categoryID":1
+      "categoryTitle": "形狀",
+      "type": 1,
+      "content": ["立方體", "長方體", "圓錐體"]
+    }
+  ]
+} 
+
+（獲取所有產品訊息 POST  /product）的變更 request，我先出一個版本而後根據後端想法再另行改變設計再通知前端:
+{
+  "condition": [
+    { "categoryID": 0, "content": ["餐飲業", "建築業"] },
+    { "categoryID": 1, "content": ["長方體"] }
+  ]
+}
+
+<response>
+{
+  "list": [
+    {
+      "name": "important",
+      "subtitle": "subtitle",
+      "detail": {
+        "content": "content",
+        "cost": 23,
+        "size": "large",
+        "remark": "remark"
+      },
+      "images": "https://s.yimg.com/cv/apiv2/twfrontpage/logo/Yahoo-TW-desktop-FP@2x.png"
+    }
+  ]
+}
+
+-->

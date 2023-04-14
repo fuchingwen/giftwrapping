@@ -42,14 +42,14 @@ const Router = require('koa-router');
           categoryID: 0, //分類項目ID，【目前暫定寫死】
           categoryTitle: '產業',
           type: 1, //單選為0，複選為1，【目前暫定寫死】
-          content: ['物流業', '餐飲業', '建築業'],
+          content: ['食品', '酒類', '金融', '飯店', '精品'],
         },
         {
           sort: 1,
           categoryID: 1,
           categoryTitle: '形狀',
           type: 1,
-          content: ['立方體', '長方體', '圓錐體'],
+          content: ['三節禮盒', '特殊節慶', '商品售賣', '紀念贈禮'],
         },
       ],
     };

@@ -75,3 +75,40 @@
   -webkit-box-orient: vertical;
   white-space: normal;
 }
+
+.title {
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  margin: 10px 10px 10px 20px;
+}
+.title a {
+  color: rgb(0, 0, 0);
+}
+.subtitle {
+  margin-left: 20px;
+  margin-right: 20px;
+  /* margin-top: 30px; */
+  margin-bottom: 5px;
+  height: 25px;
+  font-size: 16px;
+  color: #9a9999;
+  font-family: Source Code Pro;
+  letter-spacing: 3%;
+  line-height: 100%;
+}
+.text {
+  margin-top: 0;
+  margin-left: 20px;
+  margin-right: 20px;
+  height: 63px;
+  font-size: 15px;
+  color: #7e7e7e;
+  font-weight: bold;
+  overflow: hidden;
+}
+
+h3 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+}

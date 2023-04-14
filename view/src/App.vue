@@ -35,11 +35,17 @@
     <div class="goo-main">
       <router-view />
     </div>
+    <conact-component />
   </div>
 </template>
 
 <script>
+import ConactComponent from "./components/ConactComponent.vue";
+
 export default {
+  components: {
+    ConactComponent
+  },
   name: "App"
 };
 </script>

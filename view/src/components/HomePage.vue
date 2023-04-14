@@ -3,7 +3,7 @@
     <slider-component />
     <div id="關於我們"><gallery-component /></div>
     <about-component />
-    <div id="聯絡我們"><conact-component /></div>
+    <!-- <div id="聯絡我們"><conact-component /></div> -->
   </div>
 </template>
 
@@ -11,15 +11,15 @@
 import SliderComponent from "./SliderComponent.vue";
 import GalleryComponent from "./GalleryComponent.vue";
 import AboutComponent from "./AboutComponent.vue";
-import ConactComponent from "./ConactComponent.vue";
+// import ConactComponent from "./ConactComponent.vue";
 
 export default {
   name: "HelloWorld",
   components: {
     SliderComponent,
     GalleryComponent,
-    AboutComponent,
-    ConactComponent
+    AboutComponent
+    // ConactComponent
   },
   created() {
     // $("html,body").animate({ scrollTop: 0 }, "fast");

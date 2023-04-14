@@ -24,9 +24,8 @@
                 type="radio"
                 :name="category.categoryID"
                 :value="content"
-                v-on:click="clickInput($event)"/><span
-                class="checkmark"
-              ></span></label
+                v-on:click="clickInput($event)"
+                checked/><span class="checkmark"></span></label
             ><br />
           </template>
         </template>
@@ -50,13 +49,14 @@
                 type="checkbox"
                 :name="category.categoryID"
                 :value="content"
-                v-on:click="clickInput($event)"/><span
-                class="checkmark"
-              ></span></label
+                v-on:click="clickInput($event)"
+                checked/><span class="checkmark"></span></label
             ><br />
           </template>
         </template>
       </template>
+      <br /><br />
+      <a class="reset" href="#" v-on:click="clickResetSel()">重設篩選條件</a>
     </div>
     <div class="list-content">
       <template v-if="itemList.length > 0">
@@ -64,9 +64,9 @@
           <router-link :to="'/detail/' + item.id">
             <div class="nwrapper">
               <div class="ncard">
-                <img :src="item.image" />
+                <img :src="item.image[0].url" />
                 <h3 class="ntitle">{{ item.name }}</h3>
-                <h4 class="nsubtitle">{{ item.subtitle }}</h4>
+                <h4 class="nsubtitle">{{ item.subtitle }}我是副標</h4>
                 <h5 class="ncontent">{{ item.detail.content }}</h5>
               </div>
             </div>
@@ -75,15 +75,18 @@
       </template>
       <template v-else>
         <div class="no-item">
-          <h5>尚無相關作品</h5>
+          <img src="../assets/no-item.png" />
           <br />
-          <input
+
+          <!-- <input
             class="no-item-btn"
             type="button"
             value="清除篩選結果"
-            v-on:click="clickClearSel()"
-          />
+            v-on:click="clickResetSel()"
+          /> -->
         </div>
+        <br />
+        <h6 class="no-item-txt">尚無相關作品</h6>
       </template>
     </div>
   </div>
@@ -109,22 +112,57 @@ export default {
   },
   async created() {
     //取得分類清單的資料
-    let categoryRes = await axios.get("http://127.0.0.1:3000/category/");
-    // console.log(categoryRes.data.list);
-    this.categoryList = categoryRes.data.list;
+    // let categoryRes = await axios.get("http://127.0.0.1:3000/category/");
+    // this.categoryList = categoryRes.data.list;
 
-    //建立一個空的rq模板
+    let _c = [
+      {
+        sort: 0,
+        categoryID: 0,
+        categoryTitle: "產業",
+        type: 1,
+        content: ["食品", "酒類", "金融", "飯店", "精品"]
+      },
+      {
+        sort: 1,
+        categoryID: 1,
+        categoryTitle: "形狀",
+        type: 1,
+        content: ["三節禮盒", "特殊節慶", "商品售賣", "紀念贈禮"]
+      }
+    ];
+
+    this.categoryList = _c;
+
+    // console.log("=>>", this.categoryList);
+
+    //建立「全部」獲取的資料
+    let condition = { condition: [] };
     this.categoryList.forEach(category => {
-      this.seletInfo.condition.push({
+      condition.condition.push({
         categoryID: category.categoryID,
-        content: new Set()
+        content: [] //category.content
       });
     });
 
-    this.showItems();
+    console.log(condition);
+
+    let productRes = await axios.post(
+      "http://ec2-43-207-38-63.ap-northeast-1.compute.amazonaws.com:8080/api/v1/product/search",
+      condition,
+      {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    console.log(productRes.data);
+    this.itemList = productRes.data.context;
   },
   setup() {
     $("html,body").animate({ scrollTop: 0 }, "slow");
+
     return {};
   },
   mounted() {
@@ -151,79 +189,76 @@ export default {
     });
   },
   methods: {
-    clickClearSel() {
-      console.log("點擊清除");
-      console.log(this.categoryList);
-
-      // $(".sel").attr("checked", false);
-      // $(".sel").empty();
-      // $("input[type=checkbox]").attr("checked", false);
-      // let inputs = $(".sel").attr("checked", false);
-
+    clickResetSel() {
       $("input[type=radio]").each(function() {
-        $(this).prop("checked", false); //把所有的核方框的property都取消勾選
+        $(this).prop("checked", true);
       });
-
       $("input[type=checkbox]").each(function() {
-        $(this).prop("checked", false); //把所有的核方框的property都取消勾選
+        $(this).prop("checked", true);
       });
-
-      // let _categoryList = [];
-
-      // this.categoryList.forEach(item => {
-      //   _categoryList.push({
-      //     sort: item.sort, //左側分類由上往下先後順序，數字越小越前面，【目前暫定寫死】
-      //     categoryID: item.categoryID, //分類項目ID，【目前暫定寫死】
-      //     categoryTitle: item.categoryTitle,
-      //     type: item.type, //單選為0，複選為1，【目前暫定寫死】
-      //     content: item.content
-      //   });
-      // });
-
-      // this.categoryList = null;
-      // this.categoryList = _categoryList;
+      console.log("點擊恢復預設值");
+      this.showItems();
     },
     clickInput(event) {
+      if (event.target.checked && event.target.value == "全部") {
+        $("input[name=" + event.target.name + "]").each(function() {
+          $(this).prop("checked", true);
+        });
+      } else {
+        $("input[name=" + event.target.name + "][value=全部]").each(function() {
+          $(this).prop("checked", false);
+        });
+      }
       this.showItems();
     },
     async showItems() {
+      let condition = { condition: [] };
+
+      let inputs = $(".sel:checked[value!=全部]");
+
       //把選項塞進rq
-      this.seletInfo.condition.forEach(category => {
-        let inputs = $(".sel:checked[name='" + category.categoryID + "']");
-        category.content.clear();
-        $.each(inputs, function() {
-          category.content.add($(this).val());
-        });
-      });
+      this.categoryList.forEach(category => {
+        // console.log(category);
 
-      // console.log(this.seletInfo);
+        let arr = [];
 
-      //製作新的rq資料
-      let _seletInfo = { condition: [] };
-      this.seletInfo.condition.forEach(category => {
-        _seletInfo.condition.push({
-          categoryID: category.categoryID,
-          content: category.content.has("全部") ? [] : [...category.content]
-        });
-      });
-
-      console.log(_seletInfo);
-
-      //送出需求、取得回應
-      let productRes = await axios.post(
-        "http://127.0.0.1:3000/product/",
-        _seletInfo,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
+        for (const sel of inputs) {
+          if (sel.name == category.categoryID) {
+            console.log("=>>", sel);
+            arr.push(sel.value);
           }
         }
-      );
-      console.log(productRes.data);
-      this.itemList = productRes.data.list;
 
-      // this.itemList.push(1);
-      // console.log(this.itemList.length);
+        condition.condition.push({
+          categoryID: category.categoryID,
+          content: arr
+        });
+      });
+
+      // console.log("condition=>>", condition);
+
+      let allCount = 0;
+      for (const category of condition.condition) {
+        allCount += category.content.length;
+      }
+
+      if (allCount > 0) {
+        //送出需求、取得回應
+        let productRes = await axios.post(
+          "http://ec2-43-207-38-63.ap-northeast-1.compute.amazonaws.com:8080/api/v1/product/search",
+          condition,
+          {
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }
+        );
+
+        // console.log(productRes.data);
+        this.itemList = productRes.data.context;
+      } else {
+        this.itemList = [];
+      }
     }
   }
 };
@@ -231,14 +266,26 @@ export default {
 
 <style scoped>
 @import url("../style/app.9b6dd939.css");
-@import url("../style/items.css");
 @import url("../style/newItem.css");
+/* @import url("../style/items.css"); */
 @import url("../style/sel.css");
 
+.reset {
+  text-decoration: underline;
+}
 .no-item {
   margin-top: 150px;
   text-align: center;
+  /* width: 100px; */
+  /* height: 100px; */
+  /* background-color: aqua; */
+  display: flex;
+  justify-content: center;
 }
+.no-item-txt {
+  text-align: center;
+}
+
 .no-item-btn {
   /* border: 30px; */
   background-color: #000000;
@@ -288,6 +335,10 @@ export default {
   font-size: 16px;
   margin-top: 15px;
   /* margin-bottom: 10px; */
+}
+
+.resetSel {
+  /* padding-top: 100px; */
 }
 
 /* .sel-lab {

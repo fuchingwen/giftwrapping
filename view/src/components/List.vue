@@ -1,93 +1,88 @@
 <template>
-  <div id="list">
-    <div class="list-title">首頁 / 好禮作品集</div>
-    <div class="list-category">
-      <template v-for="category in categoryList">
-        <h3 class="category-title">{{ category.categoryTitle }}</h3>
+  <div class="list-parent">
+    <div id="list">
+      <div class="list-title">首頁 / 好禮作品集</div>
+      <div class="list-category">
+        <template v-for="category in categoryList">
+          <h3 class="category-title">{{ category.categoryTitle }}</h3>
 
-        <!-- 單選按鈕:0 -->
-        <template v-if="category.type == 0">
-          <label class="sel-lab"
-            >全部<input
-              class="sel"
-              type="radio"
-              :name="category.categoryID"
-              value="全部"
-              v-on:click="clickInput($event)"
-              checked/><span class="checkmark"></span></label
-          ><br />
-          <template v-for="content in category.content">
+          <!-- 單選按鈕:0 -->
+          <template v-if="category.type == 0">
             <label class="sel-lab"
-              >{{ content
-              }}<input
+              >全部<input
                 class="sel"
                 type="radio"
                 :name="category.categoryID"
-                :value="content"
+                value="全部"
                 v-on:click="clickInput($event)"
                 checked/><span class="checkmark"></span></label
             ><br />
+            <template v-for="content in category.content">
+              <label class="sel-lab"
+                >{{ content
+                }}<input
+                  class="sel"
+                  type="radio"
+                  :name="category.categoryID"
+                  :value="content"
+                  v-on:click="clickInput($event)"
+                  checked/><span class="checkmark"></span></label
+              ><br />
+            </template>
           </template>
-        </template>
 
-        <!-- 複選按鈕:1 -->
-        <template v-else="category.type == 1">
-          <label class="sel-lab"
-            >全部<input
-              class="sel"
-              type="checkbox"
-              :name="category.categoryID"
-              value="全部"
-              v-on:click="clickInput($event)"
-              checked/><span class="checkmark"></span></label
-          ><br />
-          <template v-for="(content, cIdx) in category.content">
+          <!-- 複選按鈕:1 -->
+          <template v-else="category.type == 1">
             <label class="sel-lab"
-              >{{ content
-              }}<input
+              >全部<input
                 class="sel"
                 type="checkbox"
                 :name="category.categoryID"
-                :value="content"
+                value="全部"
                 v-on:click="clickInput($event)"
                 checked/><span class="checkmark"></span></label
             ><br />
+            <template v-for="(content, cIdx) in category.content">
+              <label class="sel-lab"
+                >{{ content
+                }}<input
+                  class="sel"
+                  type="checkbox"
+                  :name="category.categoryID"
+                  :value="content"
+                  v-on:click="clickInput($event)"
+                  checked/><span class="checkmark"></span></label
+              ><br />
+            </template>
           </template>
         </template>
-      </template>
-      <br /><br />
-      <a class="reset" href="#" v-on:click="clickResetSel()">重設篩選條件</a>
-    </div>
-    <div class="list-content">
-      <template v-if="itemList.length > 0">
-        <template v-for="item in itemList">
-          <router-link :to="'/detail/' + item.id">
-            <div class="nwrapper">
-              <div class="ncard">
-                <img :src="item.image[0].url" />
-                <h3 class="ntitle">{{ item.name }}</h3>
-                <h4 class="nsubtitle">{{ item.subtitle }}我是副標</h4>
-                <h5 class="ncontent">{{ item.detail.content }}</h5>
+        <br /><br />
+        <a class="reset" href="#" v-on:click="clickResetSel()">重設篩選條件</a>
+      </div>
+      <div class="list-content">
+        <template v-if="itemList.length > 0">
+          <template v-for="item in itemList">
+            <router-link :to="'/detail/' + item.id">
+              <div class="nwrapper">
+                <div class="ncard">
+                  <img :src="item.image[0].url" />
+                  <h3 class="ntitle">{{ item.name }}</h3>
+                  <h4 class="nsubtitle">{{ item.subtitle }}</h4>
+                  <h5 class="ncontent">{{ item.detail.content }}</h5>
+                </div>
               </div>
-            </div>
-          </router-link>
+            </router-link>
+          </template>
         </template>
-      </template>
-      <template v-else>
-        <div class="no-item">
-          <img src="../assets/no-item.png" />
+        <template v-else>
+          <div class="no-item">
+            <img src="../assets/no-item.png" />
+            <br />
+          </div>
           <br />
-
-          <!-- <input
-            class="no-item-btn"
-            type="button"
-            value="清除篩選結果"
-            v-on:click="clickResetSel()"
-          /> -->
-        </div>
-        <br />
-        <h6 class="no-item-txt">尚無相關作品</h6>
-      </template>
+          <h6 class="no-item-txt">尚無相關作品</h6>
+        </template>
+      </div>
     </div>
   </div>
 </template>
@@ -115,6 +110,7 @@ export default {
     // let categoryRes = await axios.get("http://127.0.0.1:3000/category/");
     // this.categoryList = categoryRes.data.list;
 
+    //fake server
     let _c = [
       {
         sort: 0,
@@ -145,10 +141,10 @@ export default {
       });
     });
 
-    console.log(condition);
+    console.log("=>>search", condition);
 
     let productRes = await axios.post(
-      "http://ec2-43-207-38-63.ap-northeast-1.compute.amazonaws.com:8080/api/v1/product/search",
+      "http://ec2-18-180-192-18.ap-northeast-1.compute.amazonaws.com:8080/api/v1/product/search",
       condition,
       {
         headers: {
@@ -157,7 +153,7 @@ export default {
       }
     );
 
-    console.log(productRes.data);
+    console.log("<<=search", productRes.data);
     this.itemList = productRes.data.context;
   },
   setup() {
@@ -224,7 +220,7 @@ export default {
 
         for (const sel of inputs) {
           if (sel.name == category.categoryID) {
-            console.log("=>>", sel);
+            // console.log("=>>", sel);
             arr.push(sel.value);
           }
         }
@@ -244,8 +240,11 @@ export default {
 
       if (allCount > 0) {
         //送出需求、取得回應
+
+        console.log("=>>search", condition);
+
         let productRes = await axios.post(
-          "http://ec2-43-207-38-63.ap-northeast-1.compute.amazonaws.com:8080/api/v1/product/search",
+          "http://ec2-18-180-192-18.ap-northeast-1.compute.amazonaws.com:8080/api/v1/product/search",
           condition,
           {
             headers: {
@@ -254,7 +253,7 @@ export default {
           }
         );
 
-        // console.log(productRes.data);
+        console.log("<<=search", productRes.data);
         this.itemList = productRes.data.context;
       } else {
         this.itemList = [];
@@ -267,18 +266,15 @@ export default {
 <style scoped>
 @import url("../style/app.9b6dd939.css");
 @import url("../style/newItem.css");
-/* @import url("../style/items.css"); */
 @import url("../style/sel.css");
 
 .reset {
   text-decoration: underline;
+  margin-bottom: 100px;
 }
 .no-item {
   margin-top: 150px;
   text-align: center;
-  /* width: 100px; */
-  /* height: 100px; */
-  /* background-color: aqua; */
   display: flex;
   justify-content: center;
 }
@@ -287,7 +283,6 @@ export default {
 }
 
 .no-item-btn {
-  /* border: 30px; */
   background-color: #000000;
   color: #fff;
   border-radius: 5px;
@@ -299,14 +294,15 @@ export default {
   font-size: 20px;
 }
 
+.list-parent {
+  display: flex;
+  justify-content: center;
+}
+
 #list {
-  margin-left: 270px;
-  margin-top: 170px;
+  margin-top: 50px;
   width: 885px;
-
-  /* background-color: aqua; */
   display: grid;
-
   grid-template-columns: 130px 760px;
   grid-template-rows: 50px auto;
   grid-gap: 5px;
@@ -315,93 +311,19 @@ export default {
 .list-title {
   grid-column: 1 / 2;
   grid-row: 1;
-  /* background-color: rgb(255, 242, 0); */
 }
 .list-category {
   grid-column: 1;
   grid-row: 2 / 2;
-
-  /* background-color: rgb(255, 140, 0); */
 }
 .list-content {
   grid-column: 2 / 2;
   grid-row: 2 / 2;
-
-  /* background-color: rgb(255, 0, 208); */
 }
 
 .category-title {
   font-weight: bold;
   font-size: 16px;
   margin-top: 15px;
-  /* margin-bottom: 10px; */
 }
-
-.resetSel {
-  /* padding-top: 100px; */
-}
-
-/* .sel-lab {
-  font-size: 18px;
-}
-.sel {
-  margin-top: 20px;
-  margin-right: 6px;
-
-  width: 20px;
-  height: 20px;
-} */
-
-/* .sel:checked {
-  background-color: #1061bd;
-  font-size: 18px;
-} */
 </style>
-
-<!--
-<畫面右側分類 API>request method get
-{
-  "list": [
-    {
-      "sort": 0, //左側分類由上往下先後順序，數字越小越前面，【目前暫定寫死】
-      "categoryID":0//分類項目ID，【目前暫定寫死】
-      "categoryTitle": "廠業",
-      "type": 0, //單選為0，複選為1，【目前暫定寫死】
-      "content": ["物流業", "餐飲業","建築業"]
-    },
-    {
-      "sort": 1,
-      "categoryID":1
-      "categoryTitle": "形狀",
-      "type": 1,
-      "content": ["立方體", "長方體", "圓錐體"]
-    }
-  ]
-} 
-
-（獲取所有產品訊息 POST  /product）的變更 request，我先出一個版本而後根據後端想法再另行改變設計再通知前端:
-{
-  "condition": [
-    { "categoryID": 0, "content": ["餐飲業", "建築業"] },
-    { "categoryID": 1, "content": ["長方體"] }
-  ]
-}
-
-<response>
-{
-  "list": [
-    {
-      "name": "important",
-      "subtitle": "subtitle",
-      "detail": {
-        "content": "content",
-        "cost": 23,
-        "size": "large",
-        "remark": "remark"
-      },
-      "images": "https://s.yimg.com/cv/apiv2/twfrontpage/logo/Yahoo-TW-desktop-FP@2x.png"
-    }
-  ]
-}
-
--->

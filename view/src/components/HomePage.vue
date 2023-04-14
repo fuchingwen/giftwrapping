@@ -1,9 +1,9 @@
 <template>
   <div id="home-page">
     <slider-component />
-    <div id="關於我們"><gallery-component /></div>
+    <gallery-component />
     <about-component />
-    <!-- <div id="聯絡我們"><conact-component /></div> -->
+    <conact-component />
   </div>
 </template>
 
@@ -11,18 +11,15 @@
 import SliderComponent from "./SliderComponent.vue";
 import GalleryComponent from "./GalleryComponent.vue";
 import AboutComponent from "./AboutComponent.vue";
-// import ConactComponent from "./ConactComponent.vue";
+import ConactComponent from "./ConactComponent.vue";
 
 export default {
   name: "HelloWorld",
   components: {
     SliderComponent,
     GalleryComponent,
-    AboutComponent
-    // ConactComponent
-  },
-  created() {
-    // $("html,body").animate({ scrollTop: 0 }, "fast");
+    AboutComponent,
+    ConactComponent
   },
   data() {
     return {

@@ -2,13 +2,13 @@
   <div class="footer">
     <div class="footer-content">
       <div class="footer-info">
-        <p>台北總公司</p>
-        <p>+886-2-000-222 / miiroxy921@gmail.com</p>
-        <p>新北市中和區中正路45巷25弄6號5樓</p>
-        <p>週一至週五 8:30 - 17:30</p>
-      </div>
-      <div class="footer-btn">
+        <h1>台北總公司</h1>
+        <h2>+886-2-000-222 / miiroxy921@gmail.com</h2>
+        <h3>新北市中和區中正路45巷25弄6號5樓</h3>
+        <h4>週一至週五 8:30 - 17:30</h4>
+        <div class="footer-btn">
         <button>聯繫我們</button>
+      </div>
       </div>
     </div>
   </div>
@@ -35,21 +35,80 @@ export default {
 
 .footer-content {
   display: flex;
+  width: 100%;
   justify-content: center;
-  align-items: center;
+  align-items: left;
   flex-direction: column;
 }
 
 .footer-info {
+  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: left;
-  margin-left: 200px;
+  margin-left: 18%;
 }
 
-.footer-info p {
-  margin: 0;
-  line-height: 200%;
+.footer-info h1 {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.2vw;
+  line-height: 30px;
+  /* identical to box height, or 150% */
+
+  letter-spacing: 3px;
+
+  /* style-black */
+
+  color: #171614;
+  margin-top: 10%;
+}
+
+.footer-info h2 {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.4vw;
+  line-height: 30px;
+  /* identical to box height, or 120% */
+
+  letter-spacing: 3px;
+  text-decoration-line: underline;
+
+  /* style-black */
+
+  color: #171614;
+}
+
+.footer-info h3 {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.4vw;
+  line-height: 35px;
+  /* or 140% */
+
+  letter-spacing: 3px;
+
+  /* style-black */
+
+  color: #171614;
+}
+
+.footer-info h4 {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.2vw;
+  line-height: 35px;
+  /* identical to box height, or 175% */
+
+  letter-spacing: 3px;
+
+  /* oher/gray02 */
+
+  color: #9A9999;
 }
 
 .footer-btn {

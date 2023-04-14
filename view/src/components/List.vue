@@ -1,7 +1,10 @@
 <template>
   <div class="list-parent">
     <div id="list">
-      <div class="list-title">首頁 / 好禮作品集</div>
+      <div class="list-title">
+        <router-link :to="'/'">首頁</router-link> /
+        <router-link :to="'/list'">好禮作品集</router-link>
+      </div>
       <div class="list-category">
         <template v-for="category in categoryList">
           <h3 class="category-title">{{ category.categoryTitle }}</h3>

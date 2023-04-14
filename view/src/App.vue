@@ -35,6 +35,15 @@
     <div class="goo-main">
       <router-view />
     </div>
+    <button id="line-block1">
+      <img src="./assets/line-icon.png" />
+    </button>
+    <div id="line-block2">
+      <div id="line-qrcode">
+        <img src="./assets/line-pic.svg" />
+        <div id="line-bg"></div>
+      </div>
+    </div>
     <conact-component />
   </div>
 </template>
@@ -53,6 +62,7 @@ export default {
 <style scoped>
 @import url("./style/header.css");
 @import url("./style/back-top.css");
+@import url("./style/line-block.css");
 
 .goo-main {
   margin-top: 88px;

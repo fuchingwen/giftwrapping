@@ -7,8 +7,8 @@
         <h3>新北市中和區中正路45巷25弄6號5樓</h3>
         <h4>週一至週五 8:30 - 17:30</h4>
         <div class="footer-btn">
-        <button>聯繫我們</button>
-      </div>
+          <button>聯繫我們</button>
+        </div>
       </div>
     </div>
   </div>
@@ -19,15 +19,15 @@ export default {
   data() {
     return {
       // 空的data
-    }
+    };
   }
-}
+};
 </script>
 <style>
 .footer {
   height: 450px;
   width: 100%;
-  background-color: #EAE6E5;
+  background-color: #eae6e5;
   display: flex;
   justify-content: left;
   align-items: center;
@@ -50,11 +50,11 @@ export default {
 }
 
 .footer-info h1 {
-  font-family: 'Noto Sans';
+  font-family: "Noto Sans";
   font-style: normal;
   font-weight: 500;
   font-size: 1.2vw;
-  line-height: 30px;
+  /* line-height: 30px; */
   /* identical to box height, or 150% */
 
   letter-spacing: 3px;
@@ -66,11 +66,11 @@ export default {
 }
 
 .footer-info h2 {
-  font-family: 'Noto Sans';
+  font-family: "Noto Sans";
   font-style: normal;
   font-weight: 600;
   font-size: 1.4vw;
-  line-height: 30px;
+  /* line-height: 30px; */
   /* identical to box height, or 120% */
 
   letter-spacing: 3px;
@@ -81,34 +81,19 @@ export default {
   color: #171614;
 }
 
-.footer-info h3 {
-  font-family: 'Noto Sans';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 1.4vw;
-  line-height: 35px;
-  /* or 140% */
-
-  letter-spacing: 3px;
-
-  /* style-black */
-
-  color: #171614;
-}
-
 .footer-info h4 {
-  font-family: 'Noto Sans';
+  font-family: "Noto Sans";
   font-style: normal;
-  font-weight: 500;
-  font-size: 1.2vw;
-  line-height: 35px;
+  /* font-weight: 500; */
+  /* font-size: 1.2vw; */
+  /* line-height: 35px; */
   /* identical to box height, or 175% */
 
-  letter-spacing: 3px;
+  /* letter-spacing: 3px; */
 
   /* oher/gray02 */
 
-  color: #9A9999;
+  color: #9a9999;
 }
 
 .footer-btn {
@@ -117,7 +102,7 @@ export default {
 
 .footer-btn button {
   padding: 10px 30px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   color: #000000;
   border: none;
   border-radius: 5px;
@@ -127,7 +112,7 @@ export default {
 
 .footer-btn button:hover {
   background-color: #000000;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .about-links {
@@ -151,5 +136,4 @@ export default {
 .about-link:hover {
   color: #ff8a3d;
 }
-
 </style>

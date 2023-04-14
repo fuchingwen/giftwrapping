@@ -3,7 +3,7 @@
     <slider-component />
     <gallery-component />
     <about-component />
-    <conact-component />
+    <!-- <conact-component /> -->
   </div>
 </template>
 
@@ -11,15 +11,15 @@
 import SliderComponent from "./SliderComponent.vue";
 import GalleryComponent from "./GalleryComponent.vue";
 import AboutComponent from "./AboutComponent.vue";
-import ConactComponent from "./ConactComponent.vue";
+// import ConactComponent from "./ConactComponent.vue";
 
 export default {
   name: "HelloWorld",
   components: {
     SliderComponent,
     GalleryComponent,
-    AboutComponent,
-    ConactComponent
+    AboutComponent
+    // ConactComponent
   },
   data() {
     return {
@@ -30,7 +30,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 h1,
 h2 {
   font-weight: normal;

@@ -125,7 +125,7 @@ export default {
       {
         sort: 1,
         categoryID: 1,
-        categoryTitle: "形狀",
+        categoryTitle: "用途",
         type: 1,
         content: ["三節禮盒", "特殊節慶", "商品售賣", "紀念贈禮"]
       }
@@ -199,15 +199,24 @@ export default {
       this.showItems();
     },
     clickInput(event) {
-      if (event.target.checked && event.target.value == "全部") {
-        $("input[name=" + event.target.name + "]").each(function() {
-          $(this).prop("checked", true);
-        });
+      if (event.target.value == "全部") {
+        if (event.target.checked) {
+          //設為打勾時
+          $("input[name=" + event.target.name + "]").each(function() {
+            $(this).prop("checked", true);
+          });
+        } else {
+          //設為取消打勾時
+          $("input[name=" + event.target.name + "]").each(function() {
+            $(this).prop("checked", false);
+          });
+        }
       } else {
         $("input[name=" + event.target.name + "][value=全部]").each(function() {
           $(this).prop("checked", false);
         });
       }
+
       this.showItems();
     },
     async showItems() {

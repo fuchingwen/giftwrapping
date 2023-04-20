@@ -1,29 +1,30 @@
-<template
-  ><div>
-    <!-- <button id="myButton">點擊我顯示 div</button> -->
-    <!-- <img id="myButton" src="../assets/line-icon.png" /> -->
-
-    <a id="myButton" href="#">
-      <img src="../assets/line-icon.png" alt="image" />
-    </a>
-
-    <div id="myDiv">
-      這是要顯示的內容
-      <div id="line-qrcode">fff</div>
-    </div>
+<template>
+  <div>
+    <!-- <script src="https://unpkg.com/element-ui/lib/index.js"></script> -->
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <Slider v-model="value" range />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
   </div>
 </template>
-
-<script></script>
-
+<script>
+export default {
+  data() {
+    return {
+      value: [20, 50]
+    };
+  }
+};
+</script>
 <style scoped>
-#myDiv {
-  display: none;
-  width: 200px;
-  height: 200px;
-  background-color: aqua;
-}
-#myButton:focus + #myDiv {
-  display: block;
-}
+@import url("https://unpkg.com/element-ui/lib/theme-chalk/index.css");
 </style>

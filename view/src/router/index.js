@@ -24,7 +24,7 @@ export default new Router({
       component: Detail
     },
     {
-      path: "/test",
+      path: "/detail2",
       name: "TestPage",
       component: TestPage
     }

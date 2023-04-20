@@ -86,6 +86,73 @@
           <h6 class="no-item-txt">尚無相關作品</h6>
         </template>
       </div>
+      <div class="list-paging">
+        <ul>
+          <li class="list-paging-li-type3">
+            <button
+              class="list-paging-inner"
+              value="0"
+              v-on:click="clickPaging($event)"
+            >
+              &lt;
+            </button>
+          </li>
+          <li class="list-paging-li-type2">
+            <button
+              class="list-paging-inner"
+              value="1"
+              v-on:click="clickPaging($event)"
+            >
+              1
+            </button>
+          </li>
+          <li class="list-paging-li-type1">
+            <button
+              class="list-paging-inner"
+              value="2"
+              v-on:click="clickPaging($event)"
+            >
+              2
+            </button>
+          </li>
+          <li class="list-paging-li-type1">
+            <button
+              class="list-paging-inner"
+              value="3"
+              v-on:click="clickPaging($event)"
+            >
+              3
+            </button>
+          </li>
+          <li class="list-paging-li-type1">
+            <button
+              class="list-paging-inner"
+              value="4"
+              v-on:click="clickPaging($event)"
+            >
+              4
+            </button>
+          </li>
+          <li class="list-paging-li-type1">
+            <button
+              class="list-paging-inner"
+              value="5"
+              v-on:click="clickPaging($event)"
+            >
+              5
+            </button>
+          </li>
+          <li class="list-paging-li-type1">
+            <button
+              class="list-paging-inner"
+              value="6"
+              v-on:click="clickPaging($event)"
+            >
+              &gt;
+            </button>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -105,7 +172,9 @@ export default {
           // { categoryID: 0, content: ["餐飲業", "建築業"] }, //content若為空陣列則代表全拿
           // { categoryID: 1, content: ["長方體"] }
         ]
-      }
+      },
+      curpaging: 1, //當前頁面
+      pageSize: 10 //每一頁都是10個商品
     };
   },
   async created() {
@@ -136,7 +205,11 @@ export default {
     // console.log("=>>", this.categoryList);
 
     //建立「全部」獲取的資料
-    let condition = { condition: [] };
+    let condition = {
+      condition: [],
+      page: this.curpaging,
+      pageSize: this.pageSize
+    };
     this.categoryList.forEach(category => {
       condition.condition.push({
         categoryID: category.categoryID,
@@ -147,7 +220,7 @@ export default {
     console.log("=>>search", condition);
 
     let productRes = await axios.post(
-      "http://ec2-18-180-192-18.ap-northeast-1.compute.amazonaws.com:8080/api/v1/product/search",
+      "https://api.waproject-gift.store/api/v1/product/search",
       condition,
       {
         headers: {
@@ -157,7 +230,7 @@ export default {
     );
 
     console.log("<<=search", productRes.data);
-    this.itemList = productRes.data.context;
+    this.itemList = productRes.data.list;
   },
   setup() {
     $("html,body").animate({ scrollTop: 0 }, "slow");
@@ -256,7 +329,7 @@ export default {
         console.log("=>>search", condition);
 
         let productRes = await axios.post(
-          "http://ec2-18-180-192-18.ap-northeast-1.compute.amazonaws.com:8080/api/v1/product/search",
+          "https://api.waproject-gift.store/api/v1/product/search",
           condition,
           {
             headers: {
@@ -266,10 +339,14 @@ export default {
         );
 
         console.log("<<=search", productRes.data);
-        this.itemList = productRes.data.context;
+        this.itemList = productRes.data.list;
       } else {
         this.itemList = [];
       }
+    },
+    clickPaging(event) {
+      let idx = event.target.value; //點擊的編號
+      console.log(idx);
     }
   }
 };
@@ -279,6 +356,7 @@ export default {
 @import url("../style/app.9b6dd939.css");
 @import url("../style/newItem.css");
 @import url("../style/sel.css");
+@import url("../style/list-paging.css");
 
 .reset {
   text-decoration: underline;

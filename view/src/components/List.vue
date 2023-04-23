@@ -147,11 +147,9 @@ export default {
         ]
       },
       page: {
+        isStart: false,
         curPagingArr: [1, 2, 3, 4, 5],
         intactPagingArr: [],
-        curIdx: 0,
-        preIdx: 0,
-        preVal: 0,
         curIdx: 0,
         curpaging: 1, //當前頁面，初始化為1
         pageSize: 10, //每一頁都是10個商品
@@ -220,8 +218,8 @@ export default {
     //建立「全部」獲取的資料
     let condition = {
       condition: [],
-      page: this.curpaging,
-      pageSize: this.pageSize
+      page: parseInt(this.page.curpaging),
+      pageSize: parseInt(this.page.pageSize)
     };
     this.categoryList.forEach(category => {
       condition.condition.push({
@@ -251,6 +249,9 @@ export default {
       this.page.intactPagingArr.push(index);
     }
 
+    // this.page.leftClass["list-paging-li-type3"] = true;
+    // this.page.leftClass["list-paging-li-type1"] = false;
+    this.page.isStart = true;
     this.showPaging();
   },
   setup() {
@@ -314,7 +315,11 @@ export default {
       this.showItems();
     },
     async showItems() {
-      let condition = { condition: [] };
+      let condition = {
+        condition: [],
+        page: parseInt(this.page.curpaging),
+        pageSize: parseInt(this.page.pageSize)
+      };
 
       let inputs = $(".sel:checked[value!=全部]");
 
@@ -366,35 +371,11 @@ export default {
       }
     },
     clickPaging(event) {
-      let value = 0,
-        idx = 0;
-
-      // switch (event.target.value) {
-      //   case "a":
-      //     idx = 0;
-      //     value = 1;
-      //     break;
-      //   case "b":
-      //     idx = 4;
-      //     value = this.page.intactPagingArr[
-      //       this.page.intactPagingArr.length - 1
-      //     ];
-      //     break;
-
-      //   default:
-      //     value = event.target.value;
-      //     idx = event.target.getAttribute("idx");
-      //     break;
-      // }
-
-      value = event.target.value;
-      idx = event.target.getAttribute("idx");
-
-      this.page.curpaging = value;
-      this.page.curIdx = idx;
-      this.showPaging();
+      this.page.curpaging = event.target.value;
+      this.page.curIdx = event.target.getAttribute("idx");
+      this.showPaging(true);
     },
-    showPaging() {
+    async showPaging(needUpdateData = false) {
       console.log(
         "=>>>",
         "curIdx:",
@@ -403,11 +384,6 @@ export default {
         parseInt(this.page.curpaging)
       );
 
-      //記錄當前狀態
-      this.page.preIdx = this.page.curIdx;
-      this.page.preVal = this.page.curpaging;
-
-      ///*
       //切換數字
       switch (this.page.curIdx) {
         case "-1": //點擊<
@@ -493,7 +469,7 @@ export default {
             }
 
             // console.log("點擊最左邊的數字");
-            if (parseInt(this.page.curpaging) - 1 > 0) {
+            if (parseInt(this.page.curpaging) - 1 > 0 && this.page.isStart) {
               let temp = this.page.curPagingArr;
               this.page.curPagingArr = [];
               this.page.curPagingArr = temp;
@@ -512,6 +488,7 @@ export default {
               this.page.rightClass["list-paging-li-type3"] = false;
               this.page.rightClass["list-paging-li-type1"] = true;
             } else {
+              this.page.isStart = true;
               console.log("到底了，< 換個顏色");
               this.page.idxClass[this.page.curIdx][
                 "list-paging-li-type1"
@@ -599,7 +576,10 @@ export default {
           this.page.rightClass["list-paging-li-type1"] = true;
           break;
       }
-      //*/
+
+      if (needUpdateData) {
+        this.showItems();
+      }
     }
   }
 };

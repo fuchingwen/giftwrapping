@@ -88,67 +88,40 @@
       </div>
       <div class="list-paging">
         <ul>
-          <li class="list-paging-li-type3">
+          <li :class="page.leftClass">
             <button
               class="list-paging-inner"
-              value="0"
+              value="a"
+              idx="-1"
               v-on:click="clickPaging($event)"
             >
-              &lt;
+              &lt;&lt;
             </button>
           </li>
-          <li class="list-paging-li-type2">
+
+          <li
+            v-for="(item, idx) in page.curPagingArr"
+            :class="page.idxClass[idx]"
+          >
             <button
               class="list-paging-inner"
-              value="1"
+              :value="item"
+              :idx="idx"
               v-on:click="clickPaging($event)"
             >
-              1
+              {{ item }}
             </button>
           </li>
-          <li class="list-paging-li-type1">
+
+          <li :class="page.rightClass">
             <button
+              id="pandingID"
               class="list-paging-inner"
-              value="2"
+              value="b"
+              idx="-2"
               v-on:click="clickPaging($event)"
             >
-              2
-            </button>
-          </li>
-          <li class="list-paging-li-type1">
-            <button
-              class="list-paging-inner"
-              value="3"
-              v-on:click="clickPaging($event)"
-            >
-              3
-            </button>
-          </li>
-          <li class="list-paging-li-type1">
-            <button
-              class="list-paging-inner"
-              value="4"
-              v-on:click="clickPaging($event)"
-            >
-              4
-            </button>
-          </li>
-          <li class="list-paging-li-type1">
-            <button
-              class="list-paging-inner"
-              value="5"
-              v-on:click="clickPaging($event)"
-            >
-              5
-            </button>
-          </li>
-          <li class="list-paging-li-type1">
-            <button
-              class="list-paging-inner"
-              value="6"
-              v-on:click="clickPaging($event)"
-            >
-              &gt;
+              &gt;&gt;
             </button>
           </li>
         </ul>
@@ -173,8 +146,48 @@ export default {
           // { categoryID: 1, content: ["長方體"] }
         ]
       },
-      curpaging: 1, //當前頁面
-      pageSize: 10 //每一頁都是10個商品
+      page: {
+        curPagingArr: [1, 2, 3, 4, 5],
+        intactPagingArr: [],
+        curIdx: 0,
+        preIdx: 0,
+        preVal: 0,
+        curIdx: 0,
+        curpaging: 1, //當前頁面，初始化為1
+        pageSize: 10, //每一頁都是10個商品
+        totalPage: 8,
+        leftClass: {
+          "list-paging-li-type3": true, //不能點擊
+          "list-paging-li-type1": false //一般狀態
+        },
+        idxClass: [
+          {
+            "list-paging-li-type2": false, //不能點擊
+            "list-paging-li-type1": true //一般狀態
+          },
+          {
+            "list-paging-li-type2": false, //不能點擊
+            "list-paging-li-type1": true, //一般狀態
+            "list-paging-li-type3": false //不能點擊
+          },
+          {
+            "list-paging-li-type2": false, //不能點擊
+            "list-paging-li-type1": true //一般狀態
+          },
+          {
+            "list-paging-li-type2": false, //不能點擊
+            "list-paging-li-type1": true //一般狀態
+          },
+          {
+            "list-paging-li-type2": false, //不能點擊
+            "list-paging-li-type1": true //一般狀態
+          }
+        ],
+        rightClass: {
+          "list-paging-li-type3": false, //不能點擊
+          "list-paging-li-type1": true //一般狀態
+        }
+      }
     };
   },
   async created() {
@@ -231,6 +244,14 @@ export default {
 
     console.log("<<=search", productRes.data);
     this.itemList = productRes.data.list;
+
+    //分頁
+    this.page.totalPage = productRes.data.context.total_rows;
+    for (let index = 1; index <= this.page.totalPage; index++) {
+      this.page.intactPagingArr.push(index);
+    }
+
+    this.showPaging();
   },
   setup() {
     $("html,body").animate({ scrollTop: 0 }, "slow");
@@ -345,8 +366,240 @@ export default {
       }
     },
     clickPaging(event) {
-      let idx = event.target.value; //點擊的編號
-      console.log(idx);
+      let value = 0,
+        idx = 0;
+
+      // switch (event.target.value) {
+      //   case "a":
+      //     idx = 0;
+      //     value = 1;
+      //     break;
+      //   case "b":
+      //     idx = 4;
+      //     value = this.page.intactPagingArr[
+      //       this.page.intactPagingArr.length - 1
+      //     ];
+      //     break;
+
+      //   default:
+      //     value = event.target.value;
+      //     idx = event.target.getAttribute("idx");
+      //     break;
+      // }
+
+      value = event.target.value;
+      idx = event.target.getAttribute("idx");
+
+      this.page.curpaging = value;
+      this.page.curIdx = idx;
+      this.showPaging();
+    },
+    showPaging() {
+      console.log(
+        "=>>>",
+        "curIdx:",
+        parseInt(this.page.curIdx),
+        "curpaging:",
+        parseInt(this.page.curpaging)
+      );
+
+      //記錄當前狀態
+      this.page.preIdx = this.page.curIdx;
+      this.page.preVal = this.page.curpaging;
+
+      ///*
+      //切換數字
+      switch (this.page.curIdx) {
+        case "-1": //點擊<
+          {
+            this.page.curIdx = 0;
+            this.page.curpaging = 1;
+
+            //變更當前頁面顏色
+            for (let index = 0; index < 5; index++) {
+              this.page.idxClass[index]["list-paging-li-type1"] = true;
+              this.page.idxClass[index]["list-paging-li-type2"] = false;
+            }
+
+            this.page.curPagingArr = [1, 2, 3, 4, 5];
+
+            // console.log("點擊最左邊的數字");
+            if (parseInt(this.page.curpaging) - 1 > 0) {
+              // for (let index = 0; index < 5; index++) {
+              //   this.page.curPagingArr[index]--;
+              // }
+
+              this.page.idxClass[parseInt(this.page.curIdx) + 1][
+                "list-paging-li-type1"
+              ] = false;
+              this.page.idxClass[parseInt(this.page.curIdx) + 1][
+                "list-paging-li-type2"
+              ] = true;
+            } else {
+              console.log("到底了，< 換個顏色");
+              this.page.idxClass[this.page.curIdx][
+                "list-paging-li-type1"
+              ] = false;
+              this.page.idxClass[this.page.curIdx][
+                "list-paging-li-type2"
+              ] = true;
+              this.page.leftClass["list-paging-li-type3"] = true;
+              this.page.leftClass["list-paging-li-type1"] = false;
+
+              this.page.rightClass["list-paging-li-type3"] = false;
+              this.page.rightClass["list-paging-li-type1"] = true;
+            }
+          }
+          break;
+        case "-2": //點擊>
+          {
+            console.log(
+              this.page.intactPagingArr[this.page.intactPagingArr.length - 1]
+            );
+            this.page.curIdx = 4;
+            this.page.curpaging = this.page.intactPagingArr[
+              this.page.intactPagingArr.length - 1
+            ];
+
+            this.page.curPagingArr = [];
+            for (let x = 0, y = this.page.curpaging - 4; x < 5; x++, y++) {
+              this.page.curPagingArr.push(y);
+            }
+
+            //變更當前頁面顏色
+            for (let index = 0; index < 5; index++) {
+              this.page.idxClass[index]["list-paging-li-type1"] = true;
+              this.page.idxClass[index]["list-paging-li-type2"] = false;
+            }
+
+            this.page.idxClass[this.page.curIdx][
+              "list-paging-li-type1"
+            ] = false;
+            this.page.idxClass[this.page.curIdx]["list-paging-li-type2"] = true;
+
+            this.page.leftClass["list-paging-li-type3"] = false;
+            this.page.leftClass["list-paging-li-type1"] = true;
+
+            this.page.rightClass["list-paging-li-type3"] = true;
+            this.page.rightClass["list-paging-li-type1"] = false;
+          }
+          break;
+        case "0": //點擊最左邊的數字
+          {
+            //變更當前頁面顏色
+            for (let index = 0; index < 5; index++) {
+              this.page.idxClass[index]["list-paging-li-type1"] = true;
+              this.page.idxClass[index]["list-paging-li-type2"] = false;
+            }
+
+            // console.log("點擊最左邊的數字");
+            if (parseInt(this.page.curpaging) - 1 > 0) {
+              let temp = this.page.curPagingArr;
+              this.page.curPagingArr = [];
+              this.page.curPagingArr = temp;
+
+              for (let index = 0; index < 5; index++) {
+                this.page.curPagingArr[index]--;
+              }
+
+              this.page.idxClass[parseInt(this.page.curIdx) + 1][
+                "list-paging-li-type1"
+              ] = false;
+              this.page.idxClass[parseInt(this.page.curIdx) + 1][
+                "list-paging-li-type2"
+              ] = true;
+
+              this.page.rightClass["list-paging-li-type3"] = false;
+              this.page.rightClass["list-paging-li-type1"] = true;
+            } else {
+              console.log("到底了，< 換個顏色");
+              this.page.idxClass[this.page.curIdx][
+                "list-paging-li-type1"
+              ] = false;
+              this.page.idxClass[this.page.curIdx][
+                "list-paging-li-type2"
+              ] = true;
+              this.page.leftClass["list-paging-li-type3"] = true;
+              this.page.leftClass["list-paging-li-type1"] = false;
+
+              this.page.rightClass["list-paging-li-type3"] = false;
+              this.page.rightClass["list-paging-li-type1"] = true;
+            }
+          }
+          break;
+        case "4": //點擊最右邊的數字
+          {
+            //變更當前頁面顏色
+            for (let index = 0; index < 5; index++) {
+              this.page.idxClass[index]["list-paging-li-type1"] = true;
+              this.page.idxClass[index]["list-paging-li-type2"] = false;
+            }
+
+            // console.log(
+            //   "=============",
+            //   parseInt(this.page.curpaging) + 1,
+            //   this.page.intactPagingArr.length
+            // );
+            if (
+              parseInt(this.page.curpaging) + 1 <=
+              this.page.intactPagingArr.length
+            ) {
+              //還不到底
+              let temp = this.page.curPagingArr;
+              this.page.curPagingArr = [];
+              this.page.curPagingArr = temp;
+              for (
+                let index = 0;
+                index < this.page.curPagingArr.length;
+                index++
+              ) {
+                this.page.curPagingArr[index]++;
+              }
+
+              this.page.idxClass[this.page.curIdx - 1][
+                "list-paging-li-type1"
+              ] = false;
+              this.page.idxClass[this.page.curIdx - 1][
+                "list-paging-li-type2"
+              ] = true;
+
+              this.page.leftClass["list-paging-li-type3"] = false;
+              this.page.leftClass["list-paging-li-type1"] = true;
+            } else {
+              console.log("到底了，> 換個顏色");
+
+              this.page.idxClass[this.page.curIdx][
+                "list-paging-li-type1"
+              ] = false;
+              this.page.idxClass[this.page.curIdx][
+                "list-paging-li-type2"
+              ] = true;
+
+              this.page.leftClass["list-paging-li-type3"] = false;
+              this.page.leftClass["list-paging-li-type1"] = true;
+
+              this.page.rightClass["list-paging-li-type3"] = true;
+              this.page.rightClass["list-paging-li-type1"] = false;
+            }
+          }
+          break;
+        default:
+          //變更當前頁面顏色
+          for (let index = 0; index < 5; index++) {
+            this.page.idxClass[index]["list-paging-li-type1"] = true;
+            this.page.idxClass[index]["list-paging-li-type2"] = false;
+          }
+          this.page.idxClass[this.page.curIdx]["list-paging-li-type1"] = false;
+          this.page.idxClass[this.page.curIdx]["list-paging-li-type2"] = true;
+
+          this.page.leftClass["list-paging-li-type3"] = false;
+          this.page.leftClass["list-paging-li-type1"] = true;
+
+          this.page.rightClass["list-paging-li-type3"] = false;
+          this.page.rightClass["list-paging-li-type1"] = true;
+          break;
+      }
+      //*/
     }
   }
 };

@@ -147,13 +147,13 @@ export default {
         ]
       },
       page: {
-        isStart: false,
-        curPagingArr: [1, 2, 3, 4, 5],
+        isInit: false,
+        curPagingArr: [],
         intactPagingArr: [],
         curIdx: 0,
         curpaging: 1, //當前頁面，初始化為1
         pageSize: 10, //每一頁都是10個商品
-        totalPage: 8,
+        totalPage: 3,
         leftClass: {
           "list-paging-li-type3": true, //不能點擊
           "list-paging-li-type1": false //一般狀態
@@ -245,14 +245,26 @@ export default {
 
     //分頁
     this.page.totalPage = productRes.data.context.total_rows;
+    if (this.page.totalPage > 5) {
+      this.page.curPagingArr = [1, 2, 3, 4, 5];
+    } else {
+      this.page.curPagingArr = [];
+      for (let index = 1; index < this.page.totalPage + 1; index++) {
+        this.page.curPagingArr.push(index);
+      }
+    }
+
     for (let index = 1; index <= this.page.totalPage; index++) {
       this.page.intactPagingArr.push(index);
     }
 
     // this.page.leftClass["list-paging-li-type3"] = true;
     // this.page.leftClass["list-paging-li-type1"] = false;
-    this.page.isStart = true;
+    this.page.isInit = true;
     this.showPaging();
+
+    this.page.leftClass["list-paging-li-type3"] = true;
+    this.page.leftClass["list-paging-li-type1"] = false;
   },
   setup() {
     $("html,body").animate({ scrollTop: 0 }, "slow");
@@ -365,6 +377,7 @@ export default {
         );
 
         console.log("<<=search", productRes.data);
+        this.page.totalPage = productRes.data.context.total_rows;
         this.itemList = productRes.data.list;
       } else {
         this.itemList = [];
@@ -386,195 +399,189 @@ export default {
 
       //切換數字
       switch (this.page.curIdx) {
-        case "-1": //點擊<
-          {
-            this.page.curIdx = 0;
-            this.page.curpaging = 1;
-
-            //變更當前頁面顏色
-            for (let index = 0; index < 5; index++) {
-              this.page.idxClass[index]["list-paging-li-type1"] = true;
-              this.page.idxClass[index]["list-paging-li-type2"] = false;
-            }
-
-            this.page.curPagingArr = [1, 2, 3, 4, 5];
-
-            // console.log("點擊最左邊的數字");
-            if (parseInt(this.page.curpaging) - 1 > 0) {
-              // for (let index = 0; index < 5; index++) {
-              //   this.page.curPagingArr[index]--;
-              // }
-
-              this.page.idxClass[parseInt(this.page.curIdx) + 1][
-                "list-paging-li-type1"
-              ] = false;
-              this.page.idxClass[parseInt(this.page.curIdx) + 1][
-                "list-paging-li-type2"
-              ] = true;
-            } else {
-              console.log("到底了，< 換個顏色");
-              this.page.idxClass[this.page.curIdx][
-                "list-paging-li-type1"
-              ] = false;
-              this.page.idxClass[this.page.curIdx][
-                "list-paging-li-type2"
-              ] = true;
-              this.page.leftClass["list-paging-li-type3"] = true;
-              this.page.leftClass["list-paging-li-type1"] = false;
-
-              this.page.rightClass["list-paging-li-type3"] = false;
-              this.page.rightClass["list-paging-li-type1"] = true;
-            }
-          }
+        case "-1":
           break;
-        case "-2": //點擊>
-          {
-            console.log(
-              this.page.intactPagingArr[this.page.intactPagingArr.length - 1]
-            );
-            this.page.curIdx = 4;
-            this.page.curpaging = this.page.intactPagingArr[
-              this.page.intactPagingArr.length - 1
-            ];
-
-            this.page.curPagingArr = [];
-            for (let x = 0, y = this.page.curpaging - 4; x < 5; x++, y++) {
-              this.page.curPagingArr.push(y);
-            }
-
-            //變更當前頁面顏色
-            for (let index = 0; index < 5; index++) {
-              this.page.idxClass[index]["list-paging-li-type1"] = true;
-              this.page.idxClass[index]["list-paging-li-type2"] = false;
-            }
-
-            this.page.idxClass[this.page.curIdx][
-              "list-paging-li-type1"
-            ] = false;
-            this.page.idxClass[this.page.curIdx]["list-paging-li-type2"] = true;
-
-            this.page.leftClass["list-paging-li-type3"] = false;
-            this.page.leftClass["list-paging-li-type1"] = true;
-
-            this.page.rightClass["list-paging-li-type3"] = true;
-            this.page.rightClass["list-paging-li-type1"] = false;
-          }
+        case "-2":
           break;
-        case "0": //點擊最左邊的數字
-          {
-            //變更當前頁面顏色
-            for (let index = 0; index < 5; index++) {
-              this.page.idxClass[index]["list-paging-li-type1"] = true;
-              this.page.idxClass[index]["list-paging-li-type2"] = false;
-            }
-
-            // console.log("點擊最左邊的數字");
-            if (parseInt(this.page.curpaging) - 1 > 0 && this.page.isStart) {
-              let temp = this.page.curPagingArr;
-              this.page.curPagingArr = [];
-              this.page.curPagingArr = temp;
-
-              for (let index = 0; index < 5; index++) {
-                this.page.curPagingArr[index]--;
-              }
-
-              this.page.idxClass[parseInt(this.page.curIdx) + 1][
-                "list-paging-li-type1"
-              ] = false;
-              this.page.idxClass[parseInt(this.page.curIdx) + 1][
-                "list-paging-li-type2"
-              ] = true;
-
-              this.page.rightClass["list-paging-li-type3"] = false;
-              this.page.rightClass["list-paging-li-type1"] = true;
-            } else {
-              this.page.isStart = true;
-              console.log("到底了，< 換個顏色");
-              this.page.idxClass[this.page.curIdx][
-                "list-paging-li-type1"
-              ] = false;
-              this.page.idxClass[this.page.curIdx][
-                "list-paging-li-type2"
-              ] = true;
-              this.page.leftClass["list-paging-li-type3"] = true;
-              this.page.leftClass["list-paging-li-type1"] = false;
-
-              this.page.rightClass["list-paging-li-type3"] = false;
-              this.page.rightClass["list-paging-li-type1"] = true;
-            }
-          }
+        case "0":
           break;
-        case "4": //點擊最右邊的數字
-          {
-            //變更當前頁面顏色
-            for (let index = 0; index < 5; index++) {
-              this.page.idxClass[index]["list-paging-li-type1"] = true;
-              this.page.idxClass[index]["list-paging-li-type2"] = false;
-            }
-
-            // console.log(
-            //   "=============",
-            //   parseInt(this.page.curpaging) + 1,
-            //   this.page.intactPagingArr.length
-            // );
-            if (
-              parseInt(this.page.curpaging) + 1 <=
-              this.page.intactPagingArr.length
-            ) {
-              //還不到底
-              let temp = this.page.curPagingArr;
-              this.page.curPagingArr = [];
-              this.page.curPagingArr = temp;
-              for (
-                let index = 0;
-                index < this.page.curPagingArr.length;
-                index++
-              ) {
-                this.page.curPagingArr[index]++;
-              }
-
-              this.page.idxClass[this.page.curIdx - 1][
-                "list-paging-li-type1"
-              ] = false;
-              this.page.idxClass[this.page.curIdx - 1][
-                "list-paging-li-type2"
-              ] = true;
-
-              this.page.leftClass["list-paging-li-type3"] = false;
-              this.page.leftClass["list-paging-li-type1"] = true;
-            } else {
-              console.log("到底了，> 換個顏色");
-
-              this.page.idxClass[this.page.curIdx][
-                "list-paging-li-type1"
-              ] = false;
-              this.page.idxClass[this.page.curIdx][
-                "list-paging-li-type2"
-              ] = true;
-
-              this.page.leftClass["list-paging-li-type3"] = false;
-              this.page.leftClass["list-paging-li-type1"] = true;
-
-              this.page.rightClass["list-paging-li-type3"] = true;
-              this.page.rightClass["list-paging-li-type1"] = false;
-            }
-          }
+        case "4":
           break;
         default:
-          //變更當前頁面顏色
-          for (let index = 0; index < 5; index++) {
-            this.page.idxClass[index]["list-paging-li-type1"] = true;
-            this.page.idxClass[index]["list-paging-li-type2"] = false;
+          break;
+      }
+
+      if (this.page.curIdx == "-1") {
+        //點擊<<
+
+        this.page.curIdx = 0;
+        this.page.curpaging = 1;
+
+        //變更當前頁面顏色
+        for (let index = 0; index < 5; index++) {
+          this.page.idxClass[index]["list-paging-li-type1"] = true;
+          this.page.idxClass[index]["list-paging-li-type2"] = false;
+        }
+
+        if (this.page.totalPage > 5) {
+          this.page.curPagingArr = [1, 2, 3, 4, 5];
+        } else {
+          this.page.curPagingArr = [];
+          for (let index = 1; index < this.page.totalPage; index++) {
+            this.page.curPagingArr.push(index);
           }
+        }
+
+        if (parseInt(this.page.curpaging) - 1 > 0) {
+          this.page.idxClass[parseInt(this.page.curIdx) + 1][
+            "list-paging-li-type1"
+          ] = false;
+          this.page.idxClass[parseInt(this.page.curIdx) + 1][
+            "list-paging-li-type2"
+          ] = true;
+        } else {
+          console.log("到底了，< 換個顏色");
+          this.page.idxClass[this.page.curIdx]["list-paging-li-type1"] = false;
+          this.page.idxClass[this.page.curIdx]["list-paging-li-type2"] = true;
+          this.page.leftClass["list-paging-li-type3"] = true;
+          this.page.leftClass["list-paging-li-type1"] = false;
+
+          this.page.rightClass["list-paging-li-type3"] = false;
+          this.page.rightClass["list-paging-li-type1"] = true;
+        }
+      } else if (this.page.curIdx == "-2") {
+        //點擊>>
+        console.log(
+          this.page.intactPagingArr[this.page.intactPagingArr.length - 1]
+        );
+        this.page.curIdx = 4;
+        this.page.curpaging = this.page.intactPagingArr[
+          this.page.intactPagingArr.length - 1
+        ];
+
+        if (this.page.totalPage > 5) {
+          this.page.curPagingArr = [];
+          for (let x = 0, y = this.page.curpaging - 4; x < 5; x++, y++) {
+            this.page.curPagingArr.push(y);
+          }
+        } else {
+          this.page.curPagingArr = [];
+          for (let index = 1; index < this.page.totalPage; index++) {
+            this.page.curPagingArr.push(index);
+          }
+        }
+
+        //變更當前頁面顏色
+        for (let index = 0; index < 5; index++) {
+          this.page.idxClass[index]["list-paging-li-type1"] = true;
+          this.page.idxClass[index]["list-paging-li-type2"] = false;
+        }
+
+        this.page.idxClass[this.page.curIdx]["list-paging-li-type1"] = false;
+        this.page.idxClass[this.page.curIdx]["list-paging-li-type2"] = true;
+
+        this.page.leftClass["list-paging-li-type3"] = false;
+        this.page.leftClass["list-paging-li-type1"] = true;
+
+        this.page.rightClass["list-paging-li-type3"] = true;
+        this.page.rightClass["list-paging-li-type1"] = false;
+      } else if (this.page.curIdx == "0") {
+        //點擊最左邊的數字
+        //變更當前頁面顏色
+        for (let index = 0; index < 5; index++) {
+          this.page.idxClass[index]["list-paging-li-type1"] = true;
+          this.page.idxClass[index]["list-paging-li-type2"] = false;
+        }
+
+        // console.log("點擊最左邊的數字");
+        if (parseInt(this.page.curpaging) - 1 > 0 && this.page.isInit) {
+          let temp = this.page.curPagingArr;
+          this.page.curPagingArr = [];
+          this.page.curPagingArr = temp;
+
+          for (let index = 0; index < 5; index++) {
+            this.page.curPagingArr[index]--;
+          }
+
+          this.page.idxClass[parseInt(this.page.curIdx) + 1][
+            "list-paging-li-type1"
+          ] = false;
+          this.page.idxClass[parseInt(this.page.curIdx) + 1][
+            "list-paging-li-type2"
+          ] = true;
+
+          this.page.rightClass["list-paging-li-type3"] = false;
+          this.page.rightClass["list-paging-li-type1"] = true;
+        } else {
+          this.page.isInit = true;
+          console.log("到底了，< 換個顏色");
+          this.page.idxClass[this.page.curIdx]["list-paging-li-type1"] = false;
+          this.page.idxClass[this.page.curIdx]["list-paging-li-type2"] = true;
+          this.page.leftClass["list-paging-li-type3"] = true;
+          this.page.leftClass["list-paging-li-type1"] = false;
+
+          this.page.rightClass["list-paging-li-type3"] = false;
+          this.page.rightClass["list-paging-li-type1"] = true;
+        }
+      } else if (
+        this.page.curIdx == "4" ||
+        this.page.curpaging == this.page.totalPage
+      ) {
+        //點擊最右邊的數字
+        //變更當前頁面顏色
+        for (let index = 0; index < 5; index++) {
+          this.page.idxClass[index]["list-paging-li-type1"] = true;
+          this.page.idxClass[index]["list-paging-li-type2"] = false;
+        }
+
+        if (
+          parseInt(this.page.curpaging) + 1 <=
+            this.page.intactPagingArr.length &&
+          this.page.curpaging != this.page.totalPage
+        ) {
+          //還不到底
+          let temp = this.page.curPagingArr;
+          this.page.curPagingArr = [];
+          this.page.curPagingArr = temp;
+          for (let index = 0; index < this.page.curPagingArr.length; index++) {
+            this.page.curPagingArr[index]++;
+          }
+
+          this.page.idxClass[this.page.curIdx - 1][
+            "list-paging-li-type1"
+          ] = false;
+          this.page.idxClass[this.page.curIdx - 1][
+            "list-paging-li-type2"
+          ] = true;
+
+          this.page.leftClass["list-paging-li-type3"] = false;
+          this.page.leftClass["list-paging-li-type1"] = true;
+        } else {
+          console.log("到底了，> 換個顏色");
+
           this.page.idxClass[this.page.curIdx]["list-paging-li-type1"] = false;
           this.page.idxClass[this.page.curIdx]["list-paging-li-type2"] = true;
 
           this.page.leftClass["list-paging-li-type3"] = false;
           this.page.leftClass["list-paging-li-type1"] = true;
 
-          this.page.rightClass["list-paging-li-type3"] = false;
-          this.page.rightClass["list-paging-li-type1"] = true;
-          break;
+          this.page.rightClass["list-paging-li-type3"] = true;
+          this.page.rightClass["list-paging-li-type1"] = false;
+        }
+      } else {
+        //變更當前頁面顏色
+        for (let index = 0; index < 5; index++) {
+          this.page.idxClass[index]["list-paging-li-type1"] = true;
+          this.page.idxClass[index]["list-paging-li-type2"] = false;
+        }
+        this.page.idxClass[this.page.curIdx]["list-paging-li-type1"] = false;
+        this.page.idxClass[this.page.curIdx]["list-paging-li-type2"] = true;
+
+        this.page.leftClass["list-paging-li-type3"] = false;
+        this.page.leftClass["list-paging-li-type1"] = true;
+
+        this.page.rightClass["list-paging-li-type3"] = false;
+        this.page.rightClass["list-paging-li-type1"] = true;
       }
 
       if (needUpdateData) {

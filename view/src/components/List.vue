@@ -425,8 +425,16 @@ export default {
       this.page.isInit = true;
       this.showPaging();
 
-      this.page.leftClass["list-paging-li-type3"] = true;
-      this.page.leftClass["list-paging-li-type1"] = false;
+      if (this.page.totalPage == 1) {
+        this.page.leftClass["list-paging-li-type3"] = true;
+        this.page.leftClass["list-paging-li-type1"] = false;
+
+        this.page.rightClass["list-paging-li-type3"] = true;
+        this.page.rightClass["list-paging-li-type1"] = false;
+      } else {
+        this.page.leftClass["list-paging-li-type3"] = true;
+        this.page.leftClass["list-paging-li-type1"] = false;
+      }
 
       this.loading = false;
     },

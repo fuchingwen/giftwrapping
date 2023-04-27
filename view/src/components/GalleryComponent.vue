@@ -25,20 +25,37 @@
     </div>
     <div class="works-footer">
       <div class="partner-row">
-        <img
+        <div></div>
+        <img src="../assets/logos/logo-1 1-1.png" />
+        <img src="../assets/logos/logo-1 1.png" />
+        <img src="../assets/logos/logo-1 2-1.png" />
+        <img src="../assets/logos/logo-1 2.png" />
+        <img src="../assets/logos/logo-1 3.png" />
+        <img src="../assets/logos/logo-2 1-1.png" />
+        <img src="../assets/logos/logo-2 1.png" />
+
+        <!-- <img
           v-for="(item, index) in partners.slice(0, 8)"
           :key="index"
           :src="item.image"
           alt=""
-        />
+        /> -->
       </div>
       <div class="partner-row">
-        <img
+        <img src="../assets/logos/logo3 2.png" />
+        <img src="../assets/logos/logo3 3.png" />
+        <img src="../assets/logos/logo3 4.png" />
+        <img src="../assets/logos/logo3 5.png" />
+        <img src="../assets/logos/logo3 6.png" />
+        <img src="../assets/logos/logo-2 2.png" />
+        <img src="../assets/logos/logo3 1.png" />
+        <!-- <div class="partner-row"> -->
+        <!-- <img
           v-for="(item, index) in partners.slice(8, 16)"
           :key="index"
           :src="item.image"
           alt=""
-        />
+        /> -->
       </div>
     </div>
   </div>
@@ -328,8 +345,8 @@ export default {
 }
 
 .partner-row img {
-  height: 80px;
-  width: 80px;
+  /* height: 80px; */
+  /* width: 80px; */
   margin: 0 20px;
   filter: grayscale(100%);
   transition: all 0.3s ease;

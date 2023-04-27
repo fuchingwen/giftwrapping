@@ -2,7 +2,7 @@
   <div id="home-page">
     <slider-component />
     <gallery-component />
-    <about-component />
+    <!-- <about-component /> -->
     <!-- <conact-component /> -->
   </div>
 </template>

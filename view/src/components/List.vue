@@ -363,12 +363,27 @@ export default {
             arr.push(sel.value);
           }
         }
-
         condition.condition.push({
           categoryID: category.categoryID,
           content: arr
         });
       });
+
+      let _condition = 0;
+      condition.condition.forEach(item => {
+        console.log(item);
+        if (item.content.length > 0) {
+          _condition++;
+        }
+      });
+
+      if (_condition < 1) {
+        $(".list-paging").css("display", "none");
+        this.itemList = [];
+        return;
+      } else {
+        $(".list-paging").css("display", "flex");
+      }
 
       console.log("=>>search", condition);
       await this.wait(100);

@@ -31,7 +31,7 @@ export default {
       console.log("賬號", this.name);
       console.log("密碼", this.password);
 
-      this.$router.push("/cms/category");
+      this.$router.push("/cms/items");
     }
   }
 };

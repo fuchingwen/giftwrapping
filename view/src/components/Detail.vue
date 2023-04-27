@@ -13,7 +13,7 @@
               :key="index"
               class="h-full w-full"
             >
-              <img :src="prod.img" class="h-full w-full object-cover" />
+              <img :src="prod.url" class="h-full w-full object-cover" />
             </a>
           </template>
         </Fancybox>
@@ -25,7 +25,7 @@
             v-for="(prod, index) in prodList"
             :key="index"
           >
-            <img :src="prod.img" class="w-full" />
+            <img :src="prod.url" class="w-full" />
           </a>
         </div>
       </div>
@@ -109,13 +109,11 @@ export default {
       prodList: [
         {
           img: require("@/assets/img/prod_1_s.png"),
-          url:
-            "https://achun1130.github.io/product-project/img/prod_1_s.f357d98f.png"
+          url: "https://api.waproject-gift.store/api/v1/static/1_1681371973.png"
         },
         {
           img: require("@/assets/img/prod_2_s.png"),
-          url:
-            "https://achun1130.github.io/product-project/img/prod_2_s.55fdf7d1.png"
+          url: "https://api.waproject-gift.store/api/v1/static/1_1681371973.png"
         },
         {
           img: require("@/assets/img/prod_3_s.png"),

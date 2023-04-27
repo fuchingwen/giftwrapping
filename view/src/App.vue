@@ -16,16 +16,8 @@
             <ul>
               <li>
                 <router-link :to="'/list'"
-                  ><a href="#" class="product"
-                    >作品集展示&emsp;|</a
-                  ></router-link
+                  ><a href="#">作品集展示</a></router-link
                 >
-              </li>
-              <li>
-                <a href="#關於我們" class="about">關於我們&emsp;|</a>
-              </li>
-              <li>
-                <a href="#聯絡我們" class="about">聯絡我們</a>
               </li>
             </ul>
           </nav>

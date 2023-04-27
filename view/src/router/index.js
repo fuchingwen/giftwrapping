@@ -9,6 +9,7 @@ import CMSMenu from "@/components/CMSMenu";
 import CMSLogin from "@/components/CMSLogin";
 import CMSCategory from "@/components/CMSCategory";
 import CMSItemsBoard from "@/components/CMSItemsBoard";
+import CMSPage from "@/components/CMSPage";
 Vue.use(Router);
 
 export default new Router({
@@ -44,12 +45,19 @@ export default new Router({
       component: CMSMenu,
       children: [
         {
+          path: "items",
+          name: "CMSItemsBoard",
+          component: CMSItemsBoard
+        },
+        {
           path: "category",
+          name: "CMSPage",
           component: CMSCategory
         },
         {
-          path: "items",
-          component: CMSItemsBoard
+          path: "page/:id",
+          name: "CMSPage",
+          component: CMSPage
         }
       ]
     }

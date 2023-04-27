@@ -63,28 +63,36 @@
         <a class="reset" href="#" v-on:click="clickResetSel()">重設篩選條件</a>
       </div>
       <div class="list-content">
-        <template v-if="itemList.length > 0">
-          <template v-for="item in itemList">
-            <router-link :to="'/detail/' + item.id">
-              <div class="nwrapper">
-                <div class="ncard">
-                  <img :src="item.image[0].url" />
-                  <h3 class="ntitle">{{ item.name }}</h3>
-                  <h4 class="nsubtitle">{{ item.subtitle }}</h4>
-                  <h5 class="ncontent">{{ item.detail.content }}</h5>
+        <!-- <div class="spinner"></div> -->
+        <div v-if="loading" class="overlay">
+          <div class="spinner"></div>
+        </div>
+        <div v-else>
+          <!-- 页面内容 -->
+
+          <template v-if="itemList.length > 0">
+            <template v-for="item in itemList">
+              <router-link :to="'/detail/' + item.id">
+                <div class="nwrapper">
+                  <div class="ncard">
+                    <img :src="item.image[0].url" />
+                    <h3 class="ntitle">{{ item.name }}</h3>
+                    <h4 class="nsubtitle">{{ item.subtitle }}</h4>
+                    <h5 class="ncontent">{{ item.detail.content }}</h5>
+                  </div>
                 </div>
-              </div>
-            </router-link>
+              </router-link>
+            </template>
           </template>
-        </template>
-        <template v-else>
-          <div class="no-item">
-            <img src="../assets/no-item.png" />
+          <template v-else>
+            <div class="no-item">
+              <img src="../assets/icon_empty_state.svg" />
+              <br />
+            </div>
             <br />
-          </div>
-          <br />
-          <h6 class="no-item-txt">尚無相關作品</h6>
-        </template>
+            <h6 class="no-item-txt">尚無相關作品</h6>
+          </template>
+        </div>
       </div>
       <div class="list-paging">
         <ul>
@@ -98,7 +106,6 @@
               &lt;&lt;
             </button>
           </li>
-
           <li
             v-for="(item, idx) in page.curPagingArr"
             :class="page.idxClass[idx]"
@@ -112,7 +119,6 @@
               {{ item }}
             </button>
           </li>
-
           <li :class="page.rightClass">
             <button
               id="pandingID"
@@ -138,6 +144,7 @@ export default {
   name: "HelloWorld",
   data() {
     return {
+      loading: true,
       itemList: [],
       categoryList: null,
       seletInfo: {
@@ -152,7 +159,7 @@ export default {
         intactPagingArr: [],
         curIdx: 0,
         curpaging: 1, //當前頁面，初始化為1
-        pageSize: 10, //每一頁都是10個商品
+        pageSize: 6, //每一頁都是10個商品
         totalPage: 3,
         leftClass: {
           "list-paging-li-type3": true, //不能點擊
@@ -229,7 +236,7 @@ export default {
     });
 
     console.log("=>>search", condition);
-
+    await this.wait(100);
     let productRes = await axios.post(
       "https://api.waproject-gift.store/api/v1/product/search",
       condition,
@@ -240,11 +247,13 @@ export default {
       }
     );
 
+    this.loading = false;
+
     console.log("<<=search", productRes.data);
     this.itemList = productRes.data.list;
 
     //分頁
-    this.page.totalPage = productRes.data.context.total_rows;
+    this.page.totalPage = productRes.data.context.total_pages;
     if (this.page.totalPage > 5) {
       this.page.curPagingArr = [1, 2, 3, 4, 5];
     } else {
@@ -295,6 +304,9 @@ export default {
     });
   },
   methods: {
+    wait(ms) {
+      return new Promise(resolve => setTimeout(() => resolve(), ms));
+    },
     clickResetSel() {
       $("input[type=radio]").each(function() {
         $(this).prop("checked", true);
@@ -305,7 +317,12 @@ export default {
       console.log("點擊恢復預設值");
       this.showItems();
     },
-    clickInput(event) {
+    async clickInput(event) {
+      this.page.isInit = true;
+      this.page.curIdx = 0;
+      this.page.curpaging = 1;
+
+      console.log("clickInput");
       if (event.target.value == "全部") {
         if (event.target.checked) {
           //設為打勾時
@@ -324,12 +341,79 @@ export default {
         });
       }
 
-      this.showItems();
+      // await this.showItems();
+      // await this.showPaging();
+
+      let condition = {
+        condition: [],
+        page: 1,
+        pageSize: parseInt(this.page.pageSize)
+      };
+
+      //把選項塞進rq
+      this.categoryList.forEach(category => {
+        // console.log(category);
+
+        let arr = [];
+
+        let inputs = $(".sel:checked[value!=全部]");
+        for (const sel of inputs) {
+          if (sel.name == category.categoryID) {
+            // console.log("=>>", sel);
+            arr.push(sel.value);
+          }
+        }
+
+        condition.condition.push({
+          categoryID: category.categoryID,
+          content: arr
+        });
+      });
+
+      console.log("=>>search", condition);
+      await this.wait(100);
+      let productRes = await axios.post(
+        "https://api.waproject-gift.store/api/v1/product/search",
+        condition,
+        {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+      this.loading = false;
+
+      console.log("<<=search", productRes.data);
+      this.itemList = productRes.data.list;
+
+      //分頁
+      this.page.totalPage = productRes.data.context.total_pages;
+      if (this.page.totalPage > 5) {
+        this.page.curPagingArr = [1, 2, 3, 4, 5];
+      } else {
+        this.page.curPagingArr = [];
+        for (let index = 1; index < this.page.totalPage + 1; index++) {
+          this.page.curPagingArr.push(index);
+        }
+      }
+
+      for (let index = 1; index <= this.page.totalPage; index++) {
+        this.page.intactPagingArr.push(index);
+      }
+
+      // this.page.leftClass["list-paging-li-type3"] = true;
+      // this.page.leftClass["list-paging-li-type1"] = false;
+      this.page.isInit = true;
+      this.showPaging();
+
+      this.page.leftClass["list-paging-li-type3"] = true;
+      this.page.leftClass["list-paging-li-type1"] = false;
     },
     async showItems() {
       let condition = {
         condition: [],
-        page: parseInt(this.page.curpaging),
+        page: this.page.isInit ? parseInt(this.page.curpaging) : 1,
         pageSize: parseInt(this.page.pageSize)
       };
 
@@ -354,8 +438,6 @@ export default {
         });
       });
 
-      // console.log("condition=>>", condition);
-
       let allCount = 0;
       for (const category of condition.condition) {
         allCount += category.content.length;
@@ -364,7 +446,8 @@ export default {
       if (allCount > 0) {
         //送出需求、取得回應
 
-        console.log("=>>search", condition);
+        console.log("==>>search", condition);
+        this.loading = true;
 
         let productRes = await axios.post(
           "https://api.waproject-gift.store/api/v1/product/search",
@@ -377,11 +460,15 @@ export default {
         );
 
         console.log("<<=search", productRes.data);
-        this.page.totalPage = productRes.data.context.total_rows;
+        this.page.totalPage = productRes.data.context.total_pages;
         this.itemList = productRes.data.list;
       } else {
+        console.log("沒有商品");
         this.itemList = [];
       }
+
+      await this.wait(100);
+      this.loading = false;
     },
     clickPaging(event) {
       this.page.curpaging = event.target.value;
@@ -394,23 +481,19 @@ export default {
         "curIdx:",
         parseInt(this.page.curIdx),
         "curpaging:",
-        parseInt(this.page.curpaging)
+        parseInt(this.page.curpaging),
+        "多少頁：",
+        this.page.totalPage
       );
 
-      //切換數字
-      switch (this.page.curIdx) {
-        case "-1":
-          break;
-        case "-2":
-          break;
-        case "0":
-          break;
-        case "4":
-          break;
-        default:
-          break;
+      if (this.page.totalPage == 0 || this.itemList.length == 0) {
+        $(".list-paging").css("display", "none");
+        return;
+      } else {
+        $(".list-paging").css("display", "flex");
       }
 
+      //切換數字
       if (this.page.curIdx == "-1") {
         //點擊<<
 
@@ -427,7 +510,7 @@ export default {
           this.page.curPagingArr = [1, 2, 3, 4, 5];
         } else {
           this.page.curPagingArr = [];
-          for (let index = 1; index < this.page.totalPage; index++) {
+          for (let index = 1; index <= this.page.totalPage; index++) {
             this.page.curPagingArr.push(index);
           }
         }
@@ -441,6 +524,7 @@ export default {
           ] = true;
         } else {
           console.log("到底了，< 換個顏色");
+
           this.page.idxClass[this.page.curIdx]["list-paging-li-type1"] = false;
           this.page.idxClass[this.page.curIdx]["list-paging-li-type2"] = true;
           this.page.leftClass["list-paging-li-type3"] = true;
@@ -512,6 +596,18 @@ export default {
 
           this.page.rightClass["list-paging-li-type3"] = false;
           this.page.rightClass["list-paging-li-type1"] = true;
+        } else if (this.page.totalPage == 1) {
+          this.page.curPagingArr = [1];
+
+          this.page.isInit = true;
+          console.log("到底了，< 換個顏色");
+          this.page.idxClass[this.page.curIdx]["list-paging-li-type1"] = false;
+          this.page.idxClass[this.page.curIdx]["list-paging-li-type2"] = true;
+          this.page.leftClass["list-paging-li-type3"] = true;
+          this.page.leftClass["list-paging-li-type1"] = false;
+
+          this.page.rightClass["list-paging-li-type3"] = true;
+          this.page.rightClass["list-paging-li-type1"] = false;
         } else {
           this.page.isInit = true;
           console.log("到底了，< 換個顏色");
@@ -585,7 +681,7 @@ export default {
       }
 
       if (needUpdateData) {
-        this.showItems();
+        await this.showItems();
       }
     }
   }
@@ -655,5 +751,38 @@ export default {
   font-weight: bold;
   font-size: 16px;
   margin-top: 15px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 10000;
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

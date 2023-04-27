@@ -318,6 +318,8 @@ export default {
       this.showItems();
     },
     async clickInput(event) {
+      this.loading = true;
+
       this.page.isInit = true;
       this.page.curIdx = 0;
       this.page.curpaging = 1;
@@ -380,6 +382,7 @@ export default {
       if (_condition < 1) {
         $(".list-paging").css("display", "none");
         this.itemList = [];
+        this.loading = false;
         return;
       } else {
         $(".list-paging").css("display", "flex");
@@ -424,6 +427,8 @@ export default {
 
       this.page.leftClass["list-paging-li-type3"] = true;
       this.page.leftClass["list-paging-li-type1"] = false;
+
+      this.loading = false;
     },
     async showItems() {
       let condition = {

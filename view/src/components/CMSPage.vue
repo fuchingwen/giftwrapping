@@ -74,23 +74,23 @@
 
     <div class="page-upload">
       <input type="file" @change="handleFileUpload" name="0" />
-      <img ref="img0" class="page-imgStyle" :src="imgs[0]" />
-      <a :href="imgs[0]">{{ imgs[0].length > 0 ? "圖片連接" : "" }}</a>
+      <img ref="img0" class="page-imgStyle" :src="imgs[0].url" />
+      <a :href="imgs[0].url">{{ imgs[0].length > 0 ? "圖片連接" : "" }}</a>
     </div>
     <div class="page-upload">
       <input type="file" @change="handleFileUpload" name="1" />
-      <img ref="img1" class="page-imgStyle" :src="imgs[1]" />
-      <a :href="imgs[1]">{{ imgs[1].length > 0 ? "圖片連接" : "" }}</a>
+      <img ref="img1" class="page-imgStyle" :src="imgs[1].url" />
+      <a :href="imgs[1].url">{{ imgs[1].length > 0 ? "圖片連接" : "" }}</a>
     </div>
     <div class="page-upload">
       <input type="file" @change="handleFileUpload" name="2" />
-      <img ref="img2" class="page-imgStyle" :src="imgs[2]" />
-      <a :href="imgs[2]">{{ imgs[2].length > 0 ? "圖片連接" : "" }}</a>
+      <img ref="img2" class="page-imgStyle" :src="imgs[2].url" />
+      <a :href="imgs[2].url">{{ imgs[2].length > 0 ? "圖片連接" : "" }}</a>
     </div>
     <div class="page-upload">
       <input type="file" @change="handleFileUpload" name="3" />
-      <img ref="img3" class="page-imgStyle" :src="imgs[3]" />
-      <a :href="imgs[3]">{{ imgs[3].length > 0 ? "圖片連接" : "" }}</a>
+      <img ref="img3" class="page-imgStyle" :src="imgs[3].url" />
+      <a :href="imgs[3].url">{{ imgs[3].length > 0 ? "圖片連接" : "" }}</a>
     </div>
 
     <p><button v-on:click="sendInfo()">送出資料</button></p>
@@ -102,6 +102,7 @@ import $ from "jquery";
 export default {
   data() {
     return {
+      isNew: false,
       id: -1,
       title: "",
       subtitle: "",
@@ -117,11 +118,11 @@ export default {
           categoryTitle: "產業",
           type: 1,
           content: [
-            { name: "食品", isCheck: false },
+            { name: "時尚精品", isCheck: false },
+            { name: "餐飲", isCheck: false },
+            { name: "食品製造", isCheck: false },
             { name: "酒類", isCheck: false },
-            { name: "金融", isCheck: false },
-            { name: "飯店", isCheck: false },
-            { name: "精品", isCheck: false }
+            { name: "旅館飯店", isCheck: false }
           ]
         },
         {
@@ -130,21 +131,39 @@ export default {
           categoryTitle: "用途",
           type: 1,
           content: [
-            { name: "三節禮盒", isCheck: false },
-            { name: "特殊節慶", isCheck: false },
+            { name: "節慶活動", isCheck: false },
+            { name: "紀念贈禮", isCheck: false },
             { name: "商品售賣", isCheck: false },
-            { name: "紀念贈禮", isCheck: false }
+            { name: "三節禮盒", isCheck: false }
           ]
         }
       ],
       categoryOpt: [],
-      imgs: ["", "dfgdfg", "dfgdfg", "dfgdfgdf"],
+      imgs: [
+        {
+          id: 0,
+          url: "string"
+        },
+        {
+          id: 0,
+          url: "string"
+        },
+        {
+          id: 0,
+          url: "string"
+        },
+        {
+          id: 0,
+          url: "string"
+        }
+      ],
       priority: 1
     };
   },
   async created() {
     console.log(this.$route.params.id);
     if (this.$route.params.id != "new") {
+      this.isNew = false;
       console.log("這是即將要修改的頁面");
       let rs = await axios.get(
         "https://api.waproject-gift.store/api/v1/product/" +
@@ -156,7 +175,7 @@ export default {
         }
       );
       let info = rs.data;
-      // console.log(info);
+      console.log(info);
 
       this.title = info.context.name;
       this.subtitle = info.context.subtitle;
@@ -167,9 +186,6 @@ export default {
       this.priority = info.context.priority;
       let userCategoryList = info.context.category;
 
-      //取得分類的資訊
-
-      //處理分類的資料
       this.categoryList.forEach(category => {
         category.content.forEach(content => {
           userCategoryList.forEach(userCategory => {
@@ -183,7 +199,13 @@ export default {
         });
       });
 
+      for (let index = 0; index < info.context.image.length; index++) {
+        this.imgs[index].url = info.context.image[index].url;
+      }
+
       // console.log(this.categoryList);
+    } else {
+      this.isNew = true;
     }
   },
   methods: {
@@ -209,7 +231,9 @@ export default {
       this.imgs = s;
       console.log(rs.data.context.file_access_url);
       // console.log(event.target.value);
-      this.imgs[event.target.name] = rs.data.context.file_access_url;
+      this.imgs[event.target.name] = {
+        url: rs.data.context.file_access_url
+      };
       // console.log(this.$refs["img" + event.target.id]);
       // console.log(event.target.name);
       // const myDiv = this.$refs["img" + event.target.value];
@@ -221,14 +245,14 @@ export default {
     },
     async sendInfo() {
       let rq = {
+        id: parseInt(this.$route.params.id),
         category: [],
         detail: {
           content: this.content,
-          cost: parseInt(this.cost),
-          remark: this.remark,
+          cost: this.cost,
+          remark: this.remark ? this.remark : "",
           size: this.size
         },
-        id: this.$route.params.id,
         image: [
           {
             id: 0,
@@ -243,12 +267,53 @@ export default {
       $(".categoryInput:checked").each(function() {
         console.log($(this));
         rq.category.push({
-          categoryID: $(this).attr("data-category-id"),
+          categoryID: parseInt($(this).attr("data-category-id")),
           content: $(this).attr("value")
         });
       });
 
+      let imgs = [];
+      this.imgs.forEach(img => {
+        if (img.url != "string") {
+          imgs.push(img);
+        }
+      });
+      rq.image = imgs;
+
       console.log("send", rq);
+      return;
+      if (this.isNew) {
+        //new
+        let productRes = await axios.post(
+          "https://api.waproject-gift.store/api/v1/product",
+          rq,
+          {
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }
+        );
+        console.log(productRes);
+      } else {
+        //update
+        let productRes = await axios.post(
+          "https://api.waproject-gift.store/api/v1/product/update/" +
+            this.$route.params.id,
+          rq,
+          {
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }
+        );
+
+        if (productRes.status == 200) {
+          alert("更新或新增完成！");
+        } else {
+          alert("更新或新增沒有完成");
+        }
+        console.log(productRes);
+      }
     }
   }
 };

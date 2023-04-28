@@ -6,9 +6,9 @@
           <li>
             <router-link :to="'/cms/items'"><h3>商品管理</h3></router-link>
           </li>
-          <li>
+          <!-- <li>
             <router-link :to="'/cms/category'"><h3>分類管理</h3></router-link>
-          </li>
+          </li> -->
         </ul>
       </div>
       <div class="cms-content"><router-view /></div>

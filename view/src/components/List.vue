@@ -146,7 +146,22 @@ export default {
     return {
       loading: true,
       itemList: [],
-      categoryList: null,
+      categoryList: [
+        {
+          sort: 0,
+          categoryID: 0,
+          categoryTitle: "產業",
+          type: 1,
+          content: ["時尚精品", "餐飲", "食品製造", "酒類", "旅館飯店"]
+        },
+        {
+          sort: 1,
+          categoryID: 1,
+          categoryTitle: "用途",
+          type: 1,
+          content: ["節慶活動", "紀念贈禮", "商品售賣", "三節禮盒"]
+        }
+      ],
       seletInfo: {
         condition: [
           // { categoryID: 0, content: ["餐飲業", "建築業"] }, //content若為空陣列則代表全拿
@@ -201,24 +216,6 @@ export default {
     // this.categoryList = categoryRes.data.list;
 
     //fake server
-    let _c = [
-      {
-        sort: 0,
-        categoryID: 0,
-        categoryTitle: "產業",
-        type: 1,
-        content: ["食品", "酒類", "金融", "飯店", "精品"]
-      },
-      {
-        sort: 1,
-        categoryID: 1,
-        categoryTitle: "用途",
-        type: 1,
-        content: ["三節禮盒", "特殊節慶", "商品售賣", "紀念贈禮"]
-      }
-    ];
-
-    this.categoryList = _c;
 
     // console.log("=>>", this.categoryList);
 

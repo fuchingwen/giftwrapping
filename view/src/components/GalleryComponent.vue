@@ -6,13 +6,13 @@
       <p class="works-subtitle">打造企業品牌形象&amp;提供精緻的包裝禮盒</p>
     </div>
     <div class="works-content">
-      <router-link to="/detail/1"
+      <router-link to="/detail/4"
         ><img src="../assets/topItem/Rectangle 31.png"/></router-link
       >&emsp;
-      <router-link to="/detail/2"
+      <router-link to="/detail/5"
         ><img src="../assets/topItem/Rectangle 32.png"/></router-link
       >&emsp;
-      <router-link to="/detail/3"
+      <router-link to="/detail/2"
         ><img src="../assets/topItem/Rectangle 33.png"/></router-link
       ><br /><br />
 
@@ -25,10 +25,10 @@
         </div>
       </div> -->
       <div class="works-row">
-        <router-link to="/detail/4"
+        <router-link to="/detail/8"
           ><img src="../assets/topItem/Rectangle 35.png"/></router-link
         >&emsp;
-        <router-link to="/detail/5"
+        <router-link to="/detail/7"
           ><img src="../assets/topItem/Rectangle 34.png"
         /></router-link>
       </div>

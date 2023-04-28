@@ -29,7 +29,7 @@
           <th>編輯</th>
         </tr>
         <tr v-for="(item, idx) in list">
-          <td><input type="checkbox" :value="item.id" /></td>
+          <td><input class="sss" type="checkbox" :value="item.id" /></td>
           <td>
             <img class="imgStyle" v-for="img in item.image" :src="img.url" />
           </td>
@@ -77,18 +77,27 @@ export default {
     console.log("<<<", this.list);
   },
   methods: {
-    del() {
+    async del() {
       let delArr = [];
-      $("input[type=checkbox]:checked").each(function() {
-        delArr.push(parseInt(this.value));
-      });
-      this.list = this.list.filter(e => {
-        return delArr.indexOf(e.id) > -1;
-      });
+      let rs = $(".sss:checked");
+      // .each(function() {
+      //   delArr.push(parseInt(this.value));
+      // });
+      // this.list = this.list.filter(e => {
+      //   return delArr.indexOf(e.id) > -1;
+      // });
 
-      console.log(this.list);
+      for (let index = 0; index < rs.length; index++) {
+        console.log("value：", rs[index].value);
+        let productRes = await axios.post(
+          "https://api.waproject-gift.store/api/v1/product/delete/" +
+            rs[index].value.toString()
+        );
 
-      //TODO:del API
+        console.log(productRes);
+      }
+
+      // console.log(rs.length);
     },
     edit(event) {
       console.log(event.target.value);

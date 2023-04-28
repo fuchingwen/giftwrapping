@@ -6,33 +6,51 @@
       <p class="works-subtitle">打造企業品牌形象&amp;提供精緻的包裝禮盒</p>
     </div>
     <div class="works-content">
-      <div class="works-row">
+      <router-link to="/detail/1"
+        ><img src="../assets/topItem/Rectangle 31.png"/></router-link
+      >&emsp;
+      <router-link to="/detail/2"
+        ><img src="../assets/topItem/Rectangle 32.png"/></router-link
+      >&emsp;
+      <router-link to="/detail/3"
+        ><img src="../assets/topItem/Rectangle 33.png"/></router-link
+      ><br /><br />
+
+      <!-- <div class="works-row">
         <div class="works-item" v-for="(item, index) in items" :key="index">
           <div class="works-item-image">
             <img :src="item.image" alt="" />
           </div>
           <button class="read-more">查看更多</button>
         </div>
-      </div>
+      </div> -->
       <div class="works-row">
-        <div class="works-item2" v-for="(item, index) in items2" :key="index">
-          <div class="works-item-image">
-            <img :src="item.image" alt="" />
-          </div>
-          <button class="read-more">查看更多</button>
-        </div>
+        <router-link to="/detail/4"
+          ><img src="../assets/topItem/Rectangle 35.png"/></router-link
+        >&emsp;
+        <router-link to="/detail/5"
+          ><img src="../assets/topItem/Rectangle 34.png"
+        /></router-link>
       </div>
+    </div>
+
+    <div class="works-header">
+      <h2 class="works-title">合作客戶</h2>
+      <div class="divider"></div>
+      <p class="works-subtitle">
+        持續創新&amp;致力於解決客戶包裝的疑難雜症&amp;
+      </p>
     </div>
     <div class="works-footer">
       <div class="partner-row">
-        <div></div>
-        <img src="../assets/logos/logo-1 1-1.png" />
+        <img src="../assets/logos/MANDARIN 1.svg" />
         <img src="../assets/logos/logo-1 1.png" />
         <img src="../assets/logos/logo-1 2-1.png" />
         <img src="../assets/logos/logo-1 2.png" />
         <img src="../assets/logos/logo-1 3.png" />
         <img src="../assets/logos/logo-2 1-1.png" />
         <img src="../assets/logos/logo-2 1.png" />
+        <img src="../assets/logos/義美.svg" />
 
         <!-- <img
           v-for="(item, index) in partners.slice(0, 8)"
@@ -41,14 +59,16 @@
           alt=""
         /> -->
       </div>
+
       <div class="partner-row">
         <img src="../assets/logos/logo3 2.png" />
         <img src="../assets/logos/logo3 3.png" />
         <img src="../assets/logos/logo3 4.png" />
         <img src="../assets/logos/logo3 5.png" />
         <img src="../assets/logos/logo3 6.png" />
-        <img src="../assets/logos/logo-2 2.png" />
         <img src="../assets/logos/logo3 1.png" />
+        <img src="../assets/logos/logo-2 2.png" />
+        <img src="../assets/logos/老爺酒店 1.svg" />
         <!-- <div class="partner-row"> -->
         <!-- <img
           v-for="(item, index) in partners.slice(8, 16)"
@@ -61,7 +81,7 @@
   </div>
 </template>
 
-<script>
+<script scoped>
 import portfolio1Src from "@/assets/portfolio1.png";
 import portfolio2Src from "@/assets/portfolio2.png";
 import portfolio3Src from "@/assets/portfolio3.png";
@@ -286,17 +306,15 @@ export default {
 
 .read-more {
   position: relative;
-  border-radius: 10%;
-  background-color: transparent;
-  color: #de7b3b;
+  border-radius: 10px;
+  background-color: #de7b3b;
+  color: #ffffff;
   border: 1px solid #de7b3b7f;
   padding: 10px 30px;
 
   font-family: "Noto Sans";
   font-style: normal;
-  font-weight: 500;
-  font-size: 0.8vw;
-  line-height: 16px;
+  font-size: 20px;
   align-items: center;
   letter-spacing: 0.2em;
 }
@@ -347,7 +365,7 @@ export default {
 .partner-row img {
   /* height: 80px; */
   /* width: 80px; */
-  margin: 0 20px;
+  margin: 0 15px;
   filter: grayscale(100%);
   transition: all 0.3s ease;
 }

@@ -31,34 +31,31 @@
       </div>
 
       <div class="flex flex-col gap-4 sm:col-span-6 lg:col-span-4">
-        <h2 class="text-2xl font-bold">抽屜禮盒</h2>
+        <h2 class="text-2xl font-bold">{{ title }}</h2>
 
         <p class="text-sm text-muted-200">
-          包裝設計
-          以三個英文字「i」為主體造形，融入整體設計當中，整體設計簡約卻不失質感的紙盒抽屜禮盒。
+          {{ content }}
         </p>
 
         <hr class="border-muted-100" />
 
         <div class="flex">
-          <div class="flex">單一尺寸：</div>
+          <div class="flex">價格：</div>
           <div class="ml-[6px] text-muted-200">
-            <div>長 x 寬 x 高(公釐mm)</div>
-            <div>300 x 200 x 100</div>
+            {{ cost }}
           </div>
         </div>
 
         <div class="flex">
-          <div class="flex">款式種類：</div>
+          <div class="flex">尺寸：</div>
           <div class="ml-[6px] text-muted-200">
-            <div>三種紙材</div>
-            <div>牛皮紙 / 白銅紙 / 黑卡紙</div>
+            {{ size }}
           </div>
         </div>
 
-        <span class="text-sm">備註：數量300以上以需客製化歡迎來訊</span>
+        <span class="text-sm">備註：{{ remark }}</span>
 
-        <span class="text-sm">誤差：±2mm為正常誤差值</span>
+        <!-- <span class="text-sm">誤差：±2mm為正常誤差值</span> -->
 
         <!-- <div class="flex gap-5">
           <div class="flex flex-1">
@@ -97,15 +94,47 @@
 
 <script>
 import Fancybox from "@/components/plugins/Fancybox.vue";
+import axios from "axios";
 import $ from "jquery";
 
 export default {
   setup() {
     $("html,body").animate({ scrollTop: 0 }, "fast");
   },
+  async created() {
+    console.log("詳細頁ID：", this.$route.params.id);
+    let rs = await axios.get(
+      "https://api.waproject-gift.store/api/v1/product/" +
+        this.$route.params.id,
+      {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    let info = rs.data.context;
+
+    this.title = info.name;
+    this.content = info.detail.content;
+    this.size = info.detail.size;
+    this.remark = info.detail.remark;
+    this.cost = info.detail.cost;
+
+    for (let index = 0; index < info.image.length; index++) {
+      this.prodList[index].url = info.image[index].url;
+    }
+
+    console.log(info.image[0]);
+  },
   data() {
     return {
       num: 1,
+      title: "",
+      content: "",
+      cost: "",
+      size: "",
+      remark: "",
       prodList: [
         {
           img: require("@/assets/img/prod_1_s.png"),

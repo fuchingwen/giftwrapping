@@ -36,17 +36,30 @@
         <div id="line-bg"></div>
       </div>
     </div>
-    <conact-component />
+    <!-- <conact-component /> -->
+
+    <div class="footer">
+      <div class="footer-info">
+        <div class="my-content">
+          <p>信箱 miiroxy921@gmail.com&emsp;|&emsp;傳真 (02)-2719-5403</p>
+          <p>
+            電話 +886-2-000-222&emsp;|&emsp;地址
+            新北市中和區中正路45巷25弄6號5樓
+          </p>
+        </div>
+        <div class="my-copyright">Copyright 2023 @ All right reserved.</div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import ConactComponent from "./components/ConactComponent.vue";
+// import ConactComponent from "./components/ConactComponent.vue";
 
 export default {
-  components: {
-    ConactComponent
-  },
+  // components: {
+  //   ConactComponent
+  // },
   name: "App"
 };
 </script>
@@ -58,5 +71,27 @@ export default {
 
 .goo-main {
   margin-top: 88px;
+}
+
+.footer {
+  height: 200px;
+  width: 100%;
+  background-color: #eae6e5;
+  margin-bottom: 0px;
+}
+
+.footer-info {
+  padding-top: 40px;
+}
+.my-content {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 25px;
+  text-align: center;
+}
+.my-copyright {
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 30px;
+  text-align: center;
+  color: #9a9999;
 }
 </style>

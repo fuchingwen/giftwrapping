@@ -39,4 +39,5 @@
 .list-paging-li-type3 {
   background-color: #ffffff;
   color: #dfdfdf;
+  pointer-events: none;
 }

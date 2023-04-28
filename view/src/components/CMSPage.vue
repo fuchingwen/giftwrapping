@@ -74,22 +74,22 @@
 
     <div class="page-upload">
       <input type="file" @change="handleFileUpload" name="0" />
-      <img ref="img0" class="page-imgStyle" />
+      <img ref="img0" class="page-imgStyle" :src="imgs[0]" />
       <a :href="imgs[0]">{{ imgs[0].length > 0 ? "圖片連接" : "" }}</a>
     </div>
     <div class="page-upload">
       <input type="file" @change="handleFileUpload" name="1" />
-      <img ref="img1" class="page-imgStyle" />
+      <img ref="img1" class="page-imgStyle" :src="imgs[1]" />
       <a :href="imgs[1]">{{ imgs[1].length > 0 ? "圖片連接" : "" }}</a>
     </div>
     <div class="page-upload">
       <input type="file" @change="handleFileUpload" name="2" />
-      <img ref="img2" class="page-imgStyle" />
+      <img ref="img2" class="page-imgStyle" :src="imgs[2]" />
       <a :href="imgs[2]">{{ imgs[2].length > 0 ? "圖片連接" : "" }}</a>
     </div>
     <div class="page-upload">
       <input type="file" @change="handleFileUpload" name="3" />
-      <img ref="img3" class="page-imgStyle" />
+      <img ref="img3" class="page-imgStyle" :src="imgs[3]" />
       <a :href="imgs[3]">{{ imgs[3].length > 0 ? "圖片連接" : "" }}</a>
     </div>
 
@@ -191,10 +191,11 @@ export default {
       const formData = new FormData();
       // 将文件数据添加到 FormData 中
       formData.append("file", event.target.files[0]);
+      formData.append("type", 1);
       // 这里可以将formData发送到服务器进行处理
 
       let rs = await axios.post(
-        "https://api.waproject-gift.store/api/v1/upload/file/",
+        "https://api.waproject-gift.store/api/v1/upload/file",
         formData,
         {
           headers: {
@@ -203,10 +204,16 @@ export default {
         }
       );
 
-      console.log(rs);
+      let s = this.imgs;
+      this.imgs = [];
+      this.imgs = s;
+      console.log(rs.data.context.file_access_url);
+      // console.log(event.target.value);
+      this.imgs[event.target.name] = rs.data.context.file_access_url;
       // console.log(this.$refs["img" + event.target.id]);
       // console.log(event.target.name);
       // const myDiv = this.$refs["img" + event.target.value];
+      console.log(this.imgs);
     },
     clickCategory(event) {
       console.log("categoryId:", event.target.dataset["categoryId"]);

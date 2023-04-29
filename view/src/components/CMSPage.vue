@@ -281,7 +281,6 @@ export default {
       rq.image = imgs;
 
       console.log("send", rq);
-      return;
       if (this.isNew) {
         //new
         let productRes = await axios.post(

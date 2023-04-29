@@ -92,7 +92,7 @@
   </div>
 </template>
 
-<script>
+<script scoped>
 import Fancybox from "@/components/plugins/Fancybox.vue";
 import axios from "axios";
 import $ from "jquery";
@@ -138,11 +138,13 @@ export default {
       prodList: [
         {
           img: require("@/assets/img/prod_1_s.png"),
-          url: "https://api.waproject-gift.store/api/v1/static/1_1681371973.png"
+          url:
+            "https://achun1130.github.io/product-project/img/prod_4_s.213d5738.png"
         },
         {
           img: require("@/assets/img/prod_2_s.png"),
-          url: "https://api.waproject-gift.store/api/v1/static/1_1681371973.png"
+          url:
+            "https://achun1130.github.io/product-project/img/prod_4_s.213d5738.png"
         },
         {
           img: require("@/assets/img/prod_3_s.png"),

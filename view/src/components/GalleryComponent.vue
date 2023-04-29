@@ -5,18 +5,19 @@
       <div class="divider"></div>
       <p class="works-subtitle">打造企業品牌形象&amp;提供精緻的包裝禮盒</p>
     </div>
-    <div class="works-content">
-      <router-link to="/detail/4"
-        ><img src="../assets/topItem/Rectangle 31.png"/></router-link
-      >&emsp;
-      <router-link to="/detail/5"
-        ><img src="../assets/topItem/Rectangle 32.png"/></router-link
-      >&emsp;
-      <router-link to="/detail/2"
-        ><img src="../assets/topItem/Rectangle 33.png"/></router-link
-      ><br /><br />
+    <div class="bb">
+      <div class="works-row">
+        <router-link to="/detail/4"
+          ><img src="../assets/topItem/Rectangle 31.png"/></router-link
+        >&emsp;
+        <router-link to="/detail/5"
+          ><img src="../assets/topItem/Rectangle 32.png"/></router-link
+        >&emsp;
+        <router-link to="/detail/2"
+          ><img src="../assets/topItem/Rectangle 33.png"
+        /></router-link>
 
-      <!-- <div class="works-row">
+        <!-- <div class="works-row">
         <div class="works-item" v-for="(item, index) in items" :key="index">
           <div class="works-item-image">
             <img :src="item.image" alt="" />
@@ -24,7 +25,10 @@
           <button class="read-more">查看更多</button>
         </div>
       </div> -->
-      <div class="works-row">
+      </div>
+    </div>
+    <div class="bb">
+      <div class="works-row1">
         <router-link to="/detail/8"
           ><img src="../assets/topItem/Rectangle 35.png"/></router-link
         >&emsp;
@@ -33,8 +37,7 @@
         /></router-link>
       </div>
     </div>
-
-    <div class="works-header">
+    <div>
       <h2 class="works-title">合作客戶</h2>
       <div class="divider"></div>
       <p class="works-subtitle">
@@ -82,133 +85,9 @@
 </template>
 
 <script scoped>
-import portfolio1Src from "@/assets/portfolio1.png";
-import portfolio2Src from "@/assets/portfolio2.png";
-import portfolio3Src from "@/assets/portfolio3.png";
-import portfolio4Src from "@/assets/portfolio4.png";
-import portfolio5Src from "@/assets/portfolio5.png";
-import partner1Src from "@/assets/partner1.png";
-import partner2Src from "@/assets/partner2.png";
-import partner3Src from "@/assets/partner3.png";
-import partner4Src from "@/assets/partner4.png";
-import partner5Src from "@/assets/partner5.png";
-import partner6Src from "@/assets/partner6.png";
-import partner7Src from "@/assets/partner7.png";
-import partner8Src from "@/assets/partner8.png";
-import partner9Src from "@/assets/partner9.png";
-import partner10Src from "@/assets/partner10.png";
-import partner11Src from "@/assets/partner11.png";
-import partner12Src from "@/assets/partner12.png";
-import partner13Src from "@/assets/partner13.png";
-import partner14Src from "@/assets/partner14.png";
-import partner15Src from "@/assets/partner15.png";
-import partner16Src from "@/assets/partner16.png";
-
 export default {
   data() {
-    return {
-      items: [
-        {
-          id: 1,
-          title: "作品1",
-          image: portfolio1Src
-        },
-        {
-          id: 2,
-          title: "作品2",
-          image: portfolio2Src
-        },
-        {
-          id: 3,
-          title: "作品3",
-          image: portfolio3Src
-        }
-      ],
-      items2: [
-        {
-          id: 4,
-          title: "作品4",
-          image: portfolio4Src
-        },
-        {
-          id: 5,
-          title: "作品5",
-          image: portfolio5Src
-        }
-      ],
-      partners: [
-        {
-          id: 1,
-          image: partner1Src
-        },
-        {
-          id: 2,
-          image: partner2Src
-        },
-        {
-          id: 3,
-          image: partner3Src
-        },
-        {
-          id: 4,
-          image: partner4Src
-        },
-        {
-          id: 5,
-          image: partner5Src
-        },
-        {
-          id: 6,
-          image: partner6Src
-        },
-        {
-          id: 7,
-          image: partner7Src
-        },
-        {
-          id: 8,
-          image: partner8Src
-        },
-        {
-          id: 9,
-          image: partner9Src
-        },
-        {
-          id: 10,
-          image: partner10Src
-        },
-        {
-          id: 11,
-          image: partner11Src
-        },
-        {
-          id: 12,
-          image: partner12Src
-        },
-        {
-          id: 13,
-          image: partner13Src
-        },
-        {
-          id: 14,
-          image: partner14Src
-        },
-        {
-          id: 15,
-          image: partner15Src
-        },
-        {
-          id: 16,
-          image: partner16Src
-        }
-      ]
-    };
-  },
-  methods: {
-    showMore() {
-      // Implement the function to show more works
-      console.log("Show more works");
-    }
+    return {};
   }
 };
 </script>
@@ -216,6 +95,7 @@ export default {
 <style>
 .works {
   margin: 0 15%;
+  margin-top: 15px;
   text-align: center;
 }
 
@@ -263,9 +143,9 @@ export default {
 }
 
 .works-row {
-  display: flex;
+  /* display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: center; */
 }
 
 .works-item {
@@ -363,8 +243,6 @@ export default {
 }
 
 .partner-row img {
-  /* height: 80px; */
-  /* width: 80px; */
   margin: 0 15px;
   filter: grayscale(100%);
   transition: all 0.3s ease;
@@ -372,5 +250,21 @@ export default {
 
 .partner-img:hover {
   filter: grayscale(0);
+}
+.works-row {
+  display: flex;
+  align-content: stretch;
+}
+.works-row1 {
+  margin-top: 10px;
+  display: flex;
+  align-content: stretch;
+}
+.bb {
+  display: flex;
+  /* 水平置中 */
+  justify-content: center;
+  /* 垂直置中 */
+  align-items: center;
 }
 </style>

@@ -1,22 +1,34 @@
 <template>
   <div class="cms-parent">
     <div id="cms">
-      <div class="cms-menu">
-        <ul>
-          <li>
-            <router-link :to="'/cms/items'"><h3>商品管理</h3></router-link>
-          </li>
-          <!-- <li>
-            <router-link :to="'/cms/category'"><h3>分類管理</h3></router-link>
-          </li> -->
-        </ul>
-      </div>
+      <Menu mode="horizontal" :theme="theme" active-name="1">
+        <router-link :to="'/cms/items'">
+          <MenuItem name="1">
+            <Icon type="ios-paper" />
+            商品管理
+          </MenuItem>
+        </router-link>
+        <router-link :to="'/cms/category'">
+          <MenuItem name="2">
+            <Icon type="ios-people" />
+            分類管理
+          </MenuItem>
+        </router-link>
+      </Menu>
       <div class="cms-content"><router-view /></div>
     </div>
   </div>
 </template>
 
-<script scoped></script>
+<script scoped>
+export default {
+  data() {
+    return {
+      theme: "light"
+    };
+  }
+};
+</script>
 
 <style scoped>
 @import url("../style/app.9b6dd939.css");
@@ -34,27 +46,6 @@
   /* background-color: aqua; */
 }
 .cms-content {
-  /* background-color: rgb(255, 0, 166); */
-  margin-top: 70px;
-  margin-bottom: 50px;
-}
-.cms-menu ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.cms-menu ul li {
-  float: left;
-  background-color: rgb(30, 108, 211);
-  color: #fff;
-  border-radius: 1px;
-  cursor: pointer;
-  margin: 3px;
-  padding: 10px;
-}
-.cms-menu ul li:hover {
-  color: #003c9d;
-  background-color: #fff;
-  border: 1px #003c9d solid;
+  margin-top: 30px;
 }
 </style>

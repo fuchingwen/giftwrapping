@@ -1,5 +1,11 @@
 <template>
   <div class="mx-auto max-w-5xl py-4 px-4">
+    <div class="detail-title">
+      <router-link :to="'/'">首頁</router-link> /
+      <router-link :to="'/list'">好禮作品集/</router-link>
+      <a href="#">作品介紹</a>
+    </div>
+
     <div class="grid gap-5 sm:grid-cols-12">
       <div class="grid gap-5 sm:col-span-6 lg:col-span-8 lg:grid-cols-8">
         <Fancybox
@@ -40,20 +46,24 @@
         <hr class="border-muted-100" />
 
         <div class="flex">
-          <div class="flex">價格：</div>
-          <div class="ml-[6px] text-muted-200">
-            {{ cost }}
-          </div>
+          <div class="flex" style="font-weight:bold;">單一尺寸：</div>
+          <div class="ml-[6px] text-muted-200" v-html="size"></div>
         </div>
 
         <div class="flex">
-          <div class="flex">尺寸：</div>
-          <div class="ml-[6px] text-muted-200">
-            {{ size }}
-          </div>
+          <div class="flex" style="font-weight:bold;">款式種類：</div>
+          <div class="ml-[6px] text-muted-200" v-html="style"></div>
         </div>
 
-        <span class="text-sm">備註：{{ remark }}</span>
+        <div class="flex">
+          <div class="flex" style="font-weight:bold;">價格區間：</div>
+          <div class="ml-[6px] text-muted-200" v-html="cost"></div>
+        </div>
+
+        <div class="flex" style="font-weight:bold;">備註：</div>
+        <div class="flex">
+          <div class="ml-[6px] text-muted-200" v-html="remark"></div>
+        </div>
 
         <!-- <span class="text-sm">誤差：±2mm為正常誤差值</span> -->
 
@@ -118,6 +128,7 @@ export default {
     this.title = info.name;
     this.content = info.detail.content;
     this.size = info.detail.size;
+    this.style = info.detail.style;
     this.remark = info.detail.remark;
     this.cost = info.detail.cost;
 
@@ -134,27 +145,24 @@ export default {
       content: "",
       cost: "",
       size: "",
+      style: "",
       remark: "",
       prodList: [
         {
           img: require("@/assets/img/prod_1_s.png"),
-          url:
-            "https://achun1130.github.io/product-project/img/prod_4_s.213d5738.png"
+          url: ""
         },
         {
           img: require("@/assets/img/prod_2_s.png"),
-          url:
-            "https://achun1130.github.io/product-project/img/prod_4_s.213d5738.png"
+          url: ""
         },
         {
           img: require("@/assets/img/prod_3_s.png"),
-          url:
-            "https://achun1130.github.io/product-project/img/prod_3_s.524c7cc4.png"
+          url: ""
         },
         {
           img: require("@/assets/img/prod_4_s.png"),
-          url:
-            "https://achun1130.github.io/product-project/img/prod_4_s.213d5738.png"
+          url: ""
         }
       ],
       prodIndex: 0
@@ -178,4 +186,16 @@ export default {
 /* .mx-auto {
   margin-top: 100px;
 } */
+
+.detail-title {
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+.detail-title a {
+  color: #171614;
+}
+
+.w-full {
+  border-radius: 10px;
+}
 </style>

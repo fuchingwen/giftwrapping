@@ -5,7 +5,9 @@
         <router-link :to="'/'">首頁</router-link> /
         <router-link :to="'/list'">好禮作品集</router-link>
       </div>
+
       <div class="list-category">
+        <a class="reset" href="#" v-on:click="clickResetSel()">重設篩選條件</a>
         <template v-for="category in categoryList">
           <h3 class="category-title">{{ category.categoryTitle }}</h3>
 
@@ -60,7 +62,6 @@
           </template>
         </template>
         <br /><br />
-        <a class="reset" href="#" v-on:click="clickResetSel()">重設篩選條件</a>
       </div>
       <div class="list-content">
         <!-- <div class="spinner"></div> -->
@@ -752,9 +753,9 @@ export default {
 
 #list {
   margin-top: 50px;
-  width: 885px;
+  width: 900px;
   display: grid;
-  grid-template-columns: 130px 760px;
+  grid-template-columns: 140px 760px;
   grid-template-rows: 50px auto;
   grid-gap: 5px;
 }
@@ -779,13 +780,13 @@ export default {
 }
 
 .overlay {
-  position: fixed;
+  /* position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.3);
-  z-index: 10000;
+  z-index: 10000; */
 }
 
 .spinner {

@@ -1,50 +1,80 @@
 <template>
   <div>
     <p>標題:</p>
-    <p><input type="text" name="name" v-model="title" /></p>
+    <p>
+      <Input style="width: 300px" name="name" v-model="title" />
+    </p>
 
     <p>副標:</p>
-    <p><input name="species" type="text" v-model="subtitle" /></p>
+    <p>
+      <Input
+        style="width: 300px"
+        name="species"
+        type="text"
+        v-model="subtitle"
+      />
+    </p>
 
     <p>價格:</p>
-    <p><input name="species" type="text" v-model="cost" /></p>
+    <p>
+      <Input style="width: 300px" name="species" type="text" v-model="cost" />
+    </p>
 
     <p>尺寸:</p>
-    <p><input name="species" type="text" v-model="size" /></p>
+    <p>
+      <Input style="width: 300px" name="species" type="text" v-model="size" />
+    </p>
 
     <p>簡介:</p>
-    <p>
-      <textarea
-        name="comments"
-        rows="5"
-        cols="100"
-        v-model="content"
-      ></textarea>
-    </p>
+    <Input
+      v-model="content"
+      type="textarea"
+      placeholder="簡介"
+      name="comments"
+      cols="100"
+    />
+    <p></p>
 
     <p>備註:</p>
     <p>
-      <textarea name="comments" rows="5" cols="100" v-model="remark"></textarea>
+      <Input type="textarea" name="comments" cols="100" v-model="remark" />
     </p>
     <p>商品曝光優先度(數字越小優先度越大):</p>
     <p>
-      <label
-        >1<input type="radio" name="priority" v-model="priority" value="1"
-      /></label>
-      <label
-        >2<input type="radio" name="priority" v-model="priority" value="2"
-      /></label>
-      <label
-        >3<input type="radio" name="priority" v-model="priority" value="3"
-      /></label>
-      <label
-        >4<input type="radio" name="priority" v-model="priority" value="4"
-      /></label>
-      <label
-        >5<input type="radio" name="priority" v-model="priority" value="5"
-      /></label>
+      <RadioGroup v-model="priority">
+        <Radio label="1"></Radio>
+        <Radio label="2"></Radio>
+        <Radio label="3"></Radio>
+        <Radio label="4"></Radio>
+        <Radio label="5"></Radio>
+      </RadioGroup>
     </p>
     <p>選擇分類:</p>
+
+    <!-- <template v-for="category in categoryList">
+      <h4>{{ category.categoryTitle + ":" }}</h4>
+      <CheckboxGroup v-model="fruit">
+        <template v-if="content.isCheck">
+          <CheckboxGroup v-model="fruit">
+            <template v-for="content in category.content"></template>
+          </CheckboxGroup>
+        </template>
+        <template v-else> </template>
+
+        <template v-for="content in category.content">
+          <template v-if="content.isCheck">
+            <CheckboxGroup v-model="categoryOpt.p">
+              <template v-for="content in category.content">
+                <Checkbox :label="content.name"></Checkbox>
+              </template>
+            </CheckboxGroup>
+          </template>
+          <template v-else>
+            <Radio :label="content.name"></Radio>
+          </template>
+        </template>
+      </CheckboxGroup>
+    </template> -->
 
     <template v-for="category in categoryList">
       <h4>{{ category.categoryTitle + ":" }}</h4>
@@ -98,7 +128,7 @@
 </template>
 <script>
 import axios from "axios";
-import $ from "jquery";
+// import $ from "jquery";
 export default {
   data() {
     return {
@@ -183,7 +213,7 @@ export default {
       this.size = info.context.detail.size;
       this.content = info.context.detail.content;
       this.remark = info.context.detail.remark;
-      this.priority = info.context.priority;
+      this.priority = info.context.priority.toString();
       let userCategoryList = info.context.category;
 
       this.categoryList.forEach(category => {

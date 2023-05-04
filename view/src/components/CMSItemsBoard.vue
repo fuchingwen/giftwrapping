@@ -2,56 +2,41 @@
   <div>
     <div class="cms-item-menu">
       <div class="cms-item-menu-left">
-        <button class="button" v-on:click="del()">刪除</button>
+        <div style="margin-bottom: 10px;">
+          <!-- <Button type="error" v-on:click="multiRemove()">選擇的都刪除</Button> -->
+        </div>
       </div>
-      <div class="cms-item-menu-fight">
-        <button class="button" v-on:click="add($event)">新增</button>
+      <div class="cms-item-menu-fight" style="margin-bottom: 10px;">
+        <Button type="success" v-on:click="add()">新增</Button>
       </div>
     </div>
-    <div class="cms-item-wrap">
-      <table class="cms-item-table">
-        <colgroup>
-          <col style="width: 3%;" />
-          <col style="width: 15%;" />
-          <col style="width: 20%;" />
-          <col style="width: 3%;" />
-          <col style="width: 5%;" />
-          <col style="width: 15%;" />
-          <col style="width: 10%;" />
-        </colgroup>
-        <tr>
-          <th>選擇</th>
-          <th>圖片</th>
-          <th>標題<br />副標題</th>
-          <th>價格</th>
-          <th>優先度</th>
-          <th>分類標籤</th>
-          <th>編輯</th>
-        </tr>
-        <tr v-for="(item, idx) in list">
-          <td><input class="sss" type="checkbox" :value="item.id" /></td>
-          <td>
-            <img class="imgStyle" v-for="img in item.image" :src="img.url" />
-          </td>
-          <td>
-            <div class="cms-item-table-name">{{ item.name }}</div>
-            <br />{{ item.subtitle }}
-          </td>
-          <td>{{ item.detail.cost }}</td>
-          <td>{{ item.priority }}</td>
-          <td>
-            <template v-for="(sin, idx) in item.category">
-              {{ sin.content }},
-            </template>
-          </td>
-          <td>
-            <button class="button" :value="item.id" v-on:click="edit($event)">
-              編輯
-            </button>
-          </td>
-        </tr>
-      </table>
-    </div>
+
+    <Table
+      class="cms-item-wrap"
+      border
+      ref="selection"
+      :columns="columns"
+      :data="data"
+    >
+      <template #name="{ row }">
+        <strong>{{ row.name }}</strong>
+      </template>
+
+      <template #cost="{ row }">
+        <strong v-html="row.cost"></strong>
+      </template>
+
+      <template #action="{ row, index }">
+        <Button
+          type="primary"
+          size="small"
+          style="margin-right: 5px"
+          @click="edit(index)"
+          >編輯</Button
+        >
+        <Button type="error" size="small" @click="remove(index)">刪除</Button>
+      </template>
+    </Table>
   </div>
 </template>
 <script scoped>
@@ -60,6 +45,244 @@ import $ from "jquery";
 export default {
   data() {
     return {
+      columns: [
+        // {
+        //   type: "selection",
+        //   width: 60,
+        //   align: "center"
+        // },
+        {
+          title: "曝光度",
+          key: "priority",
+          width: 80,
+          align: "center"
+        },
+        {
+          title: "商品標題",
+          key: "name",
+          width: 200
+        },
+        {
+          title: "價格區間",
+          key: "cost"
+        },
+        {
+          title: "分類標籤",
+          key: "categoryStr"
+        },
+        {
+          title: "動作",
+          key: "action",
+          slot: "action",
+          width: 150,
+          align: "center"
+        }
+      ],
+      data: [
+        {
+          id: 16,
+          priority: 1,
+          subtitle: "Saint Jane",
+          name: "Restorative Eye Cream",
+          cost: "10",
+          detail: {
+            content:
+              "商品包裝設計簡潔大方，採用優質的玻璃瓶裝，搭配專業的按壓式泵頭，方便精確地取出適量產品，保證使用的衛生和方便性。產品瓶身採用質感黑色調和金色字體設計，營造高雅、精緻的產品形象",
+            cost: "76",
+            size: "",
+            style: ""
+          },
+          categoryStr: "商品售賣,",
+          category: [
+            {
+              categoryID: 1,
+              content: "商品售賣"
+            }
+          ],
+          image: [
+            {
+              id: 16,
+              url:
+                "https://api.waproject-gift.store/api/v1/static/16_1682688413.png"
+            },
+            {
+              id: 34,
+              url:
+                "https://api.waproject-gift.store/api/v1/static/16_1682688413.png"
+            }
+          ]
+        },
+        {
+          id: 32,
+          priority: 1,
+          subtitle: "Dr.Yang",
+          name: "Crampless Tea",
+          cost: "10",
+          detail: {
+            content:
+              "瓶身的形狀設計為長方形，方便攜帶。標籤上印有「Dr.Yang Crampless Tea」的字樣。以牛皮紙為主要材質，表示產品的天然與健康。",
+            cost: "56",
+            size: "",
+            style: ""
+          },
+          categoryStr: "商品售賣,食品製造",
+          category: [
+            {
+              categoryID: 1,
+              content: "商品售賣"
+            },
+            {
+              categoryID: 0,
+              content: "食品製造"
+            }
+          ],
+          image: [
+            {
+              id: 32,
+              url:
+                "https://api.waproject-gift.store/api/v1/static/32_1682688425.png"
+            }
+          ]
+        },
+        {
+          id: 31,
+          priority: 1,
+          subtitle: "TSAA LAYA",
+          name: "Lemon Ginger Tea",
+          cost: "10",
+          detail: {
+            content:
+              "包裝採用精美的手工包裝，展現了TSAA LAYA品牌的高品質和用心。包裝上印有精美的花紋和品牌標誌，彰顯了品牌的尊貴與典雅。",
+            cost: "455",
+            size: "",
+            style: ""
+          },
+          categoryStr: "商品售賣,食品製造,三節禮盒",
+          category: [
+            {
+              categoryID: 1,
+              content: "商品售賣"
+            },
+            {
+              categoryID: 0,
+              content: "食品製造"
+            },
+            {
+              categoryID: 1,
+              content: "三節禮盒"
+            }
+          ],
+          image: [
+            {
+              id: 31,
+              url:
+                "https://api.waproject-gift.store/api/v1/static/31_1682688424.png"
+            },
+            {
+              id: 43,
+              url:
+                "https://api.waproject-gift.store/api/v1/static/31_1682688424.png"
+            },
+            {
+              id: 44,
+              url:
+                "https://api.waproject-gift.store/api/v1/static/239a5c18bc4d631b7552d08de0fb9881_1682706197.png"
+            },
+            {
+              id: 45,
+              url:
+                "https://api.waproject-gift.store/api/v1/static/31_1682688424.png"
+            },
+            {
+              id: 46,
+              url:
+                "https://api.waproject-gift.store/api/v1/static/31_1682688424.png"
+            },
+            {
+              id: 47,
+              url:
+                "https://api.waproject-gift.store/api/v1/static/239a5c18bc4d631b7552d08de0fb9881_1682706197.png"
+            }
+          ]
+        },
+        {
+          id: 30,
+          priority: 1,
+          subtitle: "GoodSkinClub",
+          name: "Skin Repair Kit",
+          cost: "10",
+          detail: {
+            content:
+              "包裝設計旨在將產品優雅且簡約的美學呈現出來。包裝採用純白色調和簡單的字體，以展現品牌對肌膚健康和純淨的承諾。",
+            cost: "2323",
+            size: "",
+            style: ""
+          },
+          categoryStr: "商品售賣,旅館飯店,",
+          category: [
+            {
+              categoryID: 1,
+              content: "商品售賣"
+            },
+            {
+              categoryID: 0,
+              content: "旅館飯店"
+            }
+          ],
+          image: [
+            {
+              id: 30,
+              url:
+                "https://api.waproject-gift.store/api/v1/static/30_1682688424.png"
+            },
+            {
+              id: 33,
+              url:
+                "https://api.waproject-gift.store/api/v1/static/30_1682688424.png"
+            },
+            {
+              id: 35,
+              url:
+                "https://api.waproject-gift.store/api/v1/static/30_1682688424.png"
+            },
+            {
+              id: 36,
+              url:
+                "https://api.waproject-gift.store/api/v1/static/30_1682688424.png"
+            },
+            {
+              id: 37,
+              url:
+                "https://api.waproject-gift.store/api/v1/static/0319c3391b681fe0f2bc350ba18c88be_1682705943.png"
+            },
+            {
+              id: 38,
+              url:
+                "https://api.waproject-gift.store/api/v1/static/0fb54c8df2ac06a9052ae3e31ec11413_1682705948.png"
+            },
+            {
+              id: 39,
+              url:
+                "https://api.waproject-gift.store/api/v1/static/30_1682688424.png"
+            },
+            {
+              id: 40,
+              url:
+                "https://api.waproject-gift.store/api/v1/static/30_1682688424.png"
+            },
+            {
+              id: 41,
+              url:
+                "https://api.waproject-gift.store/api/v1/static/30_1682688424.png"
+            },
+            {
+              id: 42,
+              url:
+                "https://api.waproject-gift.store/api/v1/static/30_1682688424.png"
+            }
+          ]
+        }
+      ],
       list: []
     };
   },
@@ -73,13 +296,28 @@ export default {
       }
     );
 
-    this.list = productRes.data.context;
-    console.log("<<<", this.list);
+    productRes.data.context.forEach(item => {
+      item.cost = item.detail.cost;
+      item.categoryStr = "";
+
+      item.category.forEach(cat => {
+        item.categoryStr += cat.content + ",";
+      });
+    });
+
+    this.data = productRes.data.context;
+    console.log("<<<", this.data);
   },
   methods: {
-    async del() {
-      let delArr = [];
-      let rs = $(".sss:checked");
+    async multiRemove() {
+      for (const item of this.data) {
+        // if (item._checked) {
+        // let productRes = await axios.post(
+        //   "https://api.waproject-gift.store/api/v1/product/delete/" + item.id
+        // );
+        // }
+      }
+
       // .each(function() {
       //   delArr.push(parseInt(this.value));
       // });
@@ -87,25 +325,46 @@ export default {
       //   return delArr.indexOf(e.id) > -1;
       // });
 
-      for (let index = 0; index < rs.length; index++) {
-        console.log("value：", rs[index].value);
-        let productRes = await axios.post(
-          "https://api.waproject-gift.store/api/v1/product/delete/" +
-            rs[index].value.toString()
-        );
+      // for (let index = 0; index < rs.length; index++) {
+      //   console.log("value：", rs[index].value);
+      //   let productRes = await axios.post(
+      //     "https://api.waproject-gift.store/api/v1/product/delete/" +
+      //       rs[index].value.toString()
+      //   );
 
-        console.log(productRes);
-      }
+      //   console.log(productRes);
+      // }
 
       // console.log(rs.length);
+
+      // console.log("sssssssssssssss");
     },
-    edit(event) {
-      console.log(event.target.value);
-      this.$router.push("/cms/page/" + event.target.value);
+    async edit(index) {
+      // this.$Modal.info({
+      //   title: "User Info",
+      //   content: `Name：${this.data[index].name}<br>Age：${this.data[index].age}<br>Address：${this.data[index].address}`
+      // });
+      this.$router.push("/cms/page/" + this.data[index].id);
     },
-    add(event) {
-      console.log(event);
-      this.$router.push("/cms/page/new");
+    async remove(index) {
+      let productRes = await axios.post(
+        "https://api.waproject-gift.store/api/v1/product/delete/" +
+          this.data[index].id
+      );
+      console.log(productRes);
+
+      if (productRes.status != 200) {
+        this.$Modal.info({
+          title: "提示視窗",
+          content: `無法刪除請見錯誤訊息：<br>${productRes.statusText}`
+        });
+      } else {
+        this.$Modal.info({
+          title: "提示視窗",
+          content: "刪除成功!"
+        });
+        this.data.splice(index, 1);
+      }
     }
   }
 };
@@ -122,37 +381,7 @@ export default {
 
 /* 表格樣式 */
 .cms-item-wrap {
-  margin-top: 5px;
   overflow: hidden;
-  border-radius: 10px 10px 0px 0px;
-}
-
-.cms-item-table {
-  font-family: "Oswald", sans-serif;
-  border-collapse: separate;
-  width: 100%;
-  border-spacing: 0;
-  border: 1px solid #6b675d;
-}
-
-.cms-item-table th {
-  background-color: #3a70aa;
-  color: #ffffff;
-  width: 25vw;
-  height: 50px;
-}
-
-.cms-item-table td {
-  width: 1%;
-  height: 30px;
-  background-color: rgb(243, 243, 243);
-  text-align: center;
-}
-.imgStyle {
-  width: 50px;
-  height: 50px;
-}
-.cms-item-ul li {
-  display: list-item;
+  margin-bottom: 100px;
 }
 </style>

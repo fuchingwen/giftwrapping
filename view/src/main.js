@@ -7,8 +7,16 @@ import vueResource from "vue-resource";
 import axios from "axios";
 import jquery from "jquery";
 
+import ViewUI from "view-design";
+import "view-design/dist/styles/iview.css";
+
+// import ViewUIPlus from "view-ui-plus";
+// import "view-ui-plus/dist/styles/viewuiplus.css";
+
 Vue.config.productionTip = false;
 Vue.prototype.$ = jquery;
+Vue.use(ViewUI);
+// App.use(ViewUIPlus);
 
 /* eslint-disable no-new */
 new Vue({

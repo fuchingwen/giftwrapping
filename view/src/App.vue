@@ -32,7 +32,7 @@
     </button>
     <div id="line-block2">
       <div id="line-qrcode">
-        <img src="./assets/line-pic.svg" />
+        <img src="./assets/android_banner/Line_small.svg" />
         <div id="line-bg"></div>
       </div>
     </div>

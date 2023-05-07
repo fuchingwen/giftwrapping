@@ -5,7 +5,6 @@
         <router-link :to="'/'">首頁</router-link> /
         <router-link :to="'/list'">好禮作品集</router-link>
       </div>
-
       <div class="list-category">
         <a class="reset" href="#" v-on:click="clickResetSel()">重設篩選條件</a>
         <template v-for="category in categoryList">
@@ -92,6 +91,22 @@
             </div>
             <br />
             <h6 class="no-item-txt">尚無相關作品</h6>
+            <h6 class="no-item-txt1">其他好禮作品</h6>
+            <hr />
+            <div class="recommend-item">
+              <template v-for="item in recommendList">
+                <router-link :to="'/detail/' + item.id">
+                  <div class="nwrapper">
+                    <div class="ncard">
+                      <img :src="item.image[0].url" />
+                      <h3 class="ntitle">{{ item.name }}</h3>
+                      <h4 class="nsubtitle">{{ item.subtitle }}</h4>
+                      <h5 class="ncontent">{{ item.detail.content }}</h5>
+                    </div>
+                  </div>
+                </router-link>
+              </template>
+            </div>
           </template>
         </div>
       </div>
@@ -145,6 +160,7 @@ export default {
   name: "HelloWorld",
   data() {
     return {
+      recommendList: [],
       loading: true,
       itemList: [],
       categoryList: [
@@ -211,6 +227,29 @@ export default {
       }
     };
   },
+  watch: {
+    async itemList(newValue, oldValue) {
+      if (this.itemList.length == 0) {
+        console.log("這是空值頁");
+
+        let res = await axios.post(
+          "https://api.waproject-gift.store/api/v1/product/recommend",
+          {
+            id: 0
+          },
+          {
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }
+        );
+
+        console.log(res);
+
+        this.recommendList = res.data.context;
+      }
+    }
+  },
   async created() {
     //取得分類清單的資料
     // let categoryRes = await axios.get("http://127.0.0.1:3000/category/");
@@ -221,57 +260,8 @@ export default {
     // console.log("=>>", this.categoryList);
 
     //建立「全部」獲取的資料
-    let condition = {
-      condition: [],
-      page: parseInt(this.page.curpaging),
-      pageSize: parseInt(this.page.pageSize)
-    };
-    this.categoryList.forEach(category => {
-      condition.condition.push({
-        categoryID: category.categoryID,
-        content: [] //category.content
-      });
-    });
 
-    console.log("=>>search", condition);
-    await this.wait(100);
-    let productRes = await axios.post(
-      "https://api.waproject-gift.store/api/v1/product/search",
-      condition,
-      {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }
-    );
-
-    this.loading = false;
-
-    console.log("<<=search", productRes.data);
-    this.itemList = productRes.data.list;
-
-    //分頁
-    this.page.totalPage = productRes.data.context.total_pages;
-    if (this.page.totalPage > 5) {
-      this.page.curPagingArr = [1, 2, 3, 4, 5];
-    } else {
-      this.page.curPagingArr = [];
-      for (let index = 1; index < this.page.totalPage + 1; index++) {
-        this.page.curPagingArr.push(index);
-      }
-    }
-
-    for (let index = 1; index <= this.page.totalPage; index++) {
-      this.page.intactPagingArr.push(index);
-    }
-
-    // this.page.leftClass["list-paging-li-type3"] = true;
-    // this.page.leftClass["list-paging-li-type1"] = false;
-    this.page.isInit = true;
-    this.showPaging();
-
-    this.page.leftClass["list-paging-li-type3"] = true;
-    this.page.leftClass["list-paging-li-type1"] = false;
+    await this.clickResetSel();
   },
   setup() {
     $("html,body").animate({ scrollTop: 0 }, "slow");
@@ -305,15 +295,66 @@ export default {
     wait(ms) {
       return new Promise(resolve => setTimeout(() => resolve(), ms));
     },
-    clickResetSel() {
+    async clickResetSel() {
       $("input[type=radio]").each(function() {
         $(this).prop("checked", true);
       });
       $("input[type=checkbox]").each(function() {
         $(this).prop("checked", true);
       });
-      console.log("點擊恢復預設值");
-      this.showItems();
+
+      let condition = {
+        condition: [],
+        page: parseInt(this.page.curpaging),
+        pageSize: parseInt(this.page.pageSize)
+      };
+      this.categoryList.forEach(category => {
+        condition.condition.push({
+          categoryID: category.categoryID,
+          content: [] //category.content
+        });
+      });
+
+      console.log("=>>search", condition);
+      await this.wait(100);
+      let productRes = await axios.post(
+        "https://api.waproject-gift.store/api/v1/product/search",
+        condition,
+        {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+      this.loading = false;
+
+      console.log("<<=search", productRes.data);
+      this.itemList = productRes.data.list;
+
+      //分頁
+      this.page.totalPage = productRes.data.context.total_pages;
+      if (this.page.totalPage > 5) {
+        this.page.curPagingArr = [1, 2, 3, 4, 5];
+      } else {
+        this.page.curPagingArr = [];
+        for (let index = 1; index < this.page.totalPage + 1; index++) {
+          this.page.curPagingArr.push(index);
+        }
+      }
+
+      this.page.intactPagingArr = [];
+      for (let index = 1; index <= this.page.totalPage; index++) {
+        this.page.intactPagingArr.push(index);
+      }
+
+      // this.page.leftClass["list-paging-li-type3"] = true;
+      // this.page.leftClass["list-paging-li-type1"] = false;
+      this.page.isInit = true;
+      this.showPaging();
+
+      this.page.leftClass["list-paging-li-type3"] = true;
+      this.page.leftClass["list-paging-li-type1"] = false;
     },
     async clickInput(event) {
       this.loading = true;
@@ -414,6 +455,7 @@ export default {
         }
       }
 
+      this.page.intactPagingArr = [];
       for (let index = 1; index <= this.page.totalPage; index++) {
         this.page.intactPagingArr.push(index);
       }
@@ -549,7 +591,7 @@ export default {
             "list-paging-li-type2"
           ] = true;
         } else {
-          console.log("到底了，< 換個顏色");
+          console.log("到底了，<< 換個顏色");
 
           this.page.idxClass[this.page.curIdx]["list-paging-li-type1"] = false;
           this.page.idxClass[this.page.curIdx]["list-paging-li-type2"] = true;
@@ -561,10 +603,21 @@ export default {
         }
       } else if (this.page.curIdx == "-2") {
         //點擊>>
+
         console.log(
-          this.page.intactPagingArr[this.page.intactPagingArr.length - 1]
+          // this.page.intactPagingArr[this.page.intactPagingArr.length - 1]
+          this.page.intactPagingArr
         );
-        this.page.curIdx = 4;
+
+        if (this.page.intactPagingArr.length < 5) {
+          this.page.curIdx =
+            this.page.intactPagingArr[this.page.intactPagingArr.length - 1] - 1;
+        } else {
+          this.page.curIdx = 4;
+        }
+
+        console.log("---->", this.page.curIdx);
+
         this.page.curpaging = this.page.intactPagingArr[
           this.page.intactPagingArr.length - 1
         ];
@@ -577,9 +630,11 @@ export default {
         } else {
           this.page.curPagingArr = [];
           for (let index = 1; index < this.page.totalPage; index++) {
-            this.page.curPagingArr.push(index);
+            this.page.curPagingArr = this.page.intactPagingArr;
           }
         }
+
+        console.log("到底了，>> 換個顏色");
 
         //變更當前頁面顏色
         for (let index = 0; index < 5; index++) {
@@ -725,13 +780,18 @@ export default {
   margin-bottom: 100px;
 }
 .no-item {
-  margin-top: 150px;
+  /* margin-top: 150px; */
   text-align: center;
   display: flex;
   justify-content: center;
 }
 .no-item-txt {
   text-align: center;
+}
+
+.no-item-txt1 {
+  text-align: center;
+  margin-top: 50px;
 }
 
 .no-item-btn {
@@ -771,6 +831,10 @@ export default {
 .list-content {
   grid-column: 2 / 2;
   grid-row: 2 / 2;
+}
+
+.recommend-item {
+  margin-top: 20px;
 }
 
 .category-title {

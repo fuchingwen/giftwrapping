@@ -64,7 +64,6 @@
         <div class="flex">
           <div class="ml-[6px] text-muted-200" v-html="remark"></div>
         </div>
-
         <!-- <span class="text-sm">誤差：±2mm為正常誤差值</span> -->
 
         <!-- <div class="flex gap-5">
@@ -99,6 +98,26 @@
         </div> -->
       </div>
     </div>
+
+    <h6 class="no-item-txt1">其他好禮作品</h6>
+    <hr />
+
+    <div class="recommend-list">
+      <template v-for="item in recommendList">
+        <a href="#"
+          ><div @click="id = item.id">
+            <div class="nwrapper">
+              <div class="ncard">
+                <img :src="item.image[0].url" />
+                <h3 class="ntitle">{{ item.name }}</h3>
+                <h4 class="nsubtitle">{{ item.subtitle }}</h4>
+                <h5 class="ncontent">{{ item.detail.content }}</h5>
+              </div>
+            </div>
+          </div>
+        </a>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -111,35 +130,18 @@ export default {
   setup() {
     $("html,body").animate({ scrollTop: 0 }, "fast");
   },
-  async created() {
-    console.log("詳細頁ID：", this.$route.params.id);
-    let rs = await axios.get(
-      "https://api.waproject-gift.store/api/v1/product/" +
-        this.$route.params.id,
-      {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }
-    );
-
-    let info = rs.data.context;
-
-    this.title = info.name;
-    this.content = info.detail.content;
-    this.size = info.detail.size;
-    this.style = info.detail.style;
-    this.remark = info.detail.remark;
-    this.cost = info.detail.cost;
-
-    for (let index = 0; index < info.image.length; index++) {
-      this.prodList[index].url = info.image[index].url;
+  watch: {
+    async id(newValue, oldValue) {
+      await this.goto(newValue);
     }
-
-    console.log(info.image[0]);
+  },
+  async created() {
+    await this.goto(this.$route.params.id);
   },
   data() {
     return {
+      id: -1,
+      recommendList: [],
       num: 1,
       title: "",
       content: "",
@@ -169,6 +171,49 @@ export default {
     };
   },
   methods: {
+    async goto(id) {
+      console.log("詳細頁ID：", id);
+      let rs = await axios.get(
+        "https://api.waproject-gift.store/api/v1/product/" + id,
+        {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+      let info = rs.data.context;
+
+      this.title = info.name;
+      this.content = info.detail.content;
+      this.size = info.detail.size;
+      this.style = info.detail.style;
+      this.remark = info.detail.remark;
+      this.cost = info.detail.cost;
+
+      for (let index = 0; index < info.image.length; index++) {
+        this.prodList[index].url = info.image[index].url;
+      }
+
+      console.log(info.image[0]);
+
+      //這是推薦列表
+      let res = await axios.post(
+        "https://api.waproject-gift.store/api/v1/product/recommend",
+        {
+          id: info.id
+        },
+        {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+      console.log(res);
+
+      this.recommendList = res.data.context;
+    },
     minusNum() {
       if (this.num > 1) this.num--;
     },
@@ -183,10 +228,25 @@ export default {
 </script>
 
 <style>
-/* .mx-auto {
-  margin-top: 100px;
-} */
+@import url("../style/newItem.css");
 
+.nwrapper {
+  cursor: pointer;
+}
+
+.no-item-txt1 {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.recommend-list {
+  display: flex;
+  margin-top: 20px;
+  overflow-x: scroll;
+
+  width: 990px;
+  /* background-color: aqua; */
+}
 .detail-title {
   margin-top: 20px;
   margin-bottom: 15px;

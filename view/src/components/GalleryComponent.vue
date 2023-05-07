@@ -1,13 +1,30 @@
 <template>
   <div class="works">
-    <div class="works-header">
-      <h2 class="works-title">作品集展示</h2>
-      <div class="divider"></div>
-      <p class="works-subtitle">打造企業品牌形象&amp;提供精緻的包裝禮盒</p>
-    </div>
-    <div class="bb">
-      <div class="works-row">
-        <router-link to="/detail/4"
+    <div class="rr">
+      <div class="works-header">
+        <h2 class="works-title">作品集展示</h2>
+        <div class="divider"></div>
+        <p class="works-subtitle">打造企業品牌形象&amp;提供精緻的包裝禮盒</p>
+      </div>
+      <div class="bb">
+        <div class="works-row">
+          <img src="../assets/android_banner/banner_index_no_shadow.svg" />
+          <router-link id="works-btn-1" to="/detail/4"
+            ><img src="../assets/android_banner/more.svg"
+          /></router-link>
+          <router-link id="works-btn-2" to="/detail/5"
+            ><img src="../assets/android_banner/more.svg"
+          /></router-link>
+          <router-link id="works-btn-3" to="/detail/2"
+            ><img src="../assets/android_banner/more.svg"
+          /></router-link>
+          <router-link id="works-btn-4" to="/detail/8"
+            ><img src="../assets/android_banner/more.svg"
+          /></router-link>
+          <router-link id="works-btn-5" to="/detail/7"
+            ><img src="../assets/android_banner/more.svg"
+          /></router-link>
+          <!-- <router-link to="/detail/4"
           ><img src="../assets/topItem/Rectangle 31.png"/></router-link
         >&emsp;
         <router-link to="/detail/5"
@@ -15,9 +32,9 @@
         >&emsp;
         <router-link to="/detail/2"
           ><img src="../assets/topItem/Rectangle 33.png"
-        /></router-link>
+        /></router-link> -->
 
-        <!-- <div class="works-row">
+          <!-- <div class="works-row">
         <div class="works-item" v-for="(item, index) in items" :key="index">
           <div class="works-item-image">
             <img :src="item.image" alt="" />
@@ -25,60 +42,61 @@
           <button class="read-more">查看更多</button>
         </div>
       </div> -->
+        </div>
       </div>
-    </div>
-    <div class="bb">
-      <div class="works-row1">
-        <router-link to="/detail/8"
+      <div class="bb">
+        <div class="works-row1">
+          <!-- <router-link to="/detail/8"
           ><img src="../assets/topItem/Rectangle 35.png"/></router-link
         >&emsp;
         <router-link to="/detail/7"
           ><img src="../assets/topItem/Rectangle 34.png"
-        /></router-link>
+        /></router-link> -->
+        </div>
       </div>
-    </div>
-    <div>
-      <h2 class="works-title">合作客戶</h2>
-      <div class="divider"></div>
-      <p class="works-subtitle">
-        持續創新&amp;致力於解決客戶包裝的疑難雜症&amp;
-      </p>
-    </div>
-    <div class="works-footer">
-      <div class="partner-row">
-        <img src="../assets/logos/MANDARIN 1.svg" />
-        <img src="../assets/logos/logo-1 1.png" />
-        <img src="../assets/logos/logo-1 2-1.png" />
-        <img src="../assets/logos/logo-1 2.png" />
-        <img src="../assets/logos/logo-1 3.png" />
-        <img src="../assets/logos/logo-2 1-1.png" />
-        <img src="../assets/logos/logo-2 1.png" />
-        <img src="../assets/logos/義美.svg" />
+      <div>
+        <h2 class="works-title">合作客戶</h2>
+        <div class="divider"></div>
+        <p class="works-subtitle">
+          持續創新、致力於解決客戶包裝的疑難雜症
+        </p>
+      </div>
+      <div class="works-footer">
+        <div class="partner-row">
+          <img src="../assets/logos/MANDARIN 1.svg" />
+          <img src="../assets/logos/logo-1 1.png" />
+          <img src="../assets/logos/logo-1 2-1.png" />
+          <img src="../assets/logos/logo-1 2.png" />
+          <img src="../assets/logos/logo-1 3.png" />
+          <img src="../assets/logos/logo-2 1-1.png" />
+          <img src="../assets/logos/logo-2 1.png" />
+          <img src="../assets/logos/義美.svg" />
 
-        <!-- <img
+          <!-- <img
           v-for="(item, index) in partners.slice(0, 8)"
           :key="index"
           :src="item.image"
           alt=""
         /> -->
-      </div>
+        </div>
 
-      <div class="partner-row">
-        <img src="../assets/logos/logo3 2.png" />
-        <img src="../assets/logos/logo3 3.png" />
-        <img src="../assets/logos/logo3 4.png" />
-        <img src="../assets/logos/logo3 5.png" />
-        <img src="../assets/logos/logo3 6.png" />
-        <img src="../assets/logos/logo3 1.png" />
-        <img src="../assets/logos/logo-2 2.png" />
-        <img src="../assets/logos/老爺酒店 1.svg" />
-        <!-- <div class="partner-row"> -->
-        <!-- <img
+        <div class="partner-row">
+          <img src="../assets/logos/logo3 2.png" />
+          <img src="../assets/logos/logo3 3.png" />
+          <img src="../assets/logos/logo3 4.png" />
+          <img src="../assets/logos/logo3 5.png" />
+          <img src="../assets/logos/logo3 6.png" />
+          <img src="../assets/logos/logo3 1.png" />
+          <img src="../assets/logos/logo-2 2.png" />
+          <img src="../assets/logos/老爺酒店 1.svg" />
+          <!-- <div class="partner-row"> -->
+          <!-- <img
           v-for="(item, index) in partners.slice(8, 16)"
           :key="index"
           :src="item.image"
           alt=""
         /> -->
+        </div>
       </div>
     </div>
   </div>
@@ -103,35 +121,13 @@ export default {
   margin-bottom: 50px;
 }
 
-.works-header h2 {
-  font-family: "Noto Sans";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 2vw;
-  line-height: 48px;
-  text-align: center;
-  letter-spacing: 5px;
-  color: #171614;
-}
-
-.works-header p {
-  font-family: "Noto Sans";
-  font-style: normal;
-  font-weight: 200;
-  font-size: 1vw;
-  line-height: 20px;
-  text-align: center;
-  letter-spacing: 5px;
-
-  color: #6b6968;
-}
-
 .divider {
   border-top: 1px solid #eae6e5;
   margin: 10px 0;
 }
 
 .works-title {
+  margin-top: 50px;
   font-size: 36px;
   font-weight: bold;
   margin-bottom: 10px;
@@ -140,6 +136,7 @@ export default {
 .works-subtitle {
   font-size: 18px;
   color: #999;
+  margin-bottom: 30px;
 }
 
 .works-row {
@@ -266,5 +263,38 @@ export default {
   justify-content: center;
   /* 垂直置中 */
   align-items: center;
+}
+
+#works-btn-1 {
+  display: flex;
+  position: absolute;
+  margin-top: 210px;
+  margin-left: 30px;
+}
+#works-btn-2 {
+  display: flex;
+  position: absolute;
+  margin-top: 210px;
+  margin-left: 335px;
+}
+#works-btn-3 {
+  display: flex;
+  position: absolute;
+  margin-top: 210px;
+  margin-left: 645px;
+}
+#works-btn-4 {
+  display: flex;
+  position: absolute;
+
+  margin-top: 530px;
+  margin-left: 300px;
+}
+#works-btn-5 {
+  display: flex;
+  position: absolute;
+
+  margin-top: 530px;
+  margin-left: 750px;
 }
 </style>

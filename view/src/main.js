@@ -10,6 +10,12 @@ import jquery from "jquery";
 import ViewUI from "view-design";
 import "view-design/dist/styles/iview.css";
 
+import VueAwesomeSwiper from "vue-awesome-swiper";
+
+import "swiper/css/swiper.css";
+
+Vue.use(VueAwesomeSwiper);
+
 // import ViewUIPlus from "view-ui-plus";
 // import "view-ui-plus/dist/styles/viewuiplus.css";
 

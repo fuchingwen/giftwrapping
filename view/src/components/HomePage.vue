@@ -23,11 +23,11 @@
                 <img class="marquee-svg" src="../assets/marquee/banner-3.svg" />
               </router-link>
             </swiper-slide>
-            <!-- <div class="swiper-pagination" slot="pagination"></div> -->
+            <div class="swiper-pagination" slot="pagination"></div>
 
-            <div class="swiper-button-prev"></div>
+            <!-- <div class="swiper-button-prev"></div> -->
             <!--左箭头。如果放置在swiper外面，需要自定义样式。-->
-            <div class="swiper-button-next"></div>
+            <!-- <div class="swiper-button-next"></div> -->
             <!--右箭头。如果放置在swiper外面，需要自定义样式。-->
           </swiper>
         </div>
@@ -74,9 +74,14 @@ export default {
     // ConactComponent
   },
   async created() {
-    var mySwiper = new Swiper(".swiper", {
-      autoplay: true
+    this.$Modal.info({
+      title: "提示視窗",
+      content: `這僅是測試網站`
     });
+
+    // var mySwiper = new Swiper(".swiper", {
+    //   autoplay: true
+    // });
     // mySwiper.autoplay.start();
   },
   mounted() {},
@@ -100,7 +105,7 @@ export default {
         loop: true,
         // slidesPerView: "auto",
         autoplay: {
-          delay: 1000,
+          delay: 3000,
           stopOnLastSlide: false,
           disableOnInteraction: false
         },

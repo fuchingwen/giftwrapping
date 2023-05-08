@@ -20,7 +20,7 @@ export default new Router({
       component: HomePage
     },
     {
-      path: "/list",
+      path: "/list/",
       name: "List",
       component: List
     },

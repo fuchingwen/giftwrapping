@@ -309,35 +309,8 @@ export default {
     console.log("<<<", this.data);
   },
   methods: {
-    async multiRemove() {
-      for (const item of this.data) {
-        // if (item._checked) {
-        // let productRes = await axios.post(
-        //   "https://api.waproject-gift.store/api/v1/product/delete/" + item.id
-        // );
-        // }
-      }
-
-      // .each(function() {
-      //   delArr.push(parseInt(this.value));
-      // });
-      // this.list = this.list.filter(e => {
-      //   return delArr.indexOf(e.id) > -1;
-      // });
-
-      // for (let index = 0; index < rs.length; index++) {
-      //   console.log("value：", rs[index].value);
-      //   let productRes = await axios.post(
-      //     "https://api.waproject-gift.store/api/v1/product/delete/" +
-      //       rs[index].value.toString()
-      //   );
-
-      //   console.log(productRes);
-      // }
-
-      // console.log(rs.length);
-
-      // console.log("sssssssssssssss");
+    async add() {
+      this.$router.push("/cms/page/new");
     },
     async edit(index) {
       // this.$Modal.info({

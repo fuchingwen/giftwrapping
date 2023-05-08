@@ -60,7 +60,10 @@ export default {
   // components: {
   //   ConactComponent
   // },
-  name: "App"
+  name: "App",
+  mounted() {
+    document.title = "Gift Wrapping";
+  }
 };
 </script>
 

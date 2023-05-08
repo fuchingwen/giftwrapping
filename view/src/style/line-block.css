@@ -19,7 +19,7 @@
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  /* bottom: 0; */
   z-index: 9999;
 }
 #line-block1:focus + #line-block2 {
@@ -45,12 +45,13 @@
   /* position: absolute; */
   /* top: 50%; */
   left: 50%;
-  transform: translate(-50%, 50%);
+  transform: translate(-50%);
 
   animation: slide-up 0.5s ease-out forwards;
   opacity: 0;
   position: relative;
-  bottom: -100px;
+  top: 0;
+  /* bottom: -100px; */
 }
 
 @keyframes slide-up {

@@ -72,16 +72,18 @@
 
           <template v-if="itemList.length > 0">
             <template v-for="item in itemList">
-              <router-link :to="'/detail/' + item.id">
-                <div class="nwrapper">
-                  <div class="ncard">
-                    <img :src="item.image[0].url" />
-                    <h3 class="ntitle">{{ item.name }}</h3>
-                    <h4 class="nsubtitle">{{ item.subtitle }}</h4>
-                    <h5 class="ncontent">{{ item.detail.content }}</h5>
+              <a href="#">
+                <router-link :to="'/detail/' + item.id">
+                  <div class="nwrapper">
+                    <div class="ncard">
+                      <img :src="item.image[0].url" />
+                      <h3 class="ntitle">{{ item.name }}</h3>
+                      <h4 class="nsubtitle">{{ item.subtitle }}</h4>
+                      <h5 class="ncontent">{{ item.detail.content }}</h5>
+                    </div>
                   </div>
-                </div>
-              </router-link>
+                </router-link>
+              </a>
             </template>
           </template>
           <template v-else>
@@ -112,40 +114,46 @@
       </div>
       <div class="list-paging">
         <ul>
-          <li :class="page.leftClass">
-            <button
-              class="list-paging-inner"
-              value="a"
-              idx="-1"
-              v-on:click="clickPaging($event)"
+          <a href="#">
+            <li :class="page.leftClass">
+              <button
+                class="list-paging-inner"
+                value="a"
+                idx="-1"
+                v-on:click="clickPaging($event)"
+              >
+                &lt;&lt;
+              </button>
+            </li>
+          </a>
+          <a href="#">
+            <li
+              v-for="(item, idx) in page.curPagingArr"
+              :class="page.idxClass[idx]"
             >
-              &lt;&lt;
-            </button>
-          </li>
-          <li
-            v-for="(item, idx) in page.curPagingArr"
-            :class="page.idxClass[idx]"
-          >
-            <button
-              class="list-paging-inner"
-              :value="item"
-              :idx="idx"
-              v-on:click="clickPaging($event)"
-            >
-              {{ item }}
-            </button>
-          </li>
-          <li :class="page.rightClass">
-            <button
-              id="pandingID"
-              class="list-paging-inner"
-              value="b"
-              idx="-2"
-              v-on:click="clickPaging($event)"
-            >
-              &gt;&gt;
-            </button>
-          </li>
+              <button
+                class="list-paging-inner"
+                :value="item"
+                :idx="idx"
+                v-on:click="clickPaging($event)"
+              >
+                {{ item }}
+              </button>
+            </li>
+          </a>
+          <a href="#">
+            <li :class="page.rightClass">
+              <button
+                id="pandingID"
+                class="list-paging-inner"
+                value="b"
+                idx="-2"
+                v-on:click="clickPaging($event)"
+              >
+                &gt;&gt;
+              </button>
+            </li>
+          </a>
         </ul>
       </div>
     </div>

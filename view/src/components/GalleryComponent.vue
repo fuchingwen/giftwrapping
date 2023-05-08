@@ -2,7 +2,7 @@
   <div class="works">
     <div class="rr">
       <div class="works-header">
-        <h2 class="works-title">作品集展示</h2>
+        <h2 class="works-title">精選案例</h2>
         <div class="divider"></div>
         <p class="works-subtitle">打造企業品牌形象&amp;提供精緻的包裝禮盒</p>
       </div>

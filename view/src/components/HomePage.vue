@@ -3,13 +3,16 @@
     <!-- <slider-component /> -->
 
     <div class="marquee-system">
+      <div class="title">
+        <!-- sefsdfsd -->
+      </div>
       <div class="left-div"></div>
       <div class="right-div"></div>
       <div class="center-div">
         <div class="center-div2">
           <swiper ref="mySwiper" :options="swiperOptions">
             <swiper-slide>
-              <router-link to="/detail/8"
+              <router-link to="/detail/7"
                 ><img class="marquee-svg" src="../assets/marquee/banner-1.svg"
               /></router-link>
             </swiper-slide>
@@ -19,7 +22,7 @@
               </router-link>
             </swiper-slide>
             <swiper-slide>
-              <router-link to="/detail/7">
+              <router-link to="/detail/8">
                 <img class="marquee-svg" src="../assets/marquee/banner-3.svg" />
               </router-link>
             </swiper-slide>

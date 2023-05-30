@@ -174,9 +174,9 @@ export default {
       categoryList: [
         {
           sort: 0,
-          categoryID: 0,
-          categoryTitle: "產業",
-          type: 1,
+          categoryID: 0, //這個表示是產業或其他分類ID
+          categoryTitle: "產業", //分類名稱
+          type: 1, //是0單選1是多選
           content: ["時尚精品", "餐飲", "食品製造", "酒類", "旅館飯店"]
         },
         {

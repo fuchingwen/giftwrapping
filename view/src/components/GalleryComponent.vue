@@ -9,21 +9,44 @@
       <div class="bb">
         <div class="works-row">
           <img src="../assets/android_banner/banner_index_no_shadow.svg" />
-          <router-link id="works-btn-1" to="/detail/4"
-            ><img src="../assets/android_banner/more.svg"
-          /></router-link>
+
+          <router-link id="works-btn-1" to="/detail/4">
+            <div class="works-btn"></div>
+          </router-link>
           <router-link id="works-btn-2" to="/detail/5"
-            ><img src="../assets/android_banner/more.svg"
-          /></router-link>
+            ><div class="works-btn"></div
+          ></router-link>
           <router-link id="works-btn-3" to="/detail/2"
-            ><img src="../assets/android_banner/more.svg"
-          /></router-link>
+            ><div class="works-btn"></div
+          ></router-link>
           <router-link id="works-btn-4" to="/detail/8"
-            ><img src="../assets/android_banner/more.svg"
-          /></router-link>
+            ><div class="works-btn"></div
+          ></router-link>
           <router-link id="works-btn-5" to="/detail/7"
-            ><img src="../assets/android_banner/more.svg"
-          /></router-link>
+            ><div class="works-btn"></div
+          ></router-link>
+
+          <router-link id="works-pic-1" to="/detail/4">
+            <div class="image-container">
+              <img src="../assets/topItem/i-1.svg" alt="图片" />
+            </div>
+          </router-link>
+          <router-link id="works-pic-2" to="/detail/5"
+            ><div class="image-container">
+              <img src="../assets/topItem/i-2.svg" alt="图片" /></div
+          ></router-link>
+          <router-link id="works-pic-3" to="/detail/2"
+            ><div class="image-container">
+              <img src="../assets/topItem/i-3.svg" alt="图片" /></div
+          ></router-link>
+          <router-link id="works-pic-4" to="/detail/8"
+            ><div class="image-container">
+              <img src="../assets/topItem/i-4.svg" alt="图片" /></div
+          ></router-link>
+          <router-link id="works-pic-5" to="/detail/7"
+            ><div class="image-container">
+              <img src="../assets/topItem/i-5.svg" alt="图片" /></div
+          ></router-link>
           <!-- <router-link to="/detail/4"
           ><img src="../assets/topItem/Rectangle 31.png"/></router-link
         >&emsp;
@@ -296,5 +319,62 @@ export default {
 
   margin-top: 530px;
   margin-left: 750px;
+}
+
+.works-btn {
+  width: 100px;
+  height: 32px;
+  background-image: url("../assets/android_banner/more.svg");
+  /* background-size: cover;
+  transition: background-image 0.3s ease-in-out; */
+}
+.works-btn:hover {
+  background-image: url("../assets/android_banner/more-clicked.svg");
+}
+
+.image-container {
+  /* width: 200px; */
+  /* height: 200px; */
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+}
+.image-container:hover {
+  transform: scale(1.1);
+}
+.image-container img {
+  /* width: 100%; */
+  /* height: 100%; */
+  object-fit: cover;
+}
+
+#works-pic-1 {
+  display: flex;
+  position: absolute;
+  margin-top: 45px;
+  margin-left: 12px;
+}
+#works-pic-2 {
+  display: flex;
+  position: absolute;
+  margin-left: 325px;
+  margin-top: 45px;
+}
+#works-pic-3 {
+  display: flex;
+  position: absolute;
+  margin-left: 675px;
+  margin-top: 50px;
+}
+#works-pic-4 {
+  display: flex;
+  position: absolute;
+  margin-left: 0px;
+  margin-top: 310px;
+}
+#works-pic-5 {
+  display: flex;
+  position: absolute;
+  margin-left: 490px;
+  margin-top: 340px;
 }
 </style>

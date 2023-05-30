@@ -55,11 +55,13 @@
 
 <script>
 // import ConactComponent from "./components/ConactComponent.vue";
-
 export default {
   // components: {
   //   ConactComponent
   // },
+  metaInfo: {
+    link: [{ rel: "icon", href: "./assets/favicon.ico" }]
+  },
   name: "App",
   mounted() {
     document.title = "Gift Wrapping";

@@ -2,7 +2,7 @@
   <div>
     <h2>標題:</h2>
     <Input maxlength="20" show-word-limit name="name" v-model="title" />
-
+    <br /><br />
     <h2>副標:</h2>
     <Input
       v-model="subtitle"
@@ -11,7 +11,7 @@
       name="species"
       type="text"
     />
-
+    <br /><br />
     <h2>簡介:</h2>
     <Input
       v-model="content"
@@ -20,17 +20,17 @@
       name="comments"
       cols="100"
     />
-    <p></p>
+    <br /><br />
 
     <h2>單一尺寸:</h2>
-    <p>
-      <Input name="species" type="text" v-model="size" />
-    </p>
+
+    <Input name="species" type="text" v-model="size" />
+    <br /><br />
 
     <h2>價格區間:</h2>
-    <p>
-      <Input name="species" type="text" v-model="cost" />
-    </p>
+
+    <Input name="species" type="text" v-model="cost" />
+    <br /><br />
 
     <h2>款式種類:</h2>
     <Input
@@ -40,11 +40,13 @@
       name="comments"
       cols="100"
     />
+    <br /><br />
 
     <h2>備註:</h2>
-    <p>
-      <Input type="textarea" name="comments" cols="100" v-model="remark" />
-    </p>
+
+    <Input type="textarea" name="comments" cols="100" v-model="remark" />
+    <br /><br />
+
     <h2>商品曝光優先度(數字越小優先度越大):</h2>
     <RadioGroup v-model="priority">
       <Radio label="1"></Radio>
@@ -53,38 +55,12 @@
       <Radio label="4"></Radio>
       <Radio label="5"></Radio>
     </RadioGroup>
+    <br /><br />
     <h2>選擇分類:</h2>
-
-    <!-- <template v-for="category in categoryList">
-      <h4>{{ category.categoryTitle + ":" }}</h4>
-      <CheckboxGroup v-model="fruit">
-        <template v-if="content.isCheck">
-          <CheckboxGroup v-model="fruit">
-            <template v-for="content in category.content"></template>
-          </CheckboxGroup>
-        </template>
-        <template v-else> </template>
-
-        <template v-for="content in category.content">
-          <template v-if="content.isCheck">
-            <CheckboxGroup v-model="categoryOpt.p">
-              <template v-for="content in category.content">
-                <Checkbox :label="content.name"></Checkbox>
-              </template>
-            </CheckboxGroup>
-          </template>
-          <template v-else>
-            <Radio :label="content.name"></Radio>
-          </template>
-        </template>
-      </CheckboxGroup>
-    </template> -->
-
     <template v-for="category in categoryList">
       <h4>{{ category.categoryTitle + ":" }}</h4>
       <template v-for="content in category.content">
-        <label
-          >{{ content.name }}
+        <label>
           <template v-if="content.isCheck">
             <input
               class="categoryInput"
@@ -101,82 +77,60 @@
               :data-category-id="category.categoryID"
               :value="content.name"
             />
-          </template> </label
-        ><br />
+          </template>
+          {{ content.name }}</label
+        >
+        <br />
       </template>
     </template>
+    <br />
+    <br />
+    <h2>圖片</h2>
 
-    <div class="page-upload">
-      <input type="file" @change="handleFileUpload" name="0" />
-      <img ref="img0" class="page-imgStyle" :src="imgs[0].url" />
-      <a :href="imgs[0].url">{{ imgs[0].length > 0 ? "圖片連接" : "" }}</a>
-    </div>
-    <div class="page-upload">
-      <input type="file" @change="handleFileUpload" name="1" />
-      <img ref="img1" class="page-imgStyle" :src="imgs[1].url" />
-      <a :href="imgs[1].url">{{ imgs[1].length > 0 ? "圖片連接" : "" }}</a>
-    </div>
-    <div class="page-upload">
-      <input type="file" @change="handleFileUpload" name="2" />
-      <img ref="img2" class="page-imgStyle" :src="imgs[2].url" />
-      <a :href="imgs[2].url">{{ imgs[2].length > 0 ? "圖片連接" : "" }}</a>
-    </div>
-    <div class="page-upload">
-      <input type="file" @change="handleFileUpload" name="3" />
-      <img ref="img3" class="page-imgStyle" :src="imgs[3].url" />
-      <a :href="imgs[3].url">{{ imgs[3].length > 0 ? "圖片連接" : "" }}</a>
-    </div>
-
-    <p><button v-on:click="sendInfo()">送出資料</button></p>
-
-    <div class="demo-upload-list" v-for="item in uploadList">
-      <template v-if="item.status === 'finished'">
-        <img :src="item.url" />
-        <div class="demo-upload-list-cover">
-          <Icon
-            type="ios-eye-outline"
-            @click.native="handleView(item.name)"
-          ></Icon>
-          <Icon
-            type="ios-trash-outline"
-            @click.native="handleRemove(item)"
-          ></Icon>
-        </div>
-      </template>
-      <template v-else>
-        <Progress
-          v-if="item.showProgress"
-          :percent="item.percentage"
-          hide-info
-        ></Progress>
-      </template>
-    </div>
-    <Upload
-      ref="upload"
-      :show-upload-list="false"
-      :default-file-list="defaultList"
-      :on-success="handleSuccess"
-      :format="['jpg', 'jpeg', 'png']"
-      :max-size="2048"
-      :on-format-error="handleFormatError"
-      :on-exceeded-size="handleMaxSize"
-      :before-upload="handleBeforeUpload"
-      multiple
-      type="drag"
-      action="//api.waproject-gift.store/api/v1/upload/file/"
-      style="display: inline-block;width:58px;"
-    >
-      <div style="width: 58px;height:58px;line-height: 58px;">
-        <Icon type="ios-camera" size="20"></Icon>
+    <!-- <template v-for="(img, idx) in imgs">
+      <div class="page-upload">
+        <Button type="error" v-on:click="handleFileDel(idx)">刪除</Button>
+        <input type="file" @change="handleFileUpload" :name="idx" />
+        <img
+          :id="'a0' + idx"
+          :ref="'img' + idx"
+          class="page-imgStyle"
+          :src="imgs[idx].url"
+        />
       </div>
-    </Upload>
-    <Modal title="View Image" v-model="visible">
-      <img
-        :src="'https://o5wwk8baw.qnssl.com/' + imgName + '/large'"
-        v-if="visible"
-        style="width: 100%"
-      />
-    </Modal>
+    </template> -->
+
+    <div class="page-upload">
+      <Button type="error" v-on:click="handleFileDel(0)">刪除</Button>
+      <input type="file" @change="handleFileUpload" name="0" />
+      <img id="a0" ref="img0" class="page-imgStyle" :src="imgs[0].url" />
+    </div>
+
+    <div class="page-upload">
+      <Button type="error" v-on:click="handleFileDel(1)">刪除</Button>
+      <input type="file" @change="handleFileUpload" name="1" />
+      <img id="a1" ref="img1" class="page-imgStyle" :src="imgs[1].url" />
+    </div>
+
+    <div class="page-upload">
+      <Button type="error" v-on:click="handleFileDel(2)">刪除</Button>
+      <input type="file" @change="handleFileUpload" name="2" />
+      <img id="a2" ref="img2" class="page-imgStyle" :src="imgs[2].url" />
+    </div>
+
+    <div class="page-upload">
+      <Button type="error" v-on:click="handleFileDel(3)">刪除</Button>
+      <input type="file" @change="handleFileUpload" name="3" />
+      <img id="a3" ref="img3" class="page-imgStyle" :src="imgs[3].url" />
+    </div>
+
+    <br />
+    <p><Button type="success" v-on:click="sendInfo()">送出資料</Button></p>
+    <br />
+
+    <div v-if="loading" class="overlay">
+      <div class="spinner"></div>
+    </div>
   </div>
 </template>
 <script>
@@ -185,6 +139,7 @@ import $ from "jquery";
 export default {
   data() {
     return {
+      loading: false,
       isNew: false,
       id: -1,
       title: "",
@@ -226,21 +181,22 @@ export default {
       imgs: [
         {
           id: 0,
-          url: "string"
+          url: require("@/assets/icon_empty state.png")
         },
         {
           id: 0,
-          url: "string"
+          url: require("@/assets/icon_empty state.png")
         },
         {
           id: 0,
-          url: "string"
+          url: require("@/assets/icon_empty state.png")
         },
         {
           id: 0,
-          url: "string"
+          url: require("@/assets/icon_empty state.png")
         }
       ],
+      imagesToDelete: [],
       priority: 1,
       ////////imgs
       defaultList: [
@@ -257,7 +213,15 @@ export default {
       ],
       imgName: "",
       visible: false,
-      uploadList: []
+      uploadList: [],
+      uploadHeader: {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      },
+      uploadData: {
+        type: 1
+      }
     };
   },
   async created() {
@@ -300,16 +264,66 @@ export default {
       });
 
       for (let index = 0; index < info.context.image.length; index++) {
+        this.imgs[index].id = info.context.image[index].id;
         this.imgs[index].url = info.context.image[index].url;
       }
 
-      // console.log(this.categoryList);
+      // this.imgs = info.context.image;
+
+      console.log(this.imgs);
     } else {
       this.isNew = true;
     }
   },
   methods: {
+    handleFileDel(idx) {
+      console.log("1111111111111");
+      switch (idx) {
+        case 0:
+          document
+            .getElementById(`a0`)
+            .setAttribute("src", require("@/assets/icon_empty state.png"));
+          break;
+        case 1:
+          document
+            .getElementById(`a1`)
+            .setAttribute("src", require("@/assets/icon_empty state.png"));
+          break;
+        case 2:
+          document
+            .getElementById(`a2`)
+            .setAttribute("src", require("@/assets/icon_empty state.png"));
+          break;
+        case 3:
+          document
+            .getElementById(`a3`)
+            .setAttribute("src", require("@/assets/icon_empty state.png"));
+          break;
+        default:
+          break;
+      }
+      // = "../assets/loadingIMH.png";
+      // .setAttribute("src", "../assets/l");
+      // console.log(document.getElementById("a1"));
+      // return;
+
+      // this.imgs[idx].url = "string";
+
+      console.log(idx);
+
+      if (this.imgs[idx].hasOwnProperty("id")) {
+        this.imagesToDelete.push(this.imgs[idx].id);
+      }
+
+      this.imgs[idx] = {
+        id: 0,
+        url: require("@/assets/icon_empty state.png")
+      };
+
+      console.log(this.imgs);
+    },
     async handleFileUpload(event) {
+      this.loading = true;
       const formData = new FormData();
       // 将文件数据添加到 FormData 中
       formData.append("file", event.target.files[0]);
@@ -331,19 +345,38 @@ export default {
       this.imgs = s;
       console.log(rs.data.context.file_access_url);
       // console.log(event.target.value);
-      this.imgs[event.target.name] = {
-        url: rs.data.context.file_access_url
-      };
+
+      if (this.imgs[parseInt(event.target.name)].id == 0) {
+        //new
+        this.imgs[parseInt(event.target.name)] = {
+          url: rs.data.context.file_access_url
+        };
+      } else {
+        //update
+        this.imgs[parseInt(event.target.name)].url =
+          rs.data.context.file_access_url;
+      }
+
       // console.log(this.$refs["img" + event.target.id]);
       // console.log(event.target.name);
       // const myDiv = this.$refs["img" + event.target.value];
       console.log(this.imgs);
+
+      this.loading = false;
     },
     clickCategory(event) {
       console.log("categoryId:", event.target.dataset["categoryId"]);
       console.log("value:", event.target.value);
     },
     async sendInfo() {
+      console.log("click send");
+      if (this.imgs.length < 1) {
+        alert("抱歉沒有任何一張圖！");
+        return;
+      }
+
+      this.id = parseInt(this.$route.params.id);
+
       let rq = {
         category: [],
         detail: {
@@ -361,11 +394,12 @@ export default {
         ],
         name: this.title,
         priority: this.priority,
-        subtitle: this.subtitle
+        subtitle: this.subtitle,
+        imagesToDelete: this.imagesToDelete
       };
 
       if (!this.isNew) {
-        rq.id = parseInt(this.$route.params.id);
+        rq.id = this.id;
       }
 
       $(".categoryInput:checked").each(function() {
@@ -401,16 +435,30 @@ export default {
 
       let imgs = [];
       this.imgs.forEach(img => {
-        if (img.url != "string") {
+        if (img.id != 0) {
           imgs.push(img);
         }
       });
-      rq.image = imgs;
 
-      console.log("send", rq);
+      rq.image = imgs;
+      console.log("更新誰：", this.id);
+      console.log("request:", rq);
+
+      if (rq.category.length < 1) {
+        alert("請挑選分類");
+        return;
+      }
+
+      if (rq.image.length < 1) {
+        alert("請給一張商品圖");
+        return;
+      }
+
+      // return;
+      let productRes;
       if (this.isNew) {
         //new
-        let productRes = await axios.post(
+        productRes = await axios.post(
           "https://api.waproject-gift.store/api/v1/product",
           rq,
           {
@@ -419,12 +467,12 @@ export default {
             }
           }
         );
+
         console.log(productRes);
       } else {
         //update
-        let productRes = await axios.post(
-          "https://api.waproject-gift.store/api/v1/product/update/" +
-            this.$route.params.id,
+        productRes = await axios.post(
+          "https://api.waproject-gift.store/api/v1/product/update/" + this.id,
           rq,
           {
             headers: {
@@ -432,13 +480,14 @@ export default {
             }
           }
         );
+      }
 
-        if (productRes.status == 200) {
-          alert("更新或新增完成！");
-        } else {
-          alert("更新或新增沒有完成");
-        }
-        console.log(productRes);
+      console.log("response:", productRes);
+
+      if (productRes.status == 200) {
+        alert("已完成！");
+      } else {
+        alert("沒有完成！");
       }
     },
     ////////
@@ -451,6 +500,9 @@ export default {
       this.$refs.upload.fileList.splice(fileList.indexOf(file), 1);
     },
     handleSuccess(res, file) {
+      console.log("ssssssssssssssss");
+
+      return;
       file.url =
         "https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar";
       file.name = "7eb99afb9d5f317c912f08b5212fd69a";
@@ -491,40 +543,47 @@ export default {
   height: 121px;
 }
 
-.demo-upload-list {
-  display: inline-block;
-  width: 60px;
-  height: 60px;
-  text-align: center;
-  line-height: 60px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  overflow: hidden;
-  background: #fff;
-  position: relative;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  margin-right: 4px;
-}
-.demo-upload-list img {
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 10000;
 }
-.demo-upload-list-cover {
-  display: none;
+
+.spinner {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.6);
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
 }
-.demo-upload-list:hover .demo-upload-list-cover {
-  display: block;
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-.demo-upload-list-cover i {
-  color: #fff;
-  font-size: 20px;
-  cursor: pointer;
-  margin: 0 2px;
+
+button {
+  background-color: #3a4182; /* Green */
+  border: none;
+  color: white;
+  padding: 3px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  /* font-size: 16px; */
 }
 </style>

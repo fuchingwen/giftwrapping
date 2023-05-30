@@ -149,24 +149,7 @@ export default {
       size: "",
       style: "",
       remark: "",
-      prodList: [
-        {
-          img: require("@/assets/img/prod_1_s.png"),
-          url: ""
-        },
-        {
-          img: require("@/assets/img/prod_2_s.png"),
-          url: ""
-        },
-        {
-          img: require("@/assets/img/prod_3_s.png"),
-          url: ""
-        },
-        {
-          img: require("@/assets/img/prod_4_s.png"),
-          url: ""
-        }
-      ],
+      prodList: [],
       prodIndex: 0
     };
   },
@@ -192,7 +175,11 @@ export default {
       this.cost = info.detail.cost;
 
       for (let index = 0; index < info.image.length; index++) {
-        this.prodList[index].url = info.image[index].url;
+        this.prodList[index] = {
+          img: require("@/assets/img/prod_2_s.png"),
+          url: info.image[index].url
+        };
+        // this.prodList[index].url =
       }
 
       console.log(info.image[0]);
@@ -227,7 +214,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import url("../style/newItem.css");
 
 .nwrapper {

@@ -8,12 +8,12 @@
             商品管理
           </MenuItem>
         </router-link>
-        <router-link :to="'/cms/category'">
+        <!-- <router-link :to="'/cms/category'">
           <MenuItem name="2">
             <Icon type="ios-people" />
             分類管理
           </MenuItem>
-        </router-link>
+        </router-link> -->
       </Menu>
       <div class="cms-content"><router-view /></div>
     </div>

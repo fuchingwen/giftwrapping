@@ -3,11 +3,11 @@
     <div class="cms-item-menu">
       <div class="cms-item-menu-left">
         <div style="margin-bottom: 10px;">
-          <!-- <Button type="error" v-on:click="multiRemove()">選擇的都刪除</Button> -->
+          <!-- <button type="error" v-on:click="multiRemove()">選擇的都刪除</Button> -->
         </div>
       </div>
       <div class="cms-item-menu-fight" style="margin-bottom: 10px;">
-        <Button type="success" v-on:click="add()">新增</Button>
+        <button type="success" v-on:click="add()">新增</button>
       </div>
     </div>
 
@@ -27,14 +27,23 @@
       </template>
 
       <template #action="{ row, index }">
-        <Button
+        <button
           type="primary"
           size="small"
           style="margin-right: 5px"
           @click="edit(index)"
-          >編輯</Button
         >
-        <Button type="error" size="small" @click="remove(index)">刪除</Button>
+          編輯
+        </button>
+        <button type="error" size="small" @click="modal = true">刪除</button>
+        <Modal
+          v-model="modal"
+          title="詢問視窗"
+          @on-ok="ok(index)"
+          @on-cancel="cancel"
+        >
+          <p>請問確定要刪除？{{ row.name }}</p>
+        </Modal>
       </template>
     </Table>
   </div>
@@ -45,12 +54,26 @@ import $ from "jquery";
 export default {
   data() {
     return {
+      delIdx: -1,
+      modal: false,
       columns: [
         // {
         //   type: "selection",
         //   width: 60,
         //   align: "center"
         // },
+        // {
+        //   title: "Index",
+        //   key: "idx",
+        //   width: 40,
+        //   align: "center"
+        // },
+        {
+          title: "ID",
+          key: "id",
+          width: 80,
+          align: "center"
+        },
         {
           title: "曝光度",
           key: "priority",
@@ -60,7 +83,7 @@ export default {
         {
           title: "商品標題",
           key: "name",
-          width: 200
+          width: 150
         },
         {
           title: "價格區間",
@@ -309,6 +332,12 @@ export default {
     console.log("<<<", this.data);
   },
   methods: {
+    async ok(index) {
+      console.log("sssss");
+
+      await this.remove(index);
+    },
+    cancel() {},
     async add() {
       this.$router.push("/cms/page/new");
     },
@@ -356,5 +385,16 @@ export default {
 .cms-item-wrap {
   overflow: hidden;
   margin-bottom: 100px;
+}
+
+button {
+  background-color: #7b7b7b; /* Green */
+  border: none;
+  color: white;
+  padding: 3px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  /* font-size: 16px; */
 }
 </style>

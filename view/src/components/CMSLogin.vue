@@ -28,6 +28,7 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -60,11 +61,11 @@ export default {
     };
   },
   methods: {
-    handleSubmit(name) {
+    async handleSubmit(name) {
       console.log("賬號", this.formInline.user);
       console.log("密碼", this.formInline.password);
 
-      this.$router.push("/cms/items");
+      // this.$router.push("/cms/items");
 
       // this.$refs[name].validate(valid => {
       //   if (valid) {
@@ -73,6 +74,26 @@ export default {
       //     this.$Message.error("Fail!");
       //   }
       // });
+
+      try {
+        let productRes = await axios.post(
+          "https://api.waproject-gift.store/auth",
+          {
+            key: this.formInline.user,
+            secret: this.formInline.password
+          },
+          {
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }
+        );
+
+        this.$router.push("/cms/items");
+      } catch (error) {
+        // console.log("ddddddddd", error.response.data.msg);
+        alert(error.response.data.msg);
+      }
     }
   }
 };
@@ -87,5 +108,16 @@ export default {
   margin-top: 150px;
   margin-bottom: 100px;
   background-color: rgb(255, 255, 255);
+}
+
+button {
+  background-color: #3a4182; /* Green */
+  border: none;
+  color: white;
+  padding: 3px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  /* font-size: 16px; */
 }
 </style>

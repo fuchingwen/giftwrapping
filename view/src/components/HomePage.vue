@@ -12,19 +12,37 @@
         <div class="center-div2">
           <swiper ref="mySwiper" :options="swiperOptions">
             <swiper-slide>
-              <router-link to="/detail/7"
-                ><img class="marquee-svg" src="../assets/marquee/banner-1.svg"
-              /></router-link>
+              <!-- <router-link to="/detail/7"> -->
+              <router-link id="works-btn-" to="/detail/7">
+                <div class="works-btn11"></div>
+              </router-link>
+              <img
+                class="marquee-svg"
+                src="../assets/marquee/banner -2-1.jpg"
+              />
+              <!-- </router-link> -->
             </swiper-slide>
             <swiper-slide>
-              <router-link to="/detail/4">
-                <img class="marquee-svg" src="../assets/marquee/banner-2.svg" />
+              <!-- <router-link to="/detail/4"> -->
+              <router-link id="works-btn-" to="/detail/4">
+                <div class="works-btn11"></div>
               </router-link>
+              <img
+                class="marquee-svg"
+                src="../assets/marquee/banner -2-2.jpg"
+              />
+              <!-- </router-link> -->
             </swiper-slide>
             <swiper-slide>
-              <router-link to="/detail/8">
-                <img class="marquee-svg" src="../assets/marquee/banner-3.svg" />
+              <!-- <router-link to="/detail/8"> -->
+              <router-link id="works-btn-" to="/detail/8">
+                <div class="works-btn11"></div>
               </router-link>
+              <img
+                class="marquee-svg"
+                src="../assets/marquee/banner -2-3.jpg"
+              />
+              <!-- </router-link> -->
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
 
@@ -42,18 +60,15 @@
     <!-- <conact-component /> -->
     <div>
       <div class="phone-img">
-        <img
-          class="phone-svg"
-          src="../assets/android_banner/app_banner_02.svg"
-        />
-        <img
+        <img class="phone-svg" src="../assets/android_banner/app_banner.png" />
+        <!-- <img
           class="phone-android"
           src="../assets/android_banner/zh-tw-play-badge 2.svg"
         />
         <img
           class="phone-apple"
           src="../assets/android_banner/app_store_badge 1.svg"
-        />
+        /> -->
       </div>
     </div>
   </div>
@@ -230,5 +245,22 @@ a {
   position: absolute;
   margin-top: 60px;
   margin-left: -330px;
+}
+
+#works-btn- {
+  /* z-index: 999999; */
+  display: flex;
+  position: absolute;
+  margin-top: 400px;
+  margin-left: 50px;
+}
+
+.works-btn11 {
+  width: 100px;
+  height: 32px;
+  background-image: url("../assets/android_banner/more-clicked.svg");
+}
+.works-btn11:hover {
+  background-image: url("../assets/android_banner/more.svg");
 }
 </style>
